@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.RoomDatabase;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

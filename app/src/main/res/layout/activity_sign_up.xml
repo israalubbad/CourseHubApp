@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+   android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity">
+    <ImageView
+        android:id="@+id/backIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="16dp"
+
+        />
+
+    <TextView
+        android:id="@+id/eventHubTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="CursetHub"
+        android:textStyle="bold"
+        android:textColor="@color/primaryColor"
+        android:layout_marginTop="30dp"
+        android:textSize="35sp"
+        />
+
+    <TextView
+        android:id="@+id/signUpTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventHubTv"
+        android:text="SignUp"
+        android:layout_marginStart="30dp"
+        android:textColor="#4A4A4A"
+        android:layout_marginTop="25dp"
+        android:textSize="24sp"
+        />
+
+    <EditText
+        android:id="@+id/userNameEt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signUpTv"
+        android:hint="User Name"
+        android:drawablePadding="15dp"
+        android:paddingHorizontal="15dp"
+        android:background="@drawable/shape"
+        android:textColorHint="#555252"
+        />
+
+    <EditText
+        android:id="@+id/emailEt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userNameEt"
+        android:hint="abc@gmail.com"
+        android:drawablePadding="15dp"
+        android:paddingHorizontal="15dp"
+        android:background="@drawable/shape"
+        android:textColorHint="#555252" />
+
+
+
+    <EditText
+        android:id="@+id/passwordEt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailEt"
+        android:hint="Password"
+        android:background="@drawable/shape"
+        android:drawablePadding="15dp"
+        android:paddingHorizontal="15dp"
+        android:textColorHint="#555252" />
+
+    <ImageView
+        android:id="@+id/hidePassword_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/hide"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@id/passwordEt"
+        app:layout_constraintTop_toTopOf="@id/passwordEt"
+        app:layout_constraintBottom_toBottomOf="@id/passwordEt"
+
+        />
+
+    <EditText
+        android:id="@+id/comfortPasswordEt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordEt"
+        android:hint="Comfort Password"
+        android:textColorHint="#555252"
+        android:background="@drawable/shape"
+        android:drawablePadding="15dp"
+        android:paddingHorizontal="15dp"
+        />
+
+    <ImageView
+        android:id="@+id/hidePasswordCF_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/hide"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@id/comfortPasswordEt"
+        app:layout_constraintTop_toTopOf="@id/comfortPasswordEt"
+        app:layout_constraintBottom_toBottomOf="@id/comfortPasswordEt"
+
+        />
+
+
+    <Button
+        android:id="@+id/singUpBt"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Sign Up"
+        android:layout_marginTop="25dp"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@id/comfortPasswordEt"
+        android:backgroundTint="@color/primaryColor"
+        android:drawableTint="@color/white"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/singUpBt"
+        app:layout_constraintVertical_bias="1"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/accountTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dan't have account"
+
+            />
+
+        <TextView
+            android:id="@+id/loginTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:textColor="@color/yourThumbColor"
+            android:layout_marginStart="10dp"
+
+            />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

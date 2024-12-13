@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.RoomDatabase;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -7,30 +7,25 @@ import androidx.room.PrimaryKey;
 @Entity(foreignKeys = {
         @ForeignKey(entity = User.class,parentColumns = "userId",childColumns = "userId",onDelete = ForeignKey.CASCADE),
         @ForeignKey(entity = Course.class,parentColumns = "courseId",childColumns = "courseId",onDelete = ForeignKey.CASCADE)
-                      })
-
-
-public class UserCourseEnrolled {
+})
+public class Bookmark {
     @PrimaryKey(autoGenerate = true)
-    private  int  enrolledCourseId;
-    private int userId;
+    private int bookmarkId;
 
+    private int userId;
     private int courseId;
 
-    private int progressIndicator;
-
-    public UserCourseEnrolled(int userId, int courseId, int progressIndicator) {
+    public Bookmark( int userId, int courseId) {
         this.userId = userId;
         this.courseId = courseId;
-        this.progressIndicator = progressIndicator;
     }
 
-    public int getEnrolledCourseId() {
-        return enrolledCourseId;
+    public int getBookmarkId() {
+        return bookmarkId;
     }
 
-    public void setEnrolledCourseId(int enrolledCourseId) {
-        this.enrolledCourseId = enrolledCourseId;
+    public void setBookmarkId(int bookmarkId) {
+        this.bookmarkId = bookmarkId;
     }
 
     public int getUserId() {
@@ -47,13 +42,5 @@ public class UserCourseEnrolled {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
-    }
-
-    public int getProgressIndicator() {
-        return progressIndicator;
-    }
-
-    public void setProgressIndicator(int progressIndicator) {
-        this.progressIndicator = progressIndicator;
     }
 }

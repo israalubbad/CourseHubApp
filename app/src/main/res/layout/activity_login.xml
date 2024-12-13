@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/logo_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/curseHubTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo_img"
+        android:text="CurseHub"
+        android:textStyle="bold"
+        android:textColor="@color/primaryColor"
+        android:layout_marginTop="8dp"
+        android:textSize="35sp"
+        />
+
+    <TextView
+        android:id="@+id/signInTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/curseHubTv"
+        android:text="Login"
+        android:layout_marginStart="30dp"
+        android:textColor="#2E2E2E"
+        android:layout_marginTop="30dp"
+        android:textSize="24sp"
+        />
+
+    <EditText
+        android:id="@+id/emailEt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signInTv"
+        android:hint="abc@gmail.com"
+        android:drawablePadding="15dp"
+        android:paddingHorizontal="15dp"
+        android:background="@drawable/shape"
+        android:textColorHint="#555252"
+        />
+
+
+    <EditText
+        android:id="@+id/passwordEt"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailEt"
+        android:hint="Password"
+        android:background="@drawable/shape"
+        android:textColorHint="#555252"
+        android:drawablePadding="15dp"
+        android:paddingHorizontal="15dp" />
+
+    <ImageView
+        android:id="@+id/hidePassword_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/hide"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@id/passwordEt"
+        app:layout_constraintTop_toTopOf="@id/passwordEt"
+        app:layout_constraintBottom_toBottomOf="@id/passwordEt"
+
+        />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/rememberSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/passwordEt"
+        app:layout_constraintStart_toStartOf="@id/passwordEt"
+        android:layout_marginTop="8dp"
+        app:thumbTint="@color/yourThumbColor"
+        app:trackTint="@color/yourTrackColor"
+        />
+    <TextView
+        android:id="@+id/rememberTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember Me"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/rememberSwitch"
+        app:layout_constraintStart_toEndOf="@id/rememberSwitch"
+        app:layout_constraintBottom_toBottomOf="@id/rememberSwitch"
+        android:layout_marginStart="10dp"
+        />
+
+    <Button
+        android:id="@+id/loginBt"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Login"
+        android:layout_marginTop="25dp"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@id/rememberSwitch"
+        android:backgroundTint="@color/primaryColor"
+        android:drawableTint="@color/white"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginBt"
+        app:layout_constraintVertical_bias="1"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/accountTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dan't have account"
+
+            />
+
+        <TextView
+            android:id="@+id/signUpTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:textColor="@color/yourThumbColor"
+            android:layout_marginStart="10dp"
+
+            />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

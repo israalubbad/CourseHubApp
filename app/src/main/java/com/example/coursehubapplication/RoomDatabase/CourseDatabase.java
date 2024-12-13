@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.RoomDatabase;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {User.class,Category.class,Course.class,UserCourseEnrolled.class, Notification.class, Bookmark.class, Lesson.class}, version = 2, exportSchema = false)
+@Database(entities = {User.class, Category.class, Course.class, UserCourseEnrolled.class, Bookmark.class, Lesson.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
  public abstract class CourseDatabase extends RoomDatabase {
 
@@ -19,7 +19,6 @@ import java.util.concurrent.Executors;
         public abstract CategoryDao categoryDao();
         public abstract CourseDao courseDao();
         public abstract LessonDao lessonDao();
-        public abstract NotificationDao notificationDao();
         public abstract BookmarkDao bookmarkDao();
         public abstract UserCourseEnrolledDao userCourseEnrolledDao();
 

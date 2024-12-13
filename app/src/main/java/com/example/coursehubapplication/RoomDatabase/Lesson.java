@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.RoomDatabase;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;

@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yourThumbColor">#EB8F00</color>
+    <color name="yourTrackColor">#FDDCA9</color>
+    <color name="primaryColor">#19786A</color>
+
 </resources>
+
+

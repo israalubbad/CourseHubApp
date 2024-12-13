@@ -1,9 +1,8 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.RoomDatabase;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Query;
 
 import java.util.List;
 
@@ -12,7 +11,6 @@ public class MyRepository {
     private CategoryDao categoryDao;
     private CourseDao courseDao;
     private LessonDao lessonDao;
-    private NotificationDao notificationDao;
     private BookmarkDao bookmarkDao;
     private UserCourseEnrolledDao userCourseEnrolledDao;
 
@@ -22,7 +20,6 @@ public class MyRepository {
         categoryDao = db.categoryDao();
         courseDao=db.courseDao();
         lessonDao=db.lessonDao();
-        notificationDao= db.notificationDao();
         bookmarkDao=db.bookmarkDao();
         userCourseEnrolledDao= db.userCourseEnrolledDao();
     }
@@ -154,33 +151,6 @@ public class MyRepository {
 
     public LiveData<List<Lesson>> getLessonsByCourseId(int courseId) {
         return lessonDao.getLessonByCourseId(courseId);
-    }
-
-    //////  Notification
-    public void insertNotification(Notification notification) {
-        CourseDatabase.databaseWriteExecutor.execute(() -> {
-            notificationDao.insertNotification(notification);
-        });
-    }
-
-    public LiveData<List<Notification>> getAllNotifications() {
-        return notificationDao.getAllNotifications();
-    }
-
-    public LiveData<Notification> getNotificationsByUserId(int userId) {
-        return notificationDao.getNotificationsByUserId(userId);
-    }
-
-    public LiveData<Notification> getUnreadNotificationsForUser(int userId) {
-        return notificationDao.getUnreadNotificationsForUser(userId);
-    }
-
-    LiveData<Notification> getNotificationsByCourseId(int courseId) {
-        return notificationDao.getNotificationsByCourseId(courseId);
-    }
-
-    LiveData<Notification> getNotificationsByLessonId(int lessonId) {
-        return notificationDao.getNotificationsByLessonId(lessonId);
     }
 
     // Enrollment

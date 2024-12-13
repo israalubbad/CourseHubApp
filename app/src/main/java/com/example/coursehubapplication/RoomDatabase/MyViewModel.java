@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.RoomDatabase;
 
 import android.app.Application;
 
@@ -118,31 +118,6 @@ public class MyViewModel extends AndroidViewModel {
 
     public LiveData<List<Lesson>> getLessonsByCourseId(int courseId) {
         return repository.getLessonsByCourseId(courseId);
-    }
-
-    // Notification
-    public void insertNotification(Notification notification) {
-        repository.insertNotification(notification);
-    }
-
-    public LiveData<List<Notification>> getAllNotifications() {
-        return repository.getAllNotifications();
-    }
-
-    public LiveData<Notification> getNotificationsByUserId(int userId) {
-        return repository.getNotificationsByUserId(userId);
-    }
-
-    public LiveData<Notification> getUnreadNotificationsForUser(int userId) {
-        return repository.getUnreadNotificationsForUser(userId);
-    }
-
-    public LiveData<Notification> getNotificationsByCourseId(int courseId) {
-        return repository.getNotificationsByCourseId(courseId);
-    }
-
-    public LiveData<Notification> getNotificationsByLessonId(int lessonId) {
-        return repository.getNotificationsByLessonId(lessonId);
     }
 
     // Enrollment
