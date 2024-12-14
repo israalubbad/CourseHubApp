@@ -37,6 +37,7 @@ ActivityLoginBinding binding;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        binding.rememberSwitch.setChecked(false);
 
         viewModel= new ViewModelProvider(this).get(MyViewModel.class);
         viewModel.getUserByEmailAndPassword("admin@gmail.com", "admin123").observe(this, new Observer<User>() {
