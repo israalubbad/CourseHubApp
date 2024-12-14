@@ -21,6 +21,7 @@ import com.example.coursehubapplication.databinding.ActivitySignUpBinding;
 public class SignUpActivity extends AppCompatActivity {
 ActivitySignUpBinding binding;
     boolean isPasswordViseble=false;
+    boolean isComfortPasswordViseble=false;
     MyViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ ActivitySignUpBinding binding;
         });
 
         binding.hidePasswordCFImg.setOnClickListener(view -> {
-            isPasswordViseble= Utils.showPassword(isPasswordViseble,binding.passwordEt);
+            isComfortPasswordViseble= Utils.showPassword(isComfortPasswordViseble,binding.comfortPasswordEt);
         });
 
 

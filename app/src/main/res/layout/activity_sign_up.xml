@@ -165,7 +165,7 @@
             android:id="@+id/accountTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dan't have account"
+            android:text="have account"
 
             />
 
@@ -173,7 +173,7 @@
             android:id="@+id/loginTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="login"
             android:textColor="@color/yourThumbColor"
             android:layout_marginStart="10dp"
 

@@ -38,7 +38,16 @@ ActivityLoginBinding binding;
             return insets;
         });
 
-
+        viewModel= new ViewModelProvider(this).get(MyViewModel.class);
+        viewModel.getUserByEmailAndPassword("admin@gmail.com", "admin123").observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user == null) {
+                    Bitmap userPhoto = BitmapFactory.decodeResource(getResources(), R.drawable.photo);
+                    viewModel.userInsert(new User("admin", "admin@gmail.com", "admin123", userPhoto, true));
+                }
+            }
+        });
 
         sharedPreferences=getSharedPreferences("event",MODE_PRIVATE);
         editor=sharedPreferences.edit();
@@ -47,13 +56,6 @@ ActivityLoginBinding binding;
             intent.putExtra("userId",sharedPreferences.getInt("userId",-1));
             startActivity(intent);
 
-        }
-
-        viewModel= new ViewModelProvider(this).get(MyViewModel.class);
-
-        if (viewModel.getUserByEmailAndPassword("admin", "admin123") == null) {
-            Bitmap userPhoto= BitmapFactory.decodeResource(getResources(), R.drawable.photo);
-            viewModel.userInsert(new User("admin", "admin@gmail.com","admin123",userPhoto, true)); // مسؤول
         }
 
         binding.loginBt.setOnClickListener(new View.OnClickListener() {
