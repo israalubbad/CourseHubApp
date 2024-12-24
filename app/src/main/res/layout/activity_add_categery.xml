@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".AddCategeryActivity">
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        android:layout_margin="16dp"
+        android:tint="@color/unselected_tab_text_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/categeryTV"
+        tools:ignore="UseAppTint" />
+
+    <TextView
+        android:id="@+id/categeryTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Course"
+        android:fontFamily="@font/arb"
+        android:textColor="@color/primaryColor"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nameCategoryET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape"
+        android:fontFamily="@font/arb"
+        android:hint="Name Category"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categeryTV" />
+
+    <Button
+        android:id="@+id/addCategoryBT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/primaryColor"
+        android:text="Add Category"
+        android:fontFamily="@font/arb"
+        app:layout_constraintTop_toBottomOf="@id/nameCategoryET"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+         />
+
+    <Button
+        android:id="@+id/editCategoryBT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="32dp"
+        android:text="edit Category"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:fontFamily="@font/arb"
+        android:textColor="@color/primaryColor"
+        android:backgroundTint="@color/yourTrackColor"
+        app:layout_constraintTop_toBottomOf="@id/nameCategoryET"
+        android:textSize="18sp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

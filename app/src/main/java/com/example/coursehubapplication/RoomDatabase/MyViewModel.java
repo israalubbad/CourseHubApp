@@ -50,12 +50,14 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     // Category
-    public void categoryInsert(Category category) {
+    public boolean categoryInsert(Category category) {
         repository.categoryInsert(category);
+        return false;
     }
 
-    public void categoryUpdate(Category category) {
+    public boolean categoryUpdate(Category category) {
         repository.categoryUpdate(category);
+        return false;
     }
 
     public void categoryDelete(Category category) {
@@ -71,12 +73,14 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     // Course
-    public void insertCourse(Course course) {
+    public boolean insertCourse(Course course) {
         repository.insertCourse(course);
+        return false;
     }
 
-    public void updateCourse(Course course) {
+    public boolean updateCourse(Course course) {
         repository.updateCourse(course);
+        return false;
     }
 
     public void deleteCourse(Course course) {

@@ -5,6 +5,8 @@
     <color name="yourThumbColor">#EB8F00</color>
     <color name="yourTrackColor">#FDDCA9</color>
     <color name="primaryColor">#19786A</color>
+    <color name="selected_tab_text_color">#FFFFFF</color> <!-- لون النص للتب المضغوط -->
+     <color name="unselected_tab_text_color">#808080</color> <!-- لون النص للتب غير المضغوط -->
 
 </resources>
 

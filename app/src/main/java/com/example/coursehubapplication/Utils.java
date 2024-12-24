@@ -1,8 +1,11 @@
 package com.example.coursehubapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Utils {
     public static boolean showPassword(boolean isPasswordViseble, EditText et){
@@ -18,4 +21,6 @@ public class Utils {
         et.setSelection(et.getText().length());
         return isPasswordViseble;
     }
+
 }
+

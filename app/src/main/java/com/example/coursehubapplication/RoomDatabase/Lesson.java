@@ -2,6 +2,7 @@ package com.example.coursehubapplication.RoomDatabase;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = {
@@ -23,6 +24,16 @@ public class Lesson {
     private boolean isCompleted;
 
     public Lesson(String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId, boolean isCompleted) {
+        this.lessonTitle = lessonTitle;
+        this.lessonDescription = lessonDescription;
+        this.lessonVideo = lessonVideo;
+        this.articleLink = articleLink;
+        this.courseId = courseId;
+        this.isCompleted = isCompleted;
+    }
+    @Ignore
+    public Lesson(int lessonId, String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId, boolean isCompleted) {
+        this.lessonId = lessonId;
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
         this.lessonVideo = lessonVideo;

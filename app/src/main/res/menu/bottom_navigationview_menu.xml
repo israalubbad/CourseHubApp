@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Home"
+        android:icon="@drawable/vector"
+        android:iconTint="#474545"
+        android:id="@+id/homeItem"/>
+
+    <item android:title="My Course"
+        android:icon="@drawable/course"
+        android:iconTint="#474545"
+        android:id="@+id/myCourseItem"/>
+
+    <item android:title="Profile"
+        android:icon="@drawable/profile_icon"
+        android:iconTint="#474545"
+        android:id="@+id/profileItem"/>
+</menu>

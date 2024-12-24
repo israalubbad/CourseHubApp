@@ -4,10 +4,13 @@ import android.graphics.Bitmap;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 @Entity (foreignKeys = {
     @ForeignKey(entity = Category.class,parentColumns = "categoryId",childColumns = "courseCategory") })
+    @TypeConverters(Converters.class)
 public class Course {
     @PrimaryKey(autoGenerate = true)
     private int courseId;
@@ -27,6 +30,17 @@ public class Course {
     private int courseCategory;
 
     public Course( String courseTitle, String courseDescription, String courseInstructorName, Bitmap courseImage, double coursePrice, int courseHours, int courseCategory) {
+        this.courseTitle = courseTitle;
+        this.courseDescription = courseDescription;
+        this.courseInstructorName = courseInstructorName;
+        this.courseImage = courseImage;
+        this.coursePrice = coursePrice;
+        this.courseHours = courseHours;
+        this.courseCategory = courseCategory;
+    }
+    @Ignore
+    public Course(int courseId, String courseTitle, String courseDescription, String courseInstructorName, Bitmap courseImage, double coursePrice, int courseHours, int courseCategory) {
+        this.courseId = courseId;
         this.courseTitle = courseTitle;
         this.courseDescription = courseDescription;
         this.courseInstructorName = courseInstructorName;

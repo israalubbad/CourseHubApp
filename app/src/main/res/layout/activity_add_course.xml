@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".AddCourseActivity">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        android:layout_margin="16dp"
+        android:tint="@color/unselected_tab_text_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/courseTV"
+        tools:ignore="UseAppTint" />
+
+    <TextView
+        android:id="@+id/courseTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Course"
+        android:fontFamily="@font/arb"
+        android:textColor="@color/primaryColor"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nameCourseET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape"
+        android:fontFamily="@font/arb"
+        android:hint="Course Title"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseTV" />
+
+    <EditText
+        android:id="@+id/courseDescriptionET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape"
+        android:fontFamily="@font/arb"
+        android:hint="Course Description"
+        android:inputType="text"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameCourseET" />
+
+    <EditText
+        android:id="@+id/instructorNameEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:fontFamily="@font/arb"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape"
+        android:hint="Instructor Name"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseDescriptionET" />
+    <EditText
+        android:id="@+id/coursePriseET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:fontFamily="@font/arb"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape"
+        android:hint="Course Prise"
+        android:inputType="number"
+        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/courseHoursET"
+        app:layout_constraintTop_toBottomOf="@+id/instructorNameEt" />
+
+
+    <EditText
+        android:id="@+id/courseHoursET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/arb"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape"
+        android:hint="Course Hours"
+        android:inputType="number"
+        android:padding="15dp"
+        app:layout_constraintStart_toEndOf="@id/coursePriseET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instructorNameEt" />
+<!--    <Spinner-->
+<!--        android:id="@+id/addCategorySp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:padding="8dp"-->
+<!--        android:spinnerMode="dropdown"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/coursePriseET"-->
+<!--        android:entries="@array/category_list"-->
+
+<!--         />-->
+    <TextView
+        android:id="@+id/imgeAddTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Image Course : "
+        android:textColor="@color/primaryColor"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coursePriseET"
+        tools:ignore="UseAppTint" />
+
+    <ImageView
+        android:id="@+id/imageCourseIV"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/baseline_camera_alt_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgeAddTV"
+        tools:ignore="UseAppTint" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageCourseIV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/addCourseBT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="16dp"
+            android:text="Add Course"
+            android:fontFamily="@font/arb"
+            android:textAllCaps="false"
+            android:textColor="@color/primaryColor"
+            android:backgroundTint="#F8E8CF"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/editCourseBT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="16dp"
+            android:text="edit Course"
+            android:visibility="gone"
+            android:textAllCaps="false"
+            android:fontFamily="@font/arb"
+            android:textColor="@color/primaryColor"
+            android:backgroundTint="@color/yourTrackColor"
+            android:textSize="18sp" />
+
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
