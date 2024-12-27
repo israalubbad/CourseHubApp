@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.LoginScreen;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,8 +14,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivitySignUpBinding;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -70,7 +72,7 @@ ActivitySignUpBinding binding;
 
         binding.loginTv.setOnClickListener(view -> {
             //flage علشان يحذف كل اشي تحتيها و فتحت لاساسية
-            startActivity(new Intent(getBaseContext(),LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(getBaseContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         });
 

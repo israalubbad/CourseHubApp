@@ -4,13 +4,13 @@ import static android.app.ProgressDialog.show;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -20,20 +20,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coursehubapplication.AddCategeryActivity;
-import com.example.coursehubapplication.DashboardActivity;
+import com.example.coursehubapplication.DashboardScreen.AddCategeryActivity;
+import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.databinding.CategoryItemBinding;
+import com.example.coursehubapplication.databinding.DialogBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Category> categoryList;
     Context context;
     ClickListener clickListener;
     CategoryItemBinding binding;
+    AlertDialog dialog_d;
+
 
     public CategoriesAdapter(List<Category> categoryList, Context context, ClickListener clickListener) {
         this.categoryList = categoryList;
@@ -44,14 +48,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding=CategoryItemBinding.inflate(LayoutInflater.from(context),parent,false);
+        binding = CategoryItemBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int categoryId = categoryList.get(position).getCategoryId();
-        ViewHolder viewHolder= (ViewHolder) holder;
+        ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.binding.nameCategoryTv.setText(categoryList.get(position).getCategoryName());
         viewHolder.binding.moreIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,39 +69,69 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         int itemId = item.getItemId();
                         if (itemId == R.id.editeItem) {
                             Bundle bundle = new Bundle();
-                            bundle.putInt("id",categoryList.get(position).getCategoryId());
+                            bundle.putInt("id", categoryList.get(position).getCategoryId());
                             bundle.putString("name", categoryList.get(position).getCategoryName());
                             Intent intent = new Intent(context, AddCategeryActivity.class);
                             intent.putExtra("Category", bundle);
                             context.startActivity(intent);
-                        } if (itemId == R.id.deleteItem) {
+                        }
+                        if (itemId == R.id.deleteItem) {
                             MyViewModel viewModel = new ViewModelProvider((DashboardActivity) context).get(MyViewModel.class);
-
-
                             AlertDialog.Builder builder = new AlertDialog.Builder((DashboardActivity) context);
-                            builder.setTitle("Confirmation");
-                            builder.setMessage("Are you sure you want to delete this category?");
-                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            DialogBinding binding = DialogBinding.inflate(LayoutInflater.from(context), null, false);
+                            builder.setView(binding.getRoot());
+                            binding.titeleTV.setText("Confirmation");
+                            binding.teMassage.setText("Are you sure you want to delete this category?");
+                            binding.selectCategory.setText("Please select category to assign courses?");
+                            binding.actionBt.setText("OK");
+                            List<String> categoryNames = new ArrayList<>();
+                            Category categoryToDelete = categoryList.get(position);
+                            for (Category category : categoryList) {
+                                if (!category.getCategoryName().equals(categoryToDelete.getCategoryName())) {
+                                    categoryNames.add(category.getCategoryName());
+                                }
+                            }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categoryNames);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            binding.categorySpenner.setAdapter(adapter);
+
+                            binding.actionBt.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText((DashboardActivity) context, "category deleted", Toast.LENGTH_SHORT).show();
-                                    viewModel.categoryDelete(categoryList.get(position));
+                                public void onClick(View view) {
+                                    String selected = binding.categorySpenner.getSelectedItem().toString();
+
+                                    if (selected.isEmpty()) {
+                                        Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        int selectedCategoryId = getCategoryIdByName(selected);
+                                        if (selectedCategoryId != -1) {
+                                            // التحديث والحذف
+                                            viewModel.updateCoursesFromCategory(categoryList.get(position).getCategoryId(), selectedCategoryId);
+                                            viewModel.deleteCategory(categoryList.get(position));
+                                            dialog_d.dismiss();
+                                        } else {
+                                            Toast.makeText(context, "Invalid category", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
                                 }
                             });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                            binding.imImageIcon.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText((DashboardActivity) context, "canceled", Toast.LENGTH_SHORT).show();
+                                public void onClick(View view) {
+                                    dialog_d.dismiss();
                                 }
                             });
-                            AlertDialog dialog = builder.create();
-                            dialog.setCancelable(true);
-                            dialog.show();
 
-
+                            dialog_d = builder.create();
+                            dialog_d.setCancelable(true);
+                            dialog_d.show();
 
 
                         }
+
+
                         return false;
                     }
                 });
@@ -105,6 +139,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             }
         });
+
+
         viewHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,18 +152,30 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class ViewHolder extends RecyclerView.ViewHolder {
         CategoryItemBinding binding;
         ImageView more;
-        public ViewHolder(CategoryItemBinding binding ) {
+
+        public ViewHolder(CategoryItemBinding binding) {
             super(binding.getRoot());//نعرف البيانات في تصميم
 
-            this.binding=binding;
+            this.binding = binding;
 
-        }}
+        }
+    }
 
     @Override
     public int getItemCount() {
         return categoryList.size();
     }
+
     public interface ClickListener {
         void onClick(int category);
+    }
+
+    private int getCategoryIdByName(String categoryName) {
+        for (Category category : categoryList) {
+            if (category.getCategoryName().equals(categoryName)) {
+                return category.getCategoryId();
+            }
+        }
+        return -1;
     }
 }

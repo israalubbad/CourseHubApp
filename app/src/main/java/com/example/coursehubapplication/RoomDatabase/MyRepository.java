@@ -3,6 +3,7 @@ package com.example.coursehubapplication.RoomDatabase;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
 
 import java.util.List;
 
@@ -73,12 +74,12 @@ public class MyRepository {
             categoryDao.categoryUpdate(category);
         });
     }
-    void categoryDelete(Category category) {
+    void deleteCategory(Category category) {
         CourseDatabase.databaseWriteExecutor.execute(() -> {
             categoryDao.categoryDelete(category);
-        });
-    }
 
+
+        });}
 
     public LiveData<List<Category>> getAllCategories() {
         return categoryDao.getAllCategories();
@@ -104,7 +105,14 @@ public class MyRepository {
 
     public void deleteCourse(Course course) {
         CourseDatabase.databaseWriteExecutor.execute(() -> {
-           courseDao.courseDelete(course);
+            courseDao.courseDelete(course);
+
+    });
+
+    }
+    public void updateCoursesFromCategory(int oldCategoryId, int newCategoryId) {
+        CourseDatabase.databaseWriteExecutor.execute(() -> {
+            courseDao.updateCoursesFromCategory(oldCategoryId,newCategoryId);
     });
     }
 
@@ -119,6 +127,10 @@ public class MyRepository {
     public LiveData<List<Course>> getCoursesByCategoryId(int categoryId) {
         return courseDao.getCourseByCategoryId(categoryId);
     }
+
+
+
+
 
 
     ///Lesson

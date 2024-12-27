@@ -20,6 +20,9 @@ public interface CourseDao {
     @Delete
     void courseDelete(Course course);
 
+    @Query("UPDATE course SET courseCategory = :newCategoryId WHERE courseCategory = :oldCategoryId")
+    void updateCoursesFromCategory(int oldCategoryId, int newCategoryId);
+
     @Query("SELECT * FROM course")
     LiveData<List<Course>> getAllCourse();
 
@@ -28,5 +31,9 @@ public interface CourseDao {
 
     @Query("SELECT * FROM course WHERE courseCategory = :categoryId")
     LiveData<List<Course>>getCourseByCategoryId(int categoryId);
+
+
+
+
 
 }

@@ -1,12 +1,13 @@
 package com.example.coursehubapplication.RoomDatabase;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = {
-        @ForeignKey(entity = Course.class,parentColumns = "courseId",childColumns = "courseId") })
+        @ForeignKey(entity = Course.class,parentColumns = "courseId",childColumns = "courseId",onDelete = ForeignKey.CASCADE) })
 public class Lesson {
     @PrimaryKey(autoGenerate = true)
     private int lessonId;
@@ -16,7 +17,7 @@ public class Lesson {
     private String lessonDescription;
 
     private String lessonVideo;
-
+    @Nullable
     private String articleLink;
 
     private int courseId;
@@ -32,8 +33,16 @@ public class Lesson {
         this.isCompleted = isCompleted;
     }
     @Ignore
-    public Lesson(int lessonId, String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId, boolean isCompleted) {
+    public Lesson(int lessonId, String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
         this.lessonId = lessonId;
+        this.lessonTitle = lessonTitle;
+        this.lessonDescription = lessonDescription;
+        this.lessonVideo = lessonVideo;
+        this.articleLink = articleLink;
+        this.courseId = courseId;
+    }
+    @Ignore
+    public Lesson( String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
         this.lessonVideo = lessonVideo;

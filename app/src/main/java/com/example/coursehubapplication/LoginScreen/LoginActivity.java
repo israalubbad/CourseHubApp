@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.LoginScreen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +16,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.coursehubapplication.MainActivity;
+import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -53,7 +56,7 @@ ActivityLoginBinding binding;
         sharedPreferences=getSharedPreferences("event",MODE_PRIVATE);
         editor=sharedPreferences.edit();
         if(sharedPreferences.getBoolean("remembered",false)){
-            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("userId",sharedPreferences.getInt("userId",-1));
             startActivity(intent);
 
@@ -102,7 +105,7 @@ ActivityLoginBinding binding;
         binding.signUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getBaseContext(),SignUpActivity.class);
+                Intent intent=new Intent(getBaseContext(), SignUpActivity.class);
                 startActivity(intent);
             }
         });

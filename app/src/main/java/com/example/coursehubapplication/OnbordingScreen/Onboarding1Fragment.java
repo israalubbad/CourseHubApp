@@ -1,6 +1,5 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.OnbordingScreen;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,17 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.coursehubapplication.databinding.FragmentOnboarding1Binding;
-import com.example.coursehubapplication.databinding.FragmentOnboarding3Binding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Onboarding3Fragment#newInstance} factory method to
+ * Use the {@link Onboarding1Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Onboarding3Fragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class Onboarding1Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -28,12 +23,13 @@ public class Onboarding3Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Onboarding3Fragment() {
+    public Onboarding1Fragment() {
         // Required empty public constructor
     }
 
-    public static Onboarding3Fragment newInstance(String param1, String param2) {
-        Onboarding3Fragment fragment = new Onboarding3Fragment();
+
+    public static Onboarding1Fragment newInstance(String param1, String param2) {
+        Onboarding1Fragment fragment = new Onboarding1Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,14 +49,7 @@ public class Onboarding3Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentOnboarding3Binding binding=FragmentOnboarding3Binding.inflate(inflater,container, false);
-        binding.startBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getContext(),LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+        FragmentOnboarding1Binding binding=FragmentOnboarding1Binding.inflate(inflater,container, false);
         return binding.getRoot();
     }
 }

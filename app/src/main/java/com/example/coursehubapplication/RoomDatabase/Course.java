@@ -2,14 +2,17 @@ package com.example.coursehubapplication.RoomDatabase;
 
 import android.graphics.Bitmap;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-@Entity (foreignKeys = {
-    @ForeignKey(entity = Category.class,parentColumns = "categoryId",childColumns = "courseCategory") })
+
+@Entity(foreignKeys = @ForeignKey(entity = Category.class, parentColumns = {"categoryId"}, childColumns = {"courseCategory"},onDelete = ForeignKey.SET_NULL)
+)
     @TypeConverters(Converters.class)
 public class Course {
     @PrimaryKey(autoGenerate = true)
@@ -26,8 +29,8 @@ public class Course {
     private double coursePrice;
 
     private int courseHours;
-
-    private int courseCategory;
+    @Nullable
+    private Integer courseCategory;
 
     public Course( String courseTitle, String courseDescription, String courseInstructorName, Bitmap courseImage, double coursePrice, int courseHours, int courseCategory) {
         this.courseTitle = courseTitle;
@@ -39,7 +42,7 @@ public class Course {
         this.courseCategory = courseCategory;
     }
     @Ignore
-    public Course(int courseId, String courseTitle, String courseDescription, String courseInstructorName, Bitmap courseImage, double coursePrice, int courseHours, int courseCategory) {
+    public Course(int courseId, String courseTitle, String courseDescription, String courseInstructorName, Bitmap courseImage, double coursePrice, int courseHours, Integer courseCategory) {
         this.courseId = courseId;
         this.courseTitle = courseTitle;
         this.courseDescription = courseDescription;
@@ -48,6 +51,16 @@ public class Course {
         this.coursePrice = coursePrice;
         this.courseHours = courseHours;
         this.courseCategory = courseCategory;
+    }
+    @Ignore
+    public Course(int courseId, String courseTitle, String courseDescription, String courseInstructorName, Bitmap courseImage, double coursePrice, int courseHours) {
+        this.courseId = courseId;
+        this.courseTitle = courseTitle;
+        this.courseDescription = courseDescription;
+        this.courseInstructorName = courseInstructorName;
+        this.courseImage = courseImage;
+        this.coursePrice = coursePrice;
+        this.courseHours = courseHours;
     }
 
     public int getCourseId() {
@@ -106,11 +119,11 @@ public class Course {
         this.courseHours = courseHours;
     }
 
-    public int getCourseCategory() {
+    public Integer getCourseCategory() {
         return courseCategory;
     }
 
-    public void setCourseCategory(int courseCategory) {
+    public void setCourseCategory(Integer courseCategory) {
         this.courseCategory = courseCategory;
     }
 }

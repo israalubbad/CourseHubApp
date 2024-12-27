@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.DashboardScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +15,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursehubapplication.Adapter.CategoriesAdapter;
+import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.databinding.ActivityDashboardBinding;
 
 import java.util.List;
 
-public class DashboardActivity extends AppCompatActivity implements CategoriesAdapter.ClickListener{
-ActivityDashboardBinding binding;
+public class DashboardActivity extends AppCompatActivity implements CategoriesAdapter.ClickListener {
+    ActivityDashboardBinding binding;
+    int categoryID;
+
+    @Override
+    public void onClick(int categoryId) {
+        categoryID = categoryId;
+        Intent intent = new Intent(DashboardActivity.this, ViewCoursesActivity.class);
+        intent.putExtra("categoryId", categoryId);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding=ActivityDashboardBinding.inflate(getLayoutInflater());
+        binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -35,14 +46,14 @@ ActivityDashboardBinding binding;
             return insets;
         });
 
-        MyViewModel viewModel= new ViewModelProvider(this).get(MyViewModel.class);
+        MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
         binding.recyclerViewCategoryRv.setLayoutManager(new LinearLayoutManager(DashboardActivity.this,
-                RecyclerView.VERTICAL,false));
+                RecyclerView.VERTICAL, false));
 
         viewModel.getAllCategories().observe(DashboardActivity.this, new Observer<List<Category>>() {
             @Override
-            public void onChanged(List<Category>categories) {
-                CategoriesAdapter adapter = new CategoriesAdapter(categories,DashboardActivity.this,DashboardActivity.this::onClick);
+            public void onChanged(List<Category> categories) {
+                CategoriesAdapter adapter = new CategoriesAdapter(categories, DashboardActivity.this, DashboardActivity.this::onClick);
                 binding.recyclerViewCategoryRv.setAdapter(adapter);
 
             }
@@ -57,13 +68,6 @@ ActivityDashboardBinding binding;
         });
 
 
-
     }
 
-    @Override
-    public void onClick(int categoryId) {
-        Intent intent = new Intent(DashboardActivity.this, ViewAllCourseActivity.class);
-        intent.putExtra("categoryId", categoryId);
-        startActivity(intent);
-    }
 }

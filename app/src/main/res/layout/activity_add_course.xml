@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".AddCourseActivity">
+    tools:context=".DashboardScreen.AddCourseActivity">
 
     <ImageView
         android:id="@+id/back"
@@ -41,7 +41,7 @@
         android:background="@drawable/shape"
         android:fontFamily="@font/arb"
         android:hint="Course Title"
-        android:padding="15dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseTV" />
@@ -56,7 +56,7 @@
         android:fontFamily="@font/arb"
         android:hint="Course Description"
         android:inputType="text"
-        android:padding="15dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameCourseET" />
@@ -70,7 +70,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/shape"
         android:hint="Instructor Name"
-        android:padding="15dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
         android:background="@drawable/shape"
         android:hint="Course Prise"
         android:inputType="number"
-        android:padding="15dp"
+        android:padding="13dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/courseHoursET"
         app:layout_constraintTop_toBottomOf="@+id/instructorNameEt" />
@@ -101,34 +101,45 @@
         android:background="@drawable/shape"
         android:hint="Course Hours"
         android:inputType="number"
-        android:padding="15dp"
+        android:padding="13dp"
         app:layout_constraintStart_toEndOf="@id/coursePriseET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/instructorNameEt" />
-<!--    <Spinner-->
-<!--        android:id="@+id/addCategorySp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginHorizontal="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:padding="8dp"-->
-<!--        android:spinnerMode="dropdown"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/coursePriseET"-->
-<!--        android:entries="@array/category_list"-->
-
-<!--         />-->
+    <TextView
+        android:id="@+id/select_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Select Category: "
+        android:textColor="@color/primaryColor"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/courseHoursET"
+        tools:ignore="UseAppTint" />
+    <Spinner
+        android:id="@+id/addCategorySp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:padding="4dp"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/select_category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/select_category"
+      />
     <TextView
         android:id="@+id/imgeAddTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Add Image Course : "
         android:textColor="@color/primaryColor"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coursePriseET"
+        app:layout_constraintTop_toBottomOf="@id/addCategorySp"
         tools:ignore="UseAppTint" />
 
     <ImageView
@@ -136,7 +147,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/baseline_camera_alt_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgeAddTV"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".AddLessonActivity">
+    tools:context=".DashboardScreen.AddLessonActivity">
 
     <ImageView
         android:id="@+id/back"
@@ -14,8 +14,10 @@
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_arrow_back_ios_24"
         android:layout_margin="16dp"
+        android:tint="@color/unselected_tab_text_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/lessonTV" />
+        app:layout_constraintTop_toTopOf="@id/lessonTV"
+        tools:ignore="UseAppTint" />
 
     <TextView
         android:id="@+id/lessonTV"
@@ -107,8 +109,8 @@
             android:text="Add Lesson"
             android:fontFamily="@font/arb"
             android:textAllCaps="false"
-            android:textColor="@color/primaryColor"
-            android:backgroundTint="#F8E8CF"
+            android:textColor="@color/selected_tab_text_color"
+            android:backgroundTint="@color/primaryColor"
             android:textSize="18sp" />
 
         <Button
@@ -121,23 +123,11 @@
             android:visibility="gone"
             android:textAllCaps="false"
             android:fontFamily="@font/arb"
-            android:textColor="@color/primaryColor"
-            android:backgroundTint="@color/yourTrackColor"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primaryColor"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/showLessonBT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/primaryColor"
-            android:text="Show Lesson"
-            android:fontFamily="@font/arb"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_marginBottom="20dp" />
+
 
     </LinearLayout>
 

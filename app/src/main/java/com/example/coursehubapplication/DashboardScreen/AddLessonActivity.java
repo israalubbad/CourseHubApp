@@ -1,0 +1,120 @@
+package com.example.coursehubapplication.DashboardScreen;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.coursehubapplication.R;
+import com.example.coursehubapplication.RoomDatabase.Lesson;
+import com.example.coursehubapplication.RoomDatabase.MyViewModel;
+import com.example.coursehubapplication.databinding.ActivityAddLessonBinding;
+
+public class AddLessonActivity extends AppCompatActivity {
+    ActivityAddLessonBinding binding;
+    int courseId;
+    int lessonId;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        binding = ActivityAddLessonBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        Intent intent = getIntent();
+        courseId = intent.getIntExtra("courseId", -1);
+
+        MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
+
+        binding.addLessonBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String lessonTitle = binding.lessonTitleET.getText().toString();
+                String lessonDescription = binding.lessonDescriptionET.getText().toString();
+                String articleLink = binding.articleLinkET.getText().toString();
+                String lessonVideo = binding.lessonVideoEt.getText().toString();
+
+                if (lessonTitle.isEmpty()) {
+                    binding.lessonTitleET.setError("Please enter Course Title");
+                }
+                if (lessonDescription.isEmpty()) {
+                    binding.lessonDescriptionET.setError("Please enter Course Description");
+                }
+                if (lessonVideo.isEmpty()) {
+                    binding.lessonVideoEt.setError("Please enter Course Video");
+                } else {
+                    Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId);
+                    if (!viewModel.insertLesson(lesson)) {
+                        Toast.makeText(AddLessonActivity.this, "Successfully Add", Toast.LENGTH_SHORT).show();
+                        binding.lessonTitleET.setText("");
+                        binding.lessonDescriptionET.setText("");
+                        binding.lessonVideoEt.setText("");
+                        binding.articleLinkET.setText("");
+                    } else {
+                        Toast.makeText(AddLessonActivity.this, "Failed Add", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        if (getIntent().getBundleExtra("lesson") != null) {
+            Bundle bundle = getIntent().getBundleExtra("lesson");
+            lessonId = bundle.getInt("id");
+            courseId = bundle.getInt("courseId");
+            binding.articleLinkET.setText(bundle.getString("lessonArticle"));
+            binding.lessonDescriptionET.setText(bundle.getString("LessonDescription"));
+            binding.lessonTitleET.setText(bundle.getString("LessonTitle"));
+            binding.lessonVideoEt.setText(bundle.getString("lessonVideo"));
+            binding.editLessonBT.setVisibility(View.VISIBLE);
+            binding.addLessonBT.setVisibility(View.GONE);
+        }
+
+
+        binding.editLessonBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String lessonTitle = binding.lessonTitleET.getText().toString();
+                String lessonDescription = binding.lessonDescriptionET.getText().toString();
+                String articleLink = binding.articleLinkET.getText().toString();
+                String lessonVideo = binding.lessonVideoEt.getText().toString();
+
+                if (lessonTitle.isEmpty()) {
+                    binding.lessonTitleET.setError("Please enter Course Title");
+                }
+                if (lessonDescription.isEmpty()) {
+                    binding.lessonDescriptionET.setError("Please enter Course Description");
+                }
+                if (lessonVideo.isEmpty()) {
+                    binding.lessonVideoEt.setError("Please enter Course Video");
+                } else {
+                    Lesson lesson = new Lesson(lessonId, lessonTitle, lessonDescription, lessonVideo, articleLink, courseId);
+                    if (!viewModel.updateLesson(lesson)) {
+                        Toast.makeText(AddLessonActivity.this, "Successfully edit", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AddLessonActivity.this, "Failed edit", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        binding.back.setOnClickListener(view -> {
+            finish();
+
+        });
+    }
+
+}

@@ -60,9 +60,10 @@ public class MyViewModel extends AndroidViewModel {
         return false;
     }
 
-    public void categoryDelete(Category category) {
-        repository.categoryDelete(category);
+    public void deleteCategory(Category category) {
+        repository.deleteCategory(category);
     }
+
 
     public LiveData<List<Category>> getAllCategories() {
         return repository.getAllCategories();
@@ -87,6 +88,11 @@ public class MyViewModel extends AndroidViewModel {
         repository.deleteCourse(course);
     }
 
+    public void updateCoursesFromCategory(int oldCategoryId, int newCategoryId) {
+
+        repository.updateCoursesFromCategory(oldCategoryId,newCategoryId);
+    }
+
     public LiveData<List<Course>> getAllCourses() {
         return repository.getAllCourses();
     }
@@ -99,13 +105,17 @@ public class MyViewModel extends AndroidViewModel {
         return repository.getCoursesByCategoryId(categoryId);
     }
 
+
+
     // Lesson
-    public void insertLesson(Lesson lesson) {
+    public boolean insertLesson(Lesson lesson) {
         repository.insertLesson(lesson);
+        return false;
     }
 
-    public void updateLesson(Lesson lesson) {
+    public boolean updateLesson(Lesson lesson) {
         repository.updateLesson(lesson);
+        return false;
     }
 
     public void deleteLesson(Lesson lesson) {

@@ -25,4 +25,6 @@ public interface CategoryDao {
 
     @Query("select * from category WHERE categoryId = :categoryId ")
     LiveData<Category>getCategoryByCategoryId(int categoryId);
+
+    
 }

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".OnboardingActivity">
+    tools:context=".OnbordingScreen.OnboardingActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

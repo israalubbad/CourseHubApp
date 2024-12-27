@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.HomeScreen;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -28,7 +29,7 @@ ActivityHomeBinding binding;
         });
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
-                new  HomeFragment()).commit();
+                new HomeFragment()).commit();
 
 
         binding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -39,7 +40,7 @@ ActivityHomeBinding binding;
                             new HomeFragment()).commit();
                 } else if (item.getItemId() == R.id.myCourseItem) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
-                          new  MyCourseFragment()).commit();
+                          new MyCourseFragment()).commit();
                 } else if (item.getItemId() == R.id.profileItem) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
                            new ProfileFragment()).commit();

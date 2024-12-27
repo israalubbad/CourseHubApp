@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.coursehubapplication">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,25 +15,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseHubApplication"
         tools:targetApi="31">
-
         <activity
-            android:name=".ViewAllCourseActivity"
+            android:name=".DashboardScreen.ViewCoursesActivity"
             android:exported="false" />
         <activity
-            android:name=".AddCategeryActivity"
+            android:name=".DashboardScreen.ViewAllCourseActivity"
             android:exported="false" />
         <activity
-            android:name=".RoomDatabase.ViewLessonActivity"
+            android:name=".DashboardScreen.AddCategeryActivity"
             android:exported="false" />
         <activity
-            android:name=".AddLessonActivity"
+            android:name=".DashboardScreen.ViewLessonActivity"
             android:exported="false" />
         <activity
-            android:name=".AddCourseActivity"
+            android:name=".DashboardScreen.AddLessonActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardActivity"
-            android:exported="true" >
+            android:name=".DashboardScreen.AddCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardScreen.DashboardActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,19 +43,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".OnboardingActivity"
+            android:name=".HomeScreen.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".OnbordingScreen.OnboardingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginScreen.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginScreen.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".LoginScreen.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

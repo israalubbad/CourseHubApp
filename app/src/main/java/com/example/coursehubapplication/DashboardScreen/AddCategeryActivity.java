@@ -1,4 +1,4 @@
-package com.example.coursehubapplication;
+package com.example.coursehubapplication.DashboardScreen;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +11,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.databinding.ActivityAddCategeryBinding;
 
 public class AddCategeryActivity extends AppCompatActivity {
-ActivityAddCategeryBinding binding;
-int categoryId;
+    ActivityAddCategeryBinding binding;
+    int categoryId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,7 @@ int categoryId;
                 String nameCategory = binding.nameCategoryET.getText().toString();
 
                 if (nameCategory.isEmpty()) {
-                    Toast.makeText(AddCategeryActivity.this, "Please enter Category Name", Toast.LENGTH_SHORT).show();
+                    binding.nameCategoryET.setError("Please enter Category Name");
                 } else {
 
                     Category category = new Category(nameCategory);
@@ -56,14 +58,13 @@ int categoryId;
         });
 
 
-        if(getIntent().getBundleExtra("Category")!=null){
-            Bundle bundle=getIntent().getBundleExtra("Category");
-            categoryId=bundle.getInt("id");
+        if (getIntent().getBundleExtra("Category") != null) {
+            Bundle bundle = getIntent().getBundleExtra("Category");
+            categoryId = bundle.getInt("id");
             binding.nameCategoryET.setText(bundle.getString("name"));
             binding.editCategoryBT.setVisibility(View.VISIBLE);
             binding.addCategoryBT.setVisibility(View.GONE);
         }
-
 
 
         binding.editCategoryBT.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +76,7 @@ int categoryId;
                     Toast.makeText(AddCategeryActivity.this, "Please enter Category Name", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    Category category = new Category(categoryId,nameCategory);
+                    Category category = new Category(categoryId, nameCategory);
                     if (!viewModel.categoryUpdate(category)) {
                         Toast.makeText(AddCategeryActivity.this, "Successfully Edite", Toast.LENGTH_SHORT).show();
 
@@ -83,7 +84,8 @@ int categoryId;
                         Toast.makeText(AddCategeryActivity.this, "Failed Edite", Toast.LENGTH_SHORT).show();
                     }
 
-                }}
+                }
+            }
 
         });
 
@@ -92,4 +94,5 @@ int categoryId;
             finish();// علشان انهي الواجهة
 
         });
-    }}
+    }
+}
