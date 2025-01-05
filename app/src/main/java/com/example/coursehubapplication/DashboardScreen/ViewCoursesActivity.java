@@ -44,7 +44,7 @@ public class ViewCoursesActivity extends AppCompatActivity implements CourseAdap
 
         viewModel.getCoursesByCategoryId(categoryId).observe(ViewCoursesActivity.this, new Observer<List<Course>>() {
             @Override
-            public void onChanged(List<Course> courseList) {
+                public void onChanged(List<Course> courseList) {
                 CourseAdapter adapter = new CourseAdapter(courseList, ViewCoursesActivity.this, ViewCoursesActivity.this::onClick);
                 binding.recyclerViewCourseRv.setAdapter(adapter);
 

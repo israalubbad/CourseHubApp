@@ -3,12 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".HomeScreen.MyCourseFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Courses"
+        android:textStyle="bold"
+        android:textColor="@color/primaryColor"
+        android:fontFamily="@font/arb"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="35dp"
+        android:textSize="30dp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        app:tabGravity="fill"
+        android:background="@color/white"
+        app:tabInlineLabel="true"
+        app:tabIndicator="@null"
+        app:tabIndicatorColor="@color/primaryColor"
+        app:tabIndicatorHeight="4dp"
+        app:tabPaddingStart="16dp"
+        app:tabIndicatorFullWidth="true"
+        app:tabPaddingEnd="16dp"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/primaryColor"
+        app:tabTextColor="@color/unselected_tab_text_color" />
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>
 
 </FrameLayout>

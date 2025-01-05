@@ -25,77 +25,106 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Lesson"
-        android:fontFamily="@font/arb"
+        android:fontFamily="@font/arb_"
         android:textColor="@color/primaryColor"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/lessonTitleET"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lessonTitleIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:fontFamily="@font/arb"
-        android:hint="Lesson Title"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lessonTV"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lessonTV" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/primaryColor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <EditText
-        android:id="@+id/lessonDescriptionET"
+        <EditText
+            android:id="@+id/lessonTitleET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Lesson Title"
+            android:padding="15dp"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lessonDescriptionIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:fontFamily="@font/arb"
-        android:hint="Lesson Description"
-        android:inputType="number"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lessonTitleIL"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lessonTitleET" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/primaryColor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <EditText
-        android:id="@+id/lessonVideoEt"
+        <EditText
+            android:id="@+id/lessonDescriptionET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Lesson Description"
+            android:padding="15dp"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lessonVideoIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:fontFamily="@font/arb"
         android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:hint="lesson Video URL "
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintTop_toBottomOf="@id/lessonDescriptionIL"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lessonDescriptionET" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/primaryColor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+        <EditText
+            android:id="@+id/lessonVideoEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Lesson Video URL"
+            android:padding="15dp"
+            android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/articleLinkET"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/articleLinkIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/arb"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:hint="Article Link"
         android:layout_marginHorizontal="16dp"
-        android:padding="15dp"
+        app:layout_constraintTop_toBottomOf="@id/lessonVideoIL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lessonVideoEt" />
+        app:boxStrokeColor="@color/primaryColor"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <EditText
+            android:id="@+id/articleLinkET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Article Link"
+            android:padding="15dp"
+            android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/articleLinkET"
+        app:layout_constraintTop_toBottomOf="@id/articleLinkIL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical">
@@ -103,7 +132,7 @@
         <Button
             android:id="@+id/addLessonBT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="16dp"
             android:text="Add Lesson"
@@ -116,7 +145,7 @@
         <Button
             android:id="@+id/editLessonBT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="16dp"
             android:text="edit Lesson"
@@ -126,7 +155,6 @@
             android:textColor="@color/white"
             android:backgroundTint="@color/primaryColor"
             android:textSize="18sp" />
-
 
 
     </LinearLayout>

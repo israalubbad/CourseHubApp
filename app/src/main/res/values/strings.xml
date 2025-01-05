@@ -28,5 +28,8 @@
 
     <string name="select_category">Select Category</string>
 
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+    </style>
 
 </resources>

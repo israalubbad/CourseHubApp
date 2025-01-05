@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:name=".CourseDetailsActivity"
+    tools:context=".HomeScreen.CourseDetailsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/backIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:elevation="4dp"
+            android:src="@drawable/back"
+            android:tint="@color/unselected_tab_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseAppTint" />
+
+        <ImageView
+            android:id="@+id/coursePhotoIV"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="#FFFFFF"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/courseTitleTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/arb_"
+            android:text="Intro Ux / Ui Design"
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coursePhotoIV" />
+
+        <ImageView
+            android:id="@+id/bookMarkIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/unbookmark"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/coursePhotoIV" />
+
+        <TextView
+            android:id="@+id/categeryTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="category"
+            android:background="@drawable/shape"
+            android:fontFamily="@font/arb"
+            android:textSize="16dp"
+            android:textColor="@color/primaryColor"
+            android:padding="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/courseTitleTV"
+            />
+
+        <TextView
+            android:id="@+id/coursePriseTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/categeryTV"
+            android:text="$ 40 "
+            android:fontFamily="@font/arb_bold"
+            android:textSize="25dp"
+            android:textColor="@color/yourThumbColor"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/courseTitleTV"
+            />
+        <TextView
+            android:id="@+id/instructorNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="instructorName"
+            android:fontFamily="@font/arb_"
+            android:textSize="25dp"
+            android:textColor="@color/unselected_tab_text_color"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/categeryTV"
+            />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/instructorNameTV"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="#90808080"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            />
+        <TextView
+            android:id="@+id/nomberofStudentTV"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/courseHoursTV"
+            android:text="2003 Student"
+            android:fontFamily="@font/arb_"
+            android:textSize="20dp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/users_icon"
+            android:textColor="@color/unselected_tab_text_color"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            />
+        <TextView
+            android:id="@+id/courseHoursTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/nomberofStudentTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="2 hours"
+            android:fontFamily="@font/arb_"
+            android:textSize="20dp"
+            android:drawableStart="@drawable/clock_icon_fill"
+            android:drawablePadding="8dp"
+            android:textColor="#A5A1A1"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/view"
+
+            />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/courseHoursTV"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="#90808080"
+             android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+        />
+        <TextView
+            android:id="@+id/aboutTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="About Course : "
+            android:fontFamily="@font/arb_"
+            android:textSize="25dp"
+            android:drawablePadding="8dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/view2"
+            />
+        <TextView
+            android:id="@+id/courseDescriptionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text=""
+            android:fontFamily="@font/arb_"
+            android:textSize="20dp"
+            android:drawablePadding="8dp"
+            android:textColor="@color/unselected_tab_text_color"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/aboutTv"
+            android:maxLines="6"
+            android:ellipsize="end"
+            />
+        <Button
+            android:id="@+id/enrollCourseBT"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:layout_constraintTop_toBottomOf="@id/courseDescriptionTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="20dp"
+            android:text="Enroll Course"
+            android:fontFamily="@font/arb"
+            android:textSize="20dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/primaryColor"
+            />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

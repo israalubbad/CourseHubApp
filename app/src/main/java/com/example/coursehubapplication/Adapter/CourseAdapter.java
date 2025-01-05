@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.coursehubapplication.DashboardScreen.AddCourseActivity;
 import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
 import com.example.coursehubapplication.R;
-import com.example.coursehubapplication.RoomDatabase.Converters;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.databinding.CourseItemBinding;
@@ -65,37 +63,14 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     public boolean onMenuItemClick(MenuItem item) {
                         int itemId = item.getItemId();
                         if (itemId == R.id.editeItem) {
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("id", courseList.get(position).getCourseId());
-                            bundle.putString("CourseDescription", courseList.get(position).getCourseDescription());
-                            bundle.putInt("Category", courseList.get(position).getCourseCategory());
-                            bundle.putString("CourseTitle", courseList.get(position).getCourseTitle());
-                            bundle.putString("InstructorName", courseList.get(position).getCourseInstructorName());
-                            bundle.putString("CourseHours", String.valueOf(courseList.get(position).getCourseHours()));
-                            bundle.putString("CoursePrise", String.valueOf(courseList.get(position).getCoursePrice()));
-                            bundle.putByteArray("image", Converters.getBitmapAsByteArray(courseList.get(position).getCourseImage()));
                             Intent intent = new Intent(context, AddCourseActivity.class);
-                            intent.putExtra("course", bundle);
+                            intent.putExtra("course", 102);
+                            intent.putExtra("courseId", courseList.get(position).getCourseId());
                             context.startActivity(intent);
                         }
                         if (itemId == R.id.deleteItem) {
                             MyViewModel viewModel = new ViewModelProvider((ViewCoursesActivity) context).get(MyViewModel.class);
-                            AlertDialog.Builder builder = new AlertDialog.Builder((ViewCoursesActivity) context);
-                            builder.setTitle("Confirmation");
-                            builder.setMessage("Are you sure you want to delete this category?");
-                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText((ViewCoursesActivity) context, "course deleted", Toast.LENGTH_SHORT).show();
-                                    viewModel.deleteCourse(courseList.get(position));
-                                }
-                            });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText((ViewCoursesActivity) context, "canceled", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            AlertDialog.Builder builder = getAlertDialog(viewModel, position);
                             AlertDialog dialog = builder.create();
                             dialog.setCancelable(true);
                             dialog.show();
@@ -115,6 +90,27 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 clickListener.onClick(courseList.get(position).getCourseId());
             }
         });
+    }
+
+    private AlertDialog.Builder getAlertDialog(MyViewModel viewModel, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to delete this category?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText((ViewCoursesActivity) context, "course deleted", Toast.LENGTH_SHORT).show();
+                viewModel.deleteCourse(courseList.get(position));
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText((ViewCoursesActivity) context, "canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return builder;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

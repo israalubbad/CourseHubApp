@@ -71,14 +71,15 @@ public class AddLessonActivity extends AppCompatActivity {
             }
         });
 
-        if (getIntent().getBundleExtra("lesson") != null) {
-            Bundle bundle = getIntent().getBundleExtra("lesson");
-            lessonId = bundle.getInt("id");
-            courseId = bundle.getInt("courseId");
-            binding.articleLinkET.setText(bundle.getString("lessonArticle"));
-            binding.lessonDescriptionET.setText(bundle.getString("LessonDescription"));
-            binding.lessonTitleET.setText(bundle.getString("LessonTitle"));
-            binding.lessonVideoEt.setText(bundle.getString("lessonVideo"));
+        if (getIntent().getIntExtra("lesson",-1) == 103) {
+            lessonId= getIntent().getIntExtra("lessonId",-1);
+            viewModel.getLessonById(lessonId).observe(AddLessonActivity.this , lesson -> {
+                courseId = lesson.getCourseId();
+                binding.articleLinkET.setText(lesson.getArticleLink());
+                binding.lessonDescriptionET.setText(lesson.getLessonDescription());
+                binding.lessonTitleET.setText(lesson.getLessonTitle());
+                binding.lessonVideoEt.setText(lesson.getLessonVideo());
+            });
             binding.editLessonBT.setVisibility(View.VISIBLE);
             binding.addLessonBT.setVisibility(View.GONE);
         }

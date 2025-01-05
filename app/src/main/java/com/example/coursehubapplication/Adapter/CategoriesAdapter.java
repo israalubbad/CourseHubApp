@@ -37,7 +37,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     ClickListener clickListener;
     CategoryItemBinding binding;
     AlertDialog dialog_d;
-
+    boolean isBookMark=false;
 
     public CategoriesAdapter(List<Category> categoryList, Context context, ClickListener clickListener) {
         this.categoryList = categoryList;
@@ -68,11 +68,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public boolean onMenuItemClick(MenuItem item) {
                         int itemId = item.getItemId();
                         if (itemId == R.id.editeItem) {
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("id", categoryList.get(position).getCategoryId());
-                            bundle.putString("name", categoryList.get(position).getCategoryName());
                             Intent intent = new Intent(context, AddCategeryActivity.class);
-                            intent.putExtra("Category", bundle);
+                            intent.putExtra("category",101);
+                            intent.putExtra("categoryId",categoryId);
                             context.startActivity(intent);
                         }
                         if (itemId == R.id.deleteItem) {

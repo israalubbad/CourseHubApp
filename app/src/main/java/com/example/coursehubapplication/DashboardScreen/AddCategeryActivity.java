@@ -1,5 +1,6 @@
 package com.example.coursehubapplication.DashboardScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -9,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.coursehubapplication.Adapter.CategoriesAdapter;
+import com.example.coursehubapplication.HomeScreen.HomeFragment;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
@@ -19,6 +23,8 @@ import com.example.coursehubapplication.databinding.ActivityAddCategeryBinding;
 public class AddCategeryActivity extends AppCompatActivity {
     ActivityAddCategeryBinding binding;
     int categoryId;
+    int getCategoryId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,6 @@ public class AddCategeryActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
 
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
@@ -58,10 +63,14 @@ public class AddCategeryActivity extends AppCompatActivity {
         });
 
 
-        if (getIntent().getBundleExtra("Category") != null) {
-            Bundle bundle = getIntent().getBundleExtra("Category");
-            categoryId = bundle.getInt("id");
-            binding.nameCategoryET.setText(bundle.getString("name"));
+        if (getIntent().getIntExtra("category",-1) == 101) {
+            categoryId=getIntent().getIntExtra("categoryId",-1);
+            viewModel.getCategoryById(categoryId).observe(AddCategeryActivity.this, new Observer<Category>() {
+                @Override
+                public void onChanged(Category category) {
+                    binding.nameCategoryET.setText(category.getCategoryName());
+                }
+            });
             binding.editCategoryBT.setVisibility(View.VISIBLE);
             binding.addCategoryBT.setVisibility(View.GONE);
         }
@@ -73,7 +82,7 @@ public class AddCategeryActivity extends AppCompatActivity {
                 String nameCategory = binding.nameCategoryET.getText().toString();
 
                 if (nameCategory.isEmpty()) {
-                    Toast.makeText(AddCategeryActivity.this, "Please enter Category Name", Toast.LENGTH_SHORT).show();
+                    binding.nameCategoryET.setError("Please enter Category Name");
                 } else {
 
                     Category category = new Category(categoryId, nameCategory);
@@ -91,8 +100,14 @@ public class AddCategeryActivity extends AppCompatActivity {
 
 
         binding.back.setOnClickListener(view -> {
+            Intent intent=new Intent(AddCategeryActivity.this,DashboardActivity.class);
+            startActivity(intent);
             finish();// علشان انهي الواجهة
 
         });
+
+
     }
+
+
 }

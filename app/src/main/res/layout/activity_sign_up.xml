@@ -7,28 +7,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginScreen.SignUpActivity">
+
     <ImageView
         android:id="@+id/backIV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="16dp"
-
-        />
+        android:src="@drawable/back"
+        android:tint="@color/unselected_tab_text_color"
+        app:layout_constraintBottom_toBottomOf="@+id/courseHubTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/courseHubTv"
+        tools:ignore="UseAppTint" />
 
     <TextView
-        android:id="@+id/eventHubTv"
+        android:id="@+id/courseHubTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="CursetHub"
+        android:text="courseHub"
         android:textStyle="bold"
-        android:fontFamily="@font/arb"
+        android:fontFamily="@font/arb_"
         android:textColor="@color/primaryColor"
         android:layout_marginTop="30dp"
         android:textSize="35sp"
@@ -39,106 +40,109 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventHubTv"
+        app:layout_constraintTop_toBottomOf="@id/courseHubTv"
         android:text="SignUp"
-        android:fontFamily="@font/arb"
+        android:fontFamily="@font/arb_"
         android:layout_marginStart="30dp"
-        android:textColor="#4A4A4A"
+        android:textColor="@color/unselected_tab_text_color"
         android:layout_marginTop="25dp"
         android:textSize="24sp"
         />
 
-    <EditText
-        android:id="@+id/userNameEt"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userNameIL"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="21dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/signUpTv"
-        android:hint="User Name"
-        android:fontFamily="@font/arb"
-        android:drawablePadding="15dp"
-        android:paddingHorizontal="15dp"
-        android:background="@drawable/shape"
-        android:textColorHint="#555252"
-        />
-
-    <EditText
-        android:id="@+id/emailEt"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="21dp"
+        app:boxStrokeColor="@color/primaryColor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="16dp">
+
+        <EditText
+            android:id="@+id/userNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="User Name"
+            android:fontFamily="@font/arb_"
+            android:drawablePadding="15dp"
+            android:paddingHorizontal="15dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailIL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userNameEt"
-        android:hint="abc@gmail.com"
-        android:fontFamily="@font/arb"
-        android:drawablePadding="15dp"
-        android:paddingHorizontal="15dp"
-        android:background="@drawable/shape"
-        android:textColorHint="#555252" />
-
-
-
-    <EditText
-        android:id="@+id/passwordEt"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@id/userNameIL"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="21dp"
+        app:boxStrokeColor="@color/primaryColor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/emailEt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Email"
+            android:fontFamily="@font/arb_"
+            android:paddingHorizontal="15dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordIL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailEt"
-        android:hint="Password"
-        android:fontFamily="@font/arb"
-        android:background="@drawable/shape"
-        android:drawablePadding="15dp"
-        android:paddingHorizontal="15dp"
-        android:textColorHint="#555252" />
-
-    <ImageView
-        android:id="@+id/hidePassword_img"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/hide"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@id/passwordEt"
-        app:layout_constraintTop_toTopOf="@id/passwordEt"
-        app:layout_constraintBottom_toBottomOf="@id/passwordEt"
-
-        />
-
-    <EditText
-        android:id="@+id/comfortPasswordEt"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@id/emailIL"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="21dp"
+        app:boxStrokeColor="@color/primaryColor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/passwordEt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Password"
+            android:fontFamily="@font/arb_"
+            android:drawablePadding="15dp"
+            android:paddingHorizontal="15dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/comfortPasswordIL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordEt"
-        android:hint="Comfort Password"
-        android:fontFamily="@font/arb"
-        android:textColorHint="#555252"
-        android:background="@drawable/shape"
-        android:drawablePadding="15dp"
-        android:paddingHorizontal="15dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/passwordIL"
+        android:layout_marginHorizontal="30dp"
+        app:passwordToggleEnabled="true"
+        app:boxStrokeColor="@color/primaryColor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="8dp">
 
-    <ImageView
-        android:id="@+id/hidePasswordCF_img"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/hide"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@id/comfortPasswordEt"
-        app:layout_constraintTop_toTopOf="@id/comfortPasswordEt"
-        app:layout_constraintBottom_toBottomOf="@id/comfortPasswordEt"
-
-        />
+        <EditText
+            android:id="@+id/comfortPasswordEt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Comfort Password"
+            android:fontFamily="@font/arb_"
+            android:textColorHint="#555252"
+            android:drawablePadding="15dp"
+            android:paddingHorizontal="15dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
@@ -150,9 +154,9 @@
         android:text="Sign Up"
         android:layout_marginTop="25dp"
         android:textSize="16sp"
-        android:textAllCaps="true"
-        android:fontFamily="@font/arb"
-        app:layout_constraintTop_toBottomOf="@id/comfortPasswordEt"
+        android:textAllCaps="false"
+        android:fontFamily="@font/arb_"
+        app:layout_constraintTop_toBottomOf="@id/comfortPasswordIL"
         android:backgroundTint="@color/primaryColor"
         android:drawableTint="@color/white"
         />
@@ -173,7 +177,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="have account"
-            android:fontFamily="@font/arb"
+            android:fontFamily="@font/arb_"
 
             />
 
@@ -182,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="login"
-            android:fontFamily="@font/arb"
+            android:fontFamily="@font/arb_"
             android:textColor="@color/yourThumbColor"
             android:layout_marginStart="10dp"
 

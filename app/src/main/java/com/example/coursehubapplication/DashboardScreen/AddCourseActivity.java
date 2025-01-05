@@ -87,20 +87,20 @@ public class AddCourseActivity extends AppCompatActivity {
             adapter.addAll(categoryNames);
             adapter.notifyDataSetChanged();
 
-            if (getIntent().getBundleExtra("course") != null) {
+            if (getIntent().getIntExtra("course",-1) ==102) {
                 binding.editCourseBT.setVisibility(View.VISIBLE);
                 binding.addCourseBT.setVisibility(View.GONE);
-                Bundle bundle = getIntent().getBundleExtra("course");
-                courseId = bundle.getInt("id");
-                binding.nameCourseET.setText(bundle.getString("CourseTitle"));
-                binding.courseDescriptionET.setText(bundle.getString("CourseDescription"));
-                binding.instructorNameEt.setText(bundle.getString("InstructorName"));
-                binding.coursePriseET.setText(bundle.getString("CoursePrise"));
-                binding.courseHoursET.setText(bundle.getString("CourseHours"));
-                byte[] img = bundle.getByteArray("image");
-                bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-                binding.imageCourseIV.setImageBitmap(bitmap);
-                categoryId = bundle.getInt("Category");
+                courseId = getIntent().getIntExtra("courseId",-1);
+                viewModel.getCourseById(courseId).observe(AddCourseActivity.this, course -> {
+                    binding.nameCourseET.setText(course.getCourseTitle());
+                    binding.courseDescriptionET.setText(course.getCourseDescription());
+                    binding.instructorNameEt.setText(course.getCourseInstructorName());
+                    binding.courseHoursET.setText(String.valueOf(course.getCourseHours()));
+                    binding.coursePriseET.setText(String.valueOf(course.getCoursePrice()));
+                    binding.imageCourseIV.setImageBitmap(course.getCourseImage());
+                    bitmap=course.getCourseImage();
+                    categoryId = course.getCourseCategory();
+                        });
 
 
             }

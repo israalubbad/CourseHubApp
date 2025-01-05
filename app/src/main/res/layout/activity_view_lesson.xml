@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lessons"
-            android:fontFamily="@font/arb"
+            android:fontFamily="@font/arb_"
             android:layout_gravity="center"
             android:textColor="@color/primaryColor"
             android:textSize="25sp"

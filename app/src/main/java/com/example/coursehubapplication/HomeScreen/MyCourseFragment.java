@@ -2,13 +2,25 @@ package com.example.coursehubapplication.HomeScreen;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.coursehubapplication.Adapter.ViewPagerAdapter;
 import com.example.coursehubapplication.R;
+import com.example.coursehubapplication.RoomDatabase.Category;
+import com.example.coursehubapplication.RoomDatabase.MyViewModel;
+import com.example.coursehubapplication.databinding.FragmentMyCourseBinding;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,16 +41,6 @@ public class MyCourseFragment extends Fragment {
     public MyCourseFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyCourseFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MyCourseFragment newInstance(String param1, String param2) {
         MyCourseFragment fragment = new MyCourseFragment();
         Bundle args = new Bundle();
@@ -60,7 +62,30 @@ public class MyCourseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_course, container, false);
+       FragmentMyCourseBinding binding = FragmentMyCourseBinding.inflate(inflater, container, false);
+       binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Ongoing"));
+       binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Completed"));
+
+        ArrayList<String> tabs = new ArrayList<>();
+        tabs.add("Ongoing");
+        tabs.add("Completed");
+        ArrayList<Fragment> fragments=new ArrayList<>();
+        fragments.add(new RecyclerViewFragment());
+        fragments.add(new RecyclerViewFragment());
+      // ViewPagerAdapter adapter = new ViewPagerAdapter(this, null);
+         //binding.viewPager.setAdapter(adapter);
+
+        MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
+
+             //  adapter.notifyDataSetChanged();
+
+//                new TabLayoutMediator(binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+//                    @Override
+//                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+//                        tab.setText(tabs.get(position));
+//                    }
+//                }).attach();
+
+       return binding.getRoot();
     }
 }

@@ -61,35 +61,13 @@ public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     public boolean onMenuItemClick(MenuItem item) {
                         int itemId = item.getItemId();
                         if (itemId == R.id.editeItem) {
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("id", lessonList.get(position).getCourseId());
-                            bundle.putString("LessonDescription", lessonList.get(position).getLessonDescription());
-                            bundle.putInt("courseId", lessonList.get(position).getCourseId());
-                            bundle.putString("LessonTitle", lessonList.get(position).getLessonTitle());
-                            bundle.putString("lessonVideo", lessonList.get(position).getLessonVideo());
-                            bundle.putString("lessonArticle", lessonList.get(position).getArticleLink());
                             Intent intent = new Intent(context, AddLessonActivity.class);
-                            intent.putExtra("lesson", bundle);
+                            intent.putExtra("lesson", 103);
+                            intent.putExtra("lessonId", lessonList.get(position).getLessonId());
                             context.startActivity(intent);
                         }
                         if (itemId == R.id.deleteItem) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder((ViewLessonActivity) context);
-                            builder.setTitle("Confirmation");
-                            builder.setMessage("Are you sure you want to delete this category?");
-                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    MyViewModel viewModel = new ViewModelProvider((ViewLessonActivity) context).get(MyViewModel.class);
-                                    Toast.makeText((ViewLessonActivity) context, "category deleted", Toast.LENGTH_SHORT).show();
-                                    viewModel.deleteLesson(lessonList.get(position));
-                                }
-                            });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText((ViewLessonActivity) context, "canceled", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            AlertDialog.Builder builder = getBuilder(position);
                             AlertDialog dialog = builder.create();
                             dialog.setCancelable(true);
                             dialog.show();
@@ -102,6 +80,27 @@ public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
 
+    }
+
+    private AlertDialog.Builder getBuilder(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder((ViewLessonActivity) context);
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to delete this category?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                MyViewModel viewModel = new ViewModelProvider((ViewLessonActivity) context).get(MyViewModel.class);
+                Toast.makeText((ViewLessonActivity) context, "category deleted", Toast.LENGTH_SHORT).show();
+                viewModel.deleteLesson(lessonList.get(position));
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText((ViewLessonActivity) context, "canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return builder;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -124,10 +123,6 @@ public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onClick(int courseId);
     }
 
-    public void AlertDialog(int position) {
-
-
-    }
 }
 
 

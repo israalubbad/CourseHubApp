@@ -25,86 +25,135 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Course"
-        android:fontFamily="@font/arb"
+        android:fontFamily="@font/arb_"
         android:textColor="@color/primaryColor"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageCourseIV"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_camera_alt_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/courseTV"
+        android:layout_marginStart="16dp"
+        tools:ignore="UseAppTint" />
 
-    <EditText
-        android:id="@+id/nameCourseET"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameCourseIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:fontFamily="@font/arb"
-        android:hint="Course Title"
-        android:padding="13dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/primaryColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseTV" />
+        app:layout_constraintTop_toBottomOf="@+id/imageCourseIV"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <EditText
-        android:id="@+id/courseDescriptionET"
+        <EditText
+            android:id="@+id/nameCourseET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Course Title"
+            android:padding="13dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/courseDescriptionIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:fontFamily="@font/arb"
-        android:hint="Course Description"
-        android:inputType="text"
-        android:padding="13dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/primaryColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameCourseET" />
+        app:layout_constraintTop_toBottomOf="@+id/nameCourseIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <EditText
-        android:id="@+id/instructorNameEt"
+        <EditText
+            android:id="@+id/courseDescriptionET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Course Description"
+            android:inputType="textMultiLine"
+            android:padding="13dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/instructorNameIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:fontFamily="@font/arb"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:hint="Instructor Name"
-        android:padding="13dp"
+        android:layout_marginTop="8dp"
+        app:boxStrokeColor="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseDescriptionET" />
-    <EditText
-        android:id="@+id/coursePriseET"
+        app:layout_constraintTop_toBottomOf="@+id/courseDescriptionIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <EditText
+            android:id="@+id/instructorNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Instructor Name"
+            android:padding="13dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/coursePriseIL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:fontFamily="@font/arb"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:hint="Course Prise"
-        android:inputType="number"
-        android:padding="13dp"
+        android:layout_marginTop="8dp"
+        app:boxStrokeColor="@color/primaryColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/courseHoursET"
-        app:layout_constraintTop_toBottomOf="@+id/instructorNameEt" />
+        app:layout_constraintEnd_toStartOf="@id/courseHoursIL"
+        app:layout_constraintTop_toBottomOf="@+id/instructorNameIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+        <EditText
+            android:id="@+id/coursePriseET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Course Prise"
+            android:inputType="number"
+            android:padding="13dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/courseHoursET"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/courseHoursIL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/arb"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
-        android:hint="Course Hours"
-        android:inputType="number"
-        android:padding="13dp"
-        app:layout_constraintStart_toEndOf="@id/coursePriseET"
+        android:layout_marginTop="8dp"
+        app:boxStrokeColor="@color/primaryColor"
+        app:layout_constraintStart_toEndOf="@id/coursePriseIL"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/instructorNameEt" />
+        app:layout_constraintTop_toBottomOf="@+id/instructorNameIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <EditText
+            android:id="@+id/courseHoursET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arb_"
+            android:hint="Course Hours"
+            android:inputType="number"
+            android:padding="13dp"
+            android:textColorHint="#555252"/>
+    </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:id="@+id/select_category"
         android:layout_width="wrap_content"
@@ -115,48 +164,33 @@
         android:textColor="@color/primaryColor"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/courseHoursET"
+        app:layout_constraintTop_toBottomOf="@id/courseHoursIL"
         tools:ignore="UseAppTint" />
-    <Spinner
-        android:id="@+id/addCategorySp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/selectCategoryIL"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:padding="4dp"
-        android:spinnerMode="dropdown"
-        android:prompt="@string/select_category"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/select_category"
-      />
-    <TextView
-        android:id="@+id/imgeAddTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Add Image Course : "
-        android:textColor="@color/primaryColor"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCategorySp"
-        tools:ignore="UseAppTint" />
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <ImageView
-        android:id="@+id/imageCourseIV"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/baseline_camera_alt_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgeAddTV"
-        tools:ignore="UseAppTint" />
+        <Spinner
+            android:id="@+id/addCategorySp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:spinnerMode="dropdown"
+            android:prompt="@string/select_category"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imageCourseIV"
+        app:layout_constraintTop_toBottomOf="@id/selectCategoryIL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical">
@@ -164,28 +198,29 @@
         <Button
             android:id="@+id/addCourseBT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="16dp"
             android:text="Add Course"
-            android:fontFamily="@font/arb"
+            android:fontFamily="@font/arb_"
+            android:padding="6dp"
             android:textAllCaps="false"
-            android:textColor="@color/primaryColor"
-            android:backgroundTint="#F8E8CF"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primaryColor"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/editCourseBT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="16dp"
             android:text="edit Course"
             android:visibility="gone"
             android:textAllCaps="false"
-            android:fontFamily="@font/arb"
-            android:textColor="@color/primaryColor"
-            android:backgroundTint="@color/yourTrackColor"
+            android:fontFamily="@font/arb_"
+            android:textColor="@color/selected_tab_text_color"
+            android:backgroundTint="@color/primaryColor"
             android:textSize="18sp" />
 
 

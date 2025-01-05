@@ -19,21 +19,12 @@ public class UserCourseEnrolled {
 
     private int progressIndicator;
 
-    private int studentCourseEnrolled;
 
-    public UserCourseEnrolled(int userId, int courseId, int progressIndicator, int studentCourseEnrolled) {
+    public UserCourseEnrolled(int userId, int courseId, int progressIndicator) {
         this.userId = userId;
         this.courseId = courseId;
         this.progressIndicator = progressIndicator;
-        this.studentCourseEnrolled = studentCourseEnrolled;
-    }
 
-    public int getStudentCourseEnrolled() {
-        return studentCourseEnrolled;
-    }
-
-    public void setStudentCourseEnrolled(int studentCourseEnrolled) {
-        this.studentCourseEnrolled = studentCourseEnrolled;
     }
 
     public int getEnrolledCourseId() {

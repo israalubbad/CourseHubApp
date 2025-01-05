@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:fontFamily="@font/arb"
+            android:fontFamily="@font/arb_"
             android:textStyle="bold"
             android:textColor="@color/primaryColor"
             android:text="" />
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="18sp"
-            android:fontFamily="@font/arb"
+            android:fontFamily="@font/arb_"
             android:maxLines="2"
             android:ellipsize="end"
             android:text="" />
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/arb"
+            android:fontFamily="@font/arb_"
             android:text="" />
 
     </LinearLayout>

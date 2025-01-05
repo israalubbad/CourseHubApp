@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -163,10 +165,12 @@ public class MyViewModel extends AndroidViewModel {
         return repository.getEnrolledId(enrolledCourseId);
     }
 
-    public LiveData<UserCourseEnrolled> getUsersByCourseId(int courseId) {
+    public   LiveData<List<UserCourseEnrolled>> getUsersByCourseId(int courseId) {
         return repository.getUsersByCourseId(courseId);
     }
-
+    public LiveData<Boolean> isAlreadyEnrolled(int userId, int courseId) {
+        return repository.isUserEnrolledInCourse(userId, courseId);
+    }
     // Bookmark
     public void insertBookmark(Bookmark bookmark) {
         repository.insertBookmark(bookmark);
@@ -177,24 +181,34 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Bookmark>> getAllBookmarks() {
-        return repository.getAllBookmarks();
+        return  repository.getAllBookmarks();
     }
 
-    public LiveData<Bookmark> getBookmarkByUserId(int userId) {
+    public LiveData<List<Bookmark>> getBookmarkByUserId(int userId) {
         return repository.getBookmarkByUserId(userId);
     }
 
     public LiveData<Bookmark> getBookmarkByCourseId(int courseId) {
         return repository.getBookmarkByCourseId(courseId);
     }
-
-    public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId, int courseId) {
-        return repository.getBookmarkByUserIdAndCourse(userId, courseId);
-    }
+//
+//    public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId, int courseId) {
+//        return repository.getBookmarkByUserIdAndCourse(userId, courseId);
+//    }
 
     public LiveData<Bookmark> getBookmarkId(int bookmarkId) {
         return repository.getBookmarkId(bookmarkId);
     }
+
+    public LiveData<Boolean> getBookmarkByUserIdAndCourse(int courseId, int userId) {
+        return repository.getBookmarkByUserIdAndCourse(courseId, userId);
+    }
+    public void deleteBookmarkByUserAndCourse(int userId, int courseId) {
+
+            repository.deleteBookmarkByUserAndCourse(userId, courseId);
+
+    }
+
 }
 
 

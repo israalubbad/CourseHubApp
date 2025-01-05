@@ -3,6 +3,7 @@ package com.example.coursehubapplication.RoomDatabase;
 import android.graphics.Bitmap;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -21,6 +22,15 @@ public class User {
 
 
     public User( String userName, String userEmail, String userPassword, Bitmap userPhoto, boolean isAdmin) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userPhoto = userPhoto;
+        this.isAdmin = isAdmin;
+    }
+    @Ignore
+    public User(int userId, String userName, String userEmail, String userPassword, Bitmap userPhoto, boolean isAdmin) {
+        this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;

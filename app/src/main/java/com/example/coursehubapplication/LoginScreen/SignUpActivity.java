@@ -82,14 +82,6 @@ ActivitySignUpBinding binding;
         });
 
 
-        binding.hidePasswordImg.setOnClickListener(view -> {
-            isPasswordViseble= Utils.showPassword(isPasswordViseble,binding.passwordEt);
-        });
-
-        binding.hidePasswordCFImg.setOnClickListener(view -> {
-            isComfortPasswordViseble= Utils.showPassword(isComfortPasswordViseble,binding.comfortPasswordEt);
-        });
-
 
     }
 }

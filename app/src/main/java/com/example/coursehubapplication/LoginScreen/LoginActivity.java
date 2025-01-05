@@ -16,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
+import com.example.coursehubapplication.HomeScreen.HomeActivity;
 import com.example.coursehubapplication.MainActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
@@ -29,6 +31,7 @@ ActivityLoginBinding binding;
     MyViewModel viewModel;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,20 +46,11 @@ ActivityLoginBinding binding;
         binding.rememberSwitch.setChecked(false);
 
         viewModel= new ViewModelProvider(this).get(MyViewModel.class);
-        viewModel.getUserByEmailAndPassword("admin@gmail.com", "admin123").observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if (user == null) {
-                    Bitmap userPhoto = BitmapFactory.decodeResource(getResources(), R.drawable.photo);
-                    viewModel.userInsert(new User("admin", "admin@gmail.com", "admin123", userPhoto, true));
-                }
-            }
-        });
 
-        sharedPreferences=getSharedPreferences("event",MODE_PRIVATE);
+        sharedPreferences=getSharedPreferences("course",MODE_PRIVATE);
         editor=sharedPreferences.edit();
         if(sharedPreferences.getBoolean("remembered",false)){
-            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
             intent.putExtra("userId",sharedPreferences.getInt("userId",-1));
             startActivity(intent);
 
@@ -76,19 +70,21 @@ ActivityLoginBinding binding;
                             if(user!= null){
 
                                 if(binding.rememberSwitch.isChecked()){
-                                    editor.putBoolean("remembered",true).apply();
-                                    editor.putInt("userId", user.getUserId()).apply();
-                                }else{
+                                  editor.putBoolean("remembered",true).apply();
+                                 editor.putInt("userId", user.getUserId()).apply();
+                                 editor.putInt("userId", user.getUserId()).apply();
 
                                 }
+
                                 if (user.isAdmin()) {
-                                    Intent intent=new Intent(LoginActivity.this, SplashActivity.class);
+                                    Intent intent=new Intent(LoginActivity.this, DashboardActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }else{
-                                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
                                 // علشان يعرض بيانات المستخدم الخاصة فيه
                                 intent.putExtra("userId",user.getUserId());
+                                editor.putInt("userId", user.getUserId()).apply();
                                 startActivity(intent);
                                 finish();
                                 }
@@ -110,11 +106,12 @@ ActivityLoginBinding binding;
             }
         });
 
-        binding.hidePasswordImg.setOnClickListener(view -> {
-            // لما اضغط على الععين يخفي الكلام او يظهر
-            isPasswordViseble= Utils.showPassword(isPasswordViseble,binding.passwordEt);
-        });
 
+
+    }
+
+    public interface UserLessener {
+        void onClick(int userId);
     }
 
 }

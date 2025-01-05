@@ -29,6 +29,7 @@ public class Course {
     private double coursePrice;
 
     private int courseHours;
+
     @Nullable
     private Integer courseCategory;
 
@@ -126,4 +127,5 @@ public class Course {
     public void setCourseCategory(Integer courseCategory) {
         this.courseCategory = courseCategory;
     }
+
 }

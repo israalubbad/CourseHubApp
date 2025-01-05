@@ -3,7 +3,6 @@ package com.example.coursehubapplication.RoomDatabase;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Query;
 
 import java.util.List;
 
@@ -202,9 +201,13 @@ public class MyRepository {
     }
 
 
-    LiveData<UserCourseEnrolled> getUsersByCourseId(int courseId){
+     LiveData<List<UserCourseEnrolled>> getUsersByCourseId(int courseId){
         return userCourseEnrolledDao.getUsersByCourseId(courseId);
     }
+    public LiveData<Boolean> isUserEnrolledInCourse(int userId, int courseId) {
+        return userCourseEnrolledDao.isUserEnrolledInCourse(userId, courseId);
+    }
+
     // Bookmark
 
     public void insertBookmark(Bookmark bookmark) {
@@ -223,7 +226,7 @@ public class MyRepository {
         return bookmarkDao.getAllBookmark();
     }
 
-    LiveData<Bookmark> getBookmarkByUserId(int userId){
+    LiveData<List<Bookmark>> getBookmarkByUserId(int userId){
         return bookmarkDao.getBookmarkByUserId(userId);
     }
 
@@ -232,14 +235,24 @@ public class MyRepository {
         return bookmarkDao.getBookmarkByCourseId(courseId);
     }
 
-
-    LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId,int courseId){
-        return bookmarkDao.getBookmarkByUserIdAndCourse(userId,courseId);
-    }
+//
+//    LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId,int courseId){
+//        return bookmarkDao.getBookmarkByUserIdAndCourse(userId,courseId);
+//    }
 
 
     LiveData<Bookmark> getBookmarkId(int bookmarkId){
         return bookmarkDao.getBookmarkByCourseId(bookmarkId);
+    }
+
+    public LiveData<Boolean> getBookmarkByUserIdAndCourse(int courseId, int userId) {
+     return bookmarkDao.getBookmarkByUserIdAndCourse(courseId, userId);
+    }
+
+    public void deleteBookmarkByUserAndCourse(int userId, int courseId) {
+        CourseDatabase.databaseWriteExecutor.execute(() -> {
+            bookmarkDao.deleteBookmarkByUserAndCourse(userId, courseId);
+        });
     }
 
 }
