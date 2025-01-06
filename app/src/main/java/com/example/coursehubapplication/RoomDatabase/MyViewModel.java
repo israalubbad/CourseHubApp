@@ -171,6 +171,9 @@ public class MyViewModel extends AndroidViewModel {
     public LiveData<Boolean> isAlreadyEnrolled(int userId, int courseId) {
         return repository.isUserEnrolledInCourse(userId, courseId);
     }
+    public LiveData<List<UserCourseEnrolled>> getCoursesByUserIdList(int userId) {
+        return repository.getCoursesByUserIdList(userId);
+    }
     // Bookmark
     public void insertBookmark(Bookmark bookmark) {
         repository.insertBookmark(bookmark);

@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences2 = getSharedPreferences("course", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences2.edit();;
         boolean isFirstData = sharedPreferences2.getBoolean("isFirstData", true);
-        editor.putInt("userId", 2).apply();
+        editor.putInt("userId", 3).apply();
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
         if (isFirstData) {

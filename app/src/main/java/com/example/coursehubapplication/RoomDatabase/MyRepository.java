@@ -195,6 +195,9 @@ public class MyRepository {
     public LiveData<UserCourseEnrolled> getCoursesByUserId(int userId) {
         return userCourseEnrolledDao.getCoursesByUserId(userId);
     }
+    public LiveData<List<UserCourseEnrolled>> getCoursesByUserIdList(int userId) {
+        return userCourseEnrolledDao.getCoursesByUserIdList(userId);
+    }
 
     LiveData<UserCourseEnrolled> getEnrolledId(int enrolledCourseId){
         return userCourseEnrolledDao.getEnrolledId(enrolledCourseId);

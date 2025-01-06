@@ -63,28 +63,22 @@ public class MyCourseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        FragmentMyCourseBinding binding = FragmentMyCourseBinding.inflate(inflater, container, false);
-       binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Ongoing"));
-       binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Completed"));
-
         ArrayList<String> tabs = new ArrayList<>();
         tabs.add("Ongoing");
         tabs.add("Completed");
         ArrayList<Fragment> fragments=new ArrayList<>();
-        fragments.add(new RecyclerViewFragment());
-        fragments.add(new RecyclerViewFragment());
-      // ViewPagerAdapter adapter = new ViewPagerAdapter(this, null);
-         //binding.viewPager.setAdapter(adapter);
+        fragments.add(new OngoingFragment());
+        fragments.add(new CompletedFragment());
+       ViewPagerAdapter adapter = new ViewPagerAdapter(this, fragments);
+       binding.viewPager.setAdapter(adapter);
+       adapter.notifyDataSetChanged();
 
-        MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
-
-             //  adapter.notifyDataSetChanged();
-
-//                new TabLayoutMediator(binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-//                    @Override
-//                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-//                        tab.setText(tabs.get(position));
-//                    }
-//                }).attach();
+                new TabLayoutMediator(binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        tab.setText(tabs.get(position));
+                    }
+                }).attach();
 
        return binding.getRoot();
     }

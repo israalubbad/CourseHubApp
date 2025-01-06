@@ -74,7 +74,7 @@ public class Utils {
 
     public static void inertEnrollUserInCourse(MyViewModel viewModel){
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,1,0));
-        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,2,0));
+        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,2,100));
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,3,0));
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,2,0));
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(4,1,0));

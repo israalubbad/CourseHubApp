@@ -32,6 +32,9 @@ public interface UserCourseEnrolledDao {
     @Query("SELECT * FROM UserCourseEnrolled WHERE userId = :userId")
     LiveData<UserCourseEnrolled> getCoursesByUserId(int userId);
 
+    @Query("SELECT * FROM UserCourseEnrolled WHERE userId = :userId")
+    LiveData<List<UserCourseEnrolled>> getCoursesByUserIdList(int userId);
+
     @Query("SELECT * FROM UserCourseEnrolled WHERE courseId = :courseId")
     LiveData<List<UserCourseEnrolled>> getUsersByCourseId(int courseId);
 

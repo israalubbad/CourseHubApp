@@ -16,10 +16,10 @@
         android:layout_height="wrap_content"
         android:text="My Courses"
         android:textStyle="bold"
-        android:textColor="@color/primaryColor"
-        android:fontFamily="@font/arb"
+        android:textColor="#323333"
+        android:fontFamily="@font/arb_"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:textSize="30dp"/>
 
     <com.google.android.material.tabs.TabLayout

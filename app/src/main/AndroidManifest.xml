@@ -17,6 +17,9 @@
         android:theme="@style/Theme.CourseHubApplication"
         tools:targetApi="31">
         <activity
+            android:name=".HomeScreen.MyLessonActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeScreen.EditeProfileActivity"
             android:exported="false" />
         <activity
@@ -42,7 +45,7 @@
             android:exported="true" />
         <activity
             android:name=".HomeScreen.HomeActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".OnbordingScreen.OnboardingActivity"
             android:exported="true" />
@@ -51,10 +54,10 @@
             android:exported="false" />
         <activity
             android:name=".LoginScreen.LoginActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".LoginScreen.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
