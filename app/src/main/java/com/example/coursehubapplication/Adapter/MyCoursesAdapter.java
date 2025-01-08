@@ -1,30 +1,23 @@
 package com.example.coursehubapplication.Adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.coursehubapplication.HomeScreen.CourseDetailsActivity;
 import com.example.coursehubapplication.HomeScreen.HomeActivity;
 import com.example.coursehubapplication.HomeScreen.MyLessonActivity;
-import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
-import com.example.coursehubapplication.databinding.CourseviewItemBinding;
 import com.example.coursehubapplication.databinding.MyCoursesItemBinding;
 
 import java.util.List;

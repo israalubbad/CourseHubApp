@@ -66,7 +66,7 @@ public class BookMarkAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
                 viewHolder.binding.courseDescription.setText(course.getCourseDescription());
                 viewHolder.binding.instructorName.setText(course.getCourseInstructorName());
                 viewHolder.binding.coursePhotoTV.setImageBitmap(course.getCourseImage());
-                viewModel.getBookmarkByUserIdAndCourse(course.getCourseId(), userId).observe((LifecycleOwner) context, isBookmarked -> {
+                viewModel.getIsBookmark(course.getCourseId(), userId).observe((LifecycleOwner) context, isBookmarked -> {
                     if (isBookmarked != null) {
                         if (isBookmarked) {
                             viewHolder.binding.bookMarkIv.setImageResource(R.drawable.bookmark);

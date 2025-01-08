@@ -22,34 +22,27 @@ public class Lesson {
 
     private int courseId;
 
-    private boolean isCompleted;
 
-    public Lesson(String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId, boolean isCompleted) {
+    public Lesson(String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
         this.lessonVideo = lessonVideo;
         this.articleLink = articleLink;
         this.courseId = courseId;
-        this.isCompleted = isCompleted;
+
     }
     @Ignore
-    public Lesson(int lessonId, String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
-        this.lessonId = lessonId;
+    public Lesson(int lessonId,String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
+        this.lessonId=lessonId;
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
         this.lessonVideo = lessonVideo;
         this.articleLink = articleLink;
         this.courseId = courseId;
+
     }
-    @Ignore
-    public Lesson( String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
-        this.lessonTitle = lessonTitle;
-        this.lessonDescription = lessonDescription;
-        this.lessonVideo = lessonVideo;
-        this.articleLink = articleLink;
-        this.courseId = courseId;
-        this.isCompleted = isCompleted;
-    }
+
+
 
     public int getLessonId() {
         return lessonId;
@@ -99,11 +92,5 @@ public class Lesson {
         this.courseId = courseId;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
 }

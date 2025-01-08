@@ -3,6 +3,7 @@ package com.example.coursehubapplication.LoginScreen;
 import static com.example.coursehubapplication.Utils.inertCategory;
 import static com.example.coursehubapplication.Utils.inertCourses;
 import static com.example.coursehubapplication.Utils.inertEnrollUserInCourse;
+import static com.example.coursehubapplication.Utils.inertLesson;
 import static com.example.coursehubapplication.Utils.inertUser;
 import static com.example.coursehubapplication.Utils.insertBookmark;
 
@@ -73,6 +74,7 @@ public class SplashActivity extends AppCompatActivity {
             inertUser(viewModel, resources);
             inertCategory(viewModel);
             inertCourses(viewModel, resources);
+            inertLesson(viewModel);
             insertBookmark(viewModel);
             inertEnrollUserInCourse(viewModel);
         }).start();}

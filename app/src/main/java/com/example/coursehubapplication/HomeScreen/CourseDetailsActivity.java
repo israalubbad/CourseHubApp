@@ -84,7 +84,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getBookmarkByUserIdAndCourse(courseId, userId).observe((LifecycleOwner) this, isBookmarked -> {
+        viewModel.getIsBookmark(courseId, userId).observe((LifecycleOwner) this, isBookmarked -> {
             if (isBookmarked != null) {
                 if (isBookmarked) {
                     binding.bookMarkIv.setImageResource(R.drawable.bookmark);

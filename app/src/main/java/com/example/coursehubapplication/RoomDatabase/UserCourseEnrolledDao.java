@@ -41,6 +41,10 @@ public interface UserCourseEnrolledDao {
     @Query("SELECT COUNT(*) FROM UserCourseEnrolled WHERE userId = :userId AND courseId = :courseId")
     LiveData<Boolean> isUserEnrolledInCourse(int userId, int courseId);
 
+    @Query("SELECT * FROM UserCourseEnrolled WHERE userId = :userId AND courseId = :courseId")
+    LiveData<UserCourseEnrolled> getUserEnrolledInCourse(int userId, int courseId);
 
 
+    @Query("UPDATE UserCourseEnrolled SET progressIndicator = :progress WHERE userId = :userId AND courseId = :courseId")
+    void updateCourseProgress(int userId, int courseId, int progress);
 }

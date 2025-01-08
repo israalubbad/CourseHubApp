@@ -27,8 +27,8 @@ public interface BookmarkDao {
     @Query("SELECT * FROM Bookmark WHERE courseId = :courseId")
     LiveData<Bookmark> getBookmarkByCourseId(int courseId);
 
-//    @Query("SELECT * FROM Bookmark WHERE userId = :userId AND courseId = :courseId ")
-//    LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId,int courseId);
+    @Query("SELECT * FROM Bookmark WHERE userId = :userId AND courseId = :courseId ")
+    LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId,int courseId);
 
     @Query("SELECT * FROM Bookmark WHERE bookmarkId = :bookmarkId")
     LiveData<Bookmark> getBookmarkId(int bookmarkId);
@@ -37,6 +37,6 @@ public interface BookmarkDao {
     LiveData<List<Bookmark>> getAllBookmark();
 
     @Query("SELECT COUNT(*) > 0 FROM Bookmark WHERE userId = :userId AND courseId = :courseId")
-    public LiveData<Boolean> getBookmarkByUserIdAndCourse(int courseId, int userId);
+    public LiveData<Boolean> getIsBookmark(int courseId, int userId);
 
 }

@@ -3,6 +3,9 @@ package com.example.coursehubapplication.RoomDatabase;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -13,6 +16,7 @@ public class MyRepository {
     private LessonDao lessonDao;
     private BookmarkDao bookmarkDao;
     private UserCourseEnrolledDao userCourseEnrolledDao;
+    private LessonUserDao lessonUserDao;
 
     public MyRepository(Application application) {
         CourseDatabase db = CourseDatabase.getDatabase(application);
@@ -22,6 +26,7 @@ public class MyRepository {
         lessonDao=db.lessonDao();
         bookmarkDao=db.bookmarkDao();
         userCourseEnrolledDao= db.userCourseEnrolledDao();
+        lessonUserDao=db.LessonUserDao();
     }
 
     //// User
@@ -164,6 +169,8 @@ public class MyRepository {
         return lessonDao.getLessonByCourseId(courseId);
     }
 
+
+
     // Enrollment
     public void insertEnrollUserInCourse(UserCourseEnrolled enrollment) {
         CourseDatabase.databaseWriteExecutor.execute(() -> {
@@ -185,6 +192,12 @@ public class MyRepository {
     public void deleteUserFromCourse(int userId, int courseId) {
         CourseDatabase.databaseWriteExecutor.execute(() -> {
             userCourseEnrolledDao.deleteUserFromCourse(userId,courseId);
+        });
+    }
+
+    void updateCourseProgress(int userId, int courseId, int progress){
+        CourseDatabase.databaseWriteExecutor.execute(() -> {
+            new Thread(() -> userCourseEnrolledDao.updateCourseProgress(userId, courseId, progress)).start();
         });
     }
 
@@ -211,6 +224,9 @@ public class MyRepository {
         return userCourseEnrolledDao.isUserEnrolledInCourse(userId, courseId);
     }
 
+    LiveData<UserCourseEnrolled> getUserEnrolledInCourse(int userId, int courseId){
+        return userCourseEnrolledDao.getUserEnrolledInCourse(userId,courseId);
+    }
     // Bookmark
 
     public void insertBookmark(Bookmark bookmark) {
@@ -238,23 +254,72 @@ public class MyRepository {
         return bookmarkDao.getBookmarkByCourseId(courseId);
     }
 
-//
-//    LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId,int courseId){
-//        return bookmarkDao.getBookmarkByUserIdAndCourse(userId,courseId);
-//    }
-
-
     LiveData<Bookmark> getBookmarkId(int bookmarkId){
         return bookmarkDao.getBookmarkByCourseId(bookmarkId);
     }
 
-    public LiveData<Boolean> getBookmarkByUserIdAndCourse(int courseId, int userId) {
+    public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int courseId, int userId) {
      return bookmarkDao.getBookmarkByUserIdAndCourse(courseId, userId);
+    }
+
+    public LiveData<Boolean> getIsBookmark(int courseId, int userId) {
+        return bookmarkDao.getIsBookmark(courseId, userId);
     }
 
     public void deleteBookmarkByUserAndCourse(int userId, int courseId) {
         CourseDatabase.databaseWriteExecutor.execute(() -> {
             bookmarkDao.deleteBookmarkByUserAndCourse(userId, courseId);
+        });
+    }
+
+    ////////
+
+    void insertLessonUser(LessonUser lessonUser){
+        CourseDatabase.databaseWriteExecutor.execute(() -> {
+        lessonUserDao.insertLessonUser(lessonUser);
+        });
+    }
+
+
+    void updateLessonUser(LessonUser lessonUser){
+            CourseDatabase.databaseWriteExecutor.execute(() -> {
+
+        lessonUserDao.updateLessonUser(lessonUser);
+            });
+    }
+    void deleteLessonUser(LessonUser lessonUser){
+            CourseDatabase.databaseWriteExecutor.execute(() -> {
+
+        lessonUserDao.deleteLessonUser(lessonUser);
+            });
+    }
+
+    LiveData<Integer> getCompletedLessons(int enrolledCourseId){
+       return lessonUserDao.getCompletedLessons(enrolledCourseId);
+
+    }
+
+
+    LiveData<LessonUser> getLessonUser(int enrolledCourseId, int lessonId){
+        return lessonUserDao.getLessonUser(enrolledCourseId,lessonId);
+    }
+
+    public LiveData<Boolean> getIsCompleted(int enrolledCourseId, int lessonId){
+        return lessonUserDao.getIsCompleted(enrolledCourseId,lessonId);
+    }
+
+
+
+
+
+
+    public LiveData<List<LessonUser>> getCompletedLesson(int enrolledCourseId){
+        return lessonUserDao.getCompletedLesson(enrolledCourseId);
+    }
+
+    void deleteLessonUser(int enrolledCourseId, int lessonId){
+        CourseDatabase.databaseWriteExecutor.execute(() -> {
+            lessonUserDao.deleteLessonUser(enrolledCourseId,lessonId);
         });
     }
 

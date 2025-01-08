@@ -1,6 +1,5 @@
 package com.example.coursehubapplication;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -11,11 +10,13 @@ import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModel;
 
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.Course;
+import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
@@ -62,6 +63,18 @@ public class Utils {
         viewModel.insertCourse(new Course("Java Programming", "Learn Java from scratch and build robust applications.", "Jaafar Al Agha", photoCourse4, 89.99, 35, 4));
 
     }
+    public static void inertLesson(MyViewModel viewModel){
+        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",1));
+        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",1));
+        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",2));
+        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",2));
+        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",3));
+        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",3));
+        viewModel.insertLesson(new Lesson("HTML Basics", "Learn the basics of HTML syntax and structure.", "html_video.mp4", null, 1));
+        viewModel.insertLesson(new Lesson("CSS Styling", "Learn how to apply styles to HTML elements using CSS.", "css_video.mp4", "https://css-articles.com", 1));
+        viewModel.insertLesson(new Lesson("JavaScript Fundamentals", "Understand basic JavaScript concepts.", "js_video.mp4", null, 1));
+
+    }
 
     public static void insertBookmark(MyViewModel viewModel){
         viewModel.insertBookmark(new Bookmark(2,1));
@@ -71,6 +84,7 @@ public class Utils {
         viewModel.insertBookmark(new Bookmark(3,2));
 
     }
+
 
     public static void inertEnrollUserInCourse(MyViewModel viewModel){
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,1,0));

@@ -72,28 +72,27 @@ public class CompletedFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        FragmentCompletedBinding binding= FragmentCompletedBinding.inflate(getLayoutInflater());
-        SharedPreferences sharedPreferences=requireContext().getSharedPreferences("course",MODE_PRIVATE);
-        int userId=sharedPreferences.getInt("userId",-1);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FragmentCompletedBinding binding = FragmentCompletedBinding.inflate(getLayoutInflater());
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("course", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("userId", -1);
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
-        List<UserCourseEnrolled> completedCourses = new ArrayList<>();
-        viewModel.getCoursesByUserIdList(userId).observe(getViewLifecycleOwner(), enrolledCourses -> {
-            for (UserCourseEnrolled course : enrolledCourses) {
 
-                if (course.getProgressIndicator()== 100) {
-                    completedCourses.add(course );
+        viewModel.getCoursesByUserIdList(userId).observe(getViewLifecycleOwner(), enrolledCourses -> {
+            List<UserCourseEnrolled> completedCourses = new ArrayList<>();
+            completedCourses.clear();
+            for (UserCourseEnrolled course : enrolledCourses) {
+                if (course.getProgressIndicator() == 100) {
+                    completedCourses.add(course);
                 }
             }
-
-            MyCoursesAdapter adapter = new MyCoursesAdapter(completedCourses, getContext(), null,userId);
+            MyCoursesAdapter adapter = new MyCoursesAdapter(completedCourses, getContext(), null, userId);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-
         });
 
         return binding.getRoot();
     }
+
 }
