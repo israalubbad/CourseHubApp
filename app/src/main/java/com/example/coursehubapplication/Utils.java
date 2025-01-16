@@ -38,10 +38,10 @@ public class Utils {
 
     public static void inertUser(MyViewModel viewModel, Resources resources){
         Bitmap userPhoto= BitmapFactory.decodeResource(resources, R.drawable.photo);
-        viewModel.userInsert(new User("Admin", "admin@example.com", "admin123", userPhoto, true));
-        viewModel.userInsert(new User("Ahmad ALi","ahmad@example.com","123456" ,userPhoto,false ));
-        viewModel.userInsert(new User("Israa Lubbad","israa@example.com","123456" ,userPhoto,false ));
-        viewModel.userInsert(new User("Sarah Lubbad","sarah@example.com","123456" ,userPhoto,false ));
+        viewModel.userInsert(new User("Admin", "admin@email.com", "admin123", userPhoto, true));
+        viewModel.userInsert(new User("Ahmad ALi","ahmad@email.com","123456" ,userPhoto,false ));
+        viewModel.userInsert(new User("Israa Lubbad","israa@email.com","123456" ,userPhoto,false ));
+        viewModel.userInsert(new User("Sarah Lubbad","sarah@email.com","123456" ,userPhoto,false ));
 
     }
 

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.coursehubapplication.Adapter.BookMarkAdapter;
+import com.example.coursehubapplication.LoginScreen.LoginActivity;
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
@@ -60,11 +61,6 @@ public class ProfileFragment extends Fragment {
         viewModel.getUserId(userId).observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                Glide.with(getContext())
-                        .load(user.getUserPhoto())
-                        .circleCrop()
-                        .into(binding.profileIV);
-
                 binding.userNameTV.setText(user.getUserName());
                 binding.userEmailTV.setText(user.getUserEmail());
 
@@ -85,6 +81,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(getContext(), EditeProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });

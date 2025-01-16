@@ -32,7 +32,7 @@ import com.example.coursehubapplication.databinding.CourseviewItemBinding;
 import java.util.List;
 
 public class BookMarkAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        List<Bookmark> bookmarkList;
+    List<Bookmark> bookmarkList;
     Context context;
     CourseviewItemBinding binding;
     int userId;

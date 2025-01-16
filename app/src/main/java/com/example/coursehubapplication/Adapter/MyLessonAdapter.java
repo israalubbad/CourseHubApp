@@ -77,7 +77,6 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         viewModel.getUserEnrolledInCourse(userId, courseId).observe((LifecycleOwner) context, userCourseEnrolled -> {
             if (userCourseEnrolled != null) {
                 int enrolledId = userCourseEnrolled.getEnrolledCourseId();
-
                 viewModel.getIsCompleted(enrolledId, lessonId).observe((LifecycleOwner) context, isCompleted -> {
                     if (isCompleted != null) {
                         if (isCompleted) {

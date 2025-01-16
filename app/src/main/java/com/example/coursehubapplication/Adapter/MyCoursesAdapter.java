@@ -50,15 +50,22 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyViewModel viewModel = new ViewModelProvider((HomeActivity) context).get(MyViewModel.class);
         MyCoursesAdapter.ViewHolder viewHolder = (MyCoursesAdapter.ViewHolder) holder;
-        UserCourseEnrolled course = userCourseEnrolled.get(position);
-        int courseId = course.getCourseId();
-        viewModel.getCourseById(course.getCourseId()).observe((HomeActivity) context,listCourse -> {
+        UserCourseEnrolled courseEnrolled = userCourseEnrolled.get(position);
+        int courseId = courseEnrolled.getCourseId();
+        viewModel.getCourseById(courseId).observe((HomeActivity) context,listCourse -> {
 
             viewHolder.binding.courseTitle.setText(listCourse.getCourseTitle());
             viewHolder.binding.courseHoursTv.setText(listCourse.getCourseHours()+"");
             viewHolder.binding.coursePhotoTV.setImageBitmap(listCourse.getCourseImage());
-            viewHolder.binding.progressBar.setProgress(course.getProgressIndicator());
-            viewHolder.binding.progressNumber.setText(course.getProgressIndicator()+ " % " );
+            viewHolder.binding.progressBar.setProgress(courseEnrolled.getProgressIndicator());
+            viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator()+ " % " );
+
+            viewHolder.binding.deleteCourseTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    viewModel.deleteEnrollUserInCourse(courseEnrolled);
+                }
+            });
 
             viewHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

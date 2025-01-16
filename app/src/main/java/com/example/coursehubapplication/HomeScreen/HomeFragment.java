@@ -84,10 +84,6 @@ public class HomeFragment extends Fragment implements HomeCourseAdapter.ClickLis
         int userId = preferences.getInt("userId", -1);
         viewModel.getUserId(userId).observe(getViewLifecycleOwner(), user -> {
             binding.userNameTV.setText(user.getUserName());
-            Glide.with(getContext())
-                    .load(user.getUserPhoto())
-                    .circleCrop()
-                    .into(binding.imageUser);
 
         });
 

@@ -4,6 +4,7 @@ import static android.app.ProgressDialog.show;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursehubapplication.DashboardScreen.AddCategeryActivity;
 import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
+import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
@@ -75,57 +77,68 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         }
                         if (itemId == R.id.deleteItem) {
                             MyViewModel viewModel = new ViewModelProvider((DashboardActivity) context).get(MyViewModel.class);
-                            AlertDialog.Builder builder = new AlertDialog.Builder((DashboardActivity) context);
-                            DialogBinding binding = DialogBinding.inflate(LayoutInflater.from(context), null, false);
-                            builder.setView(binding.getRoot());
-                            binding.titeleTV.setText("Confirmation");
-                            binding.teMassage.setText("Are you sure you want to delete this category?");
-                            binding.selectCategory.setText("Please select category to assign courses?");
-                            binding.actionBt.setText("OK");
-                            List<String> categoryNames = new ArrayList<>();
-                            Category categoryToDelete = categoryList.get(position);
-                            for (Category category : categoryList) {
-                                if (!category.getCategoryName().equals(categoryToDelete.getCategoryName())) {
-                                    categoryNames.add(category.getCategoryName());
-                                }
-                            }
+                            viewModel.getCoursesByCategoryId(categoryId).observe((DashboardActivity) context, courses -> {
+                                if (courses == null || courses.isEmpty()) {
+                                    AlertDialog.Builder builder = getAlertDialog(viewModel, position);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.setCancelable(true);
+                                    dialog.show();
+                                }else{
+                                    AlertDialog.Builder builder = new AlertDialog.Builder((DashboardActivity) context);
+                                    DialogBinding binding = DialogBinding.inflate(LayoutInflater.from(context), null, false);
+                                    builder.setView(binding.getRoot());
+                                    binding.titeleTV.setText("Confirmation");
+                                    binding.teMassage.setText("Are you sure you want to delete this category?");
+                                    binding.selectCategory.setText("Please select category to assign courses?");
+                                    binding.actionBt.setText("OK");
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categoryNames);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            binding.categorySpenner.setAdapter(adapter);
-
-                            binding.actionBt.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    String selected = binding.categorySpenner.getSelectedItem().toString();
-
-                                    if (selected.isEmpty()) {
-                                        Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        int selectedCategoryId = getCategoryIdByName(selected);
-                                        if (selectedCategoryId != -1) {
-                                            // التحديث والحذف
-                                            viewModel.updateCoursesFromCategory(categoryList.get(position).getCategoryId(), selectedCategoryId);
-                                            viewModel.deleteCategory(categoryList.get(position));
-                                            dialog_d.dismiss();
-                                        } else {
-                                            Toast.makeText(context, "Invalid category", Toast.LENGTH_SHORT).show();
+                                    List<String> categoryNames = new ArrayList<>();
+                                    Category categoryToDelete = categoryList.get(position);
+                                    for (Category category : categoryList) {
+                                        if (!category.getCategoryName().equals(categoryToDelete.getCategoryName())) {
+                                            categoryNames.add(category.getCategoryName());
                                         }
                                     }
+
+                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categoryNames);
+                                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    binding.categorySpenner.setAdapter(adapter);
+
+                                    binding.actionBt.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            String selected = binding.categorySpenner.getSelectedItem().toString();
+
+                                            if (selected.isEmpty()) {
+                                                Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                int selectedCategoryId = getCategoryIdByName(selected);
+                                                if (selectedCategoryId != -1) {
+                                                    // التحديث والحذف
+                                                    viewModel.updateCoursesFromCategory(categoryList.get(position).getCategoryId(), selectedCategoryId);
+                                                    viewModel.deleteCategory(categoryList.get(position));
+                                                    dialog_d.dismiss();
+                                                } else {
+                                                    Toast.makeText(context, "Invalid category", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }
+                                    });
+                                    binding.imImageIcon.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            dialog_d.dismiss();
+                                        }
+                                    });
+
+                                    dialog_d = builder.create();
+                                    dialog_d.setCancelable(true);
+                                    dialog_d.show();
+
+
+
                                 }
                             });
-
-                            binding.imImageIcon.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog_d.dismiss();
-                                }
-                            });
-
-                            dialog_d = builder.create();
-                            dialog_d.setCancelable(true);
-                            dialog_d.show();
-
 
                         }
 
@@ -175,5 +188,27 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
         return -1;
+    }
+
+    private AlertDialog.Builder getAlertDialog(MyViewModel viewModel, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder((DashboardActivity)context);
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to delete this category?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                viewModel.deleteCategory(categoryList.get(position));
+                Toast.makeText((DashboardActivity) context, "Category deleted", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText((DashboardActivity) context, "canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return builder;
     }
 }

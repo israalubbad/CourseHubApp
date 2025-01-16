@@ -60,6 +60,8 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         viewHolder.binding.courseDescription.setText(courseList.get(position).getCourseDescription());
         viewHolder.binding.instructorName.setText(courseList.get(position).getCourseInstructorName());
         viewHolder.binding.coursePhotoTV.setImageBitmap(courseList.get(position).getCourseImage());
+
+
         viewModel.getIsBookmark(course.getCourseId(), userId).observe((LifecycleOwner) context, isBookmarked -> {
             if (isBookmarked != null) {
                 if (isBookmarked) {

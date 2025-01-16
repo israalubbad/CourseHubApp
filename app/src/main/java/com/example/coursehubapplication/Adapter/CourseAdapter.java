@@ -95,7 +95,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private AlertDialog.Builder getAlertDialog(MyViewModel viewModel, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirmation");
-        builder.setMessage("Are you sure you want to delete this category?");
+        builder.setMessage("Are you sure you want to delete this Course?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
