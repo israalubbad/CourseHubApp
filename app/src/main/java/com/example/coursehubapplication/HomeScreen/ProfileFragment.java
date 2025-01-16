@@ -14,25 +14,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.example.coursehubapplication.Adapter.BookMarkAdapter;
+import com.example.coursehubapplication.Adapter.HomeCourseAdapter;
 import com.example.coursehubapplication.LoginScreen.LoginActivity;
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
+import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
 import com.example.coursehubapplication.databinding.FragmentProfileragmentBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    int i;
     private String mParam1;
     private String mParam2;
 
     public ProfileFragment() {
     }
+
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -54,7 +56,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentProfileragmentBinding binding=FragmentProfileragmentBinding.inflate(getLayoutInflater());
+        FragmentProfileragmentBinding binding = FragmentProfileragmentBinding.inflate(getLayoutInflater());
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
         SharedPreferences preferences = requireContext().getSharedPreferences("course", Context.MODE_PRIVATE);
         int userId = preferences.getInt("userId", -1);
@@ -66,21 +68,37 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
         viewModel.getBookmarkByUserId(userId).observe(getViewLifecycleOwner(), new Observer<List<Bookmark>>() {
             @Override
             public void onChanged(List<Bookmark> bookmarks) {
-                binding.savedCoursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                BookMarkAdapter adapter = new BookMarkAdapter(bookmarks, getContext(), null,userId);
-                binding.savedCoursesRecyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
+                ArrayList<Course> courses = new ArrayList<>();
+                 i = 0;
+                for (Bookmark bookmark : bookmarks) {
+                    viewModel.getCourseById(bookmark.getCourseId()).observe(getViewLifecycleOwner(), new Observer<Course>() {
+                        @Override
+                        public void onChanged(Course course) {
+                            if (course != null) {
+                                courses.add(course);
+                                i++;
+                            }
+                            if (i== bookmarks.size()) {
+                                binding.savedCoursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                HomeCourseAdapter adapter = new HomeCourseAdapter(courses, getContext(), null, userId);
+                                binding.savedCoursesRecyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
             }
         });
+
 
         binding.editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(getContext(), EditeProfileActivity.class);
+                Intent intent = new Intent(getContext(), EditeProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -88,7 +106,7 @@ public class ProfileFragment extends Fragment {
         binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(getContext(), LoginActivity.class);
+                Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });

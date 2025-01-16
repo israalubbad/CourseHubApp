@@ -13,12 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.coursehubapplication.Adapter.BookMarkAdapter;
 import com.example.coursehubapplication.Adapter.MyCoursesAdapter;
-import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
-import com.example.coursehubapplication.databinding.FragmentOnboarding1Binding;
 import com.example.coursehubapplication.databinding.FragmentOngoingBinding;
 
 import java.util.ArrayList;
