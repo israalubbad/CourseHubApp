@@ -64,15 +64,9 @@ public class Utils {
 
     }
     public static void inertLesson(MyViewModel viewModel){
-        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",1));
-        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",1));
-        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",2));
-        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",2));
-        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",3));
-        viewModel.insertLesson(new Lesson("Web","skdxnl","kskjs","kaaoa",3));
-        viewModel.insertLesson(new Lesson("HTML Basics", "Learn the basics of HTML syntax and structure.", "html_video.mp4", null, 1));
-        viewModel.insertLesson(new Lesson("CSS Styling", "Learn how to apply styles to HTML elements using CSS.", "css_video.mp4", "https://css-articles.com", 1));
-        viewModel.insertLesson(new Lesson("JavaScript Fundamentals", "Understand basic JavaScript concepts.", "js_video.mp4", null, 1));
+        viewModel.insertLesson(new Lesson("HTML Basics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1));
+        viewModel.insertLesson(new Lesson("CSS Styling", "Learn how to apply styles to HTML elements using CSS.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", "https://stackoverflow.com/questions/63990692/add-to-favorite-using-room-database", 1));
+        viewModel.insertLesson(new Lesson("JavaScript Fundamentals", "Understand basic JavaScript concepts.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1));
 
     }
 
