@@ -62,11 +62,11 @@ public class MyCourseFragment extends Fragment {
                              Bundle savedInstanceState) {
        FragmentMyCourseBinding binding = FragmentMyCourseBinding.inflate(inflater, container, false);
         ArrayList<String> tabs = new ArrayList<>();
-        tabs.add("Ongoing");
-        tabs.add("Completed");
         ArrayList<Fragment> fragments=new ArrayList<>();
-        fragments.add(new OngoingFragment());
-        fragments.add(new CompletedFragment());
+        tabs.add("Ongoing");
+        fragments.add(ProgressCourseFragment.newInstance(0));
+        tabs.add("Completed");
+        fragments.add(ProgressCourseFragment.newInstance(1));
        ViewPagerAdapter adapter = new ViewPagerAdapter(this, fragments);
        binding.viewPager.setAdapter(adapter);
        adapter.notifyDataSetChanged();

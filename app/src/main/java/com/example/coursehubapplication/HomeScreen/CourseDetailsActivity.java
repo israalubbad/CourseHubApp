@@ -36,6 +36,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     int id;
     boolean joined = false;
     int enrolledId=-1;
+    int bookmarkId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,19 +132,19 @@ public class CourseDetailsActivity extends AppCompatActivity {
         binding.enrollCourseBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        if (! joined) {
-                            UserCourseEnrolled enrolled = new UserCourseEnrolled(userId, courseId, 0);
-                            viewModel.insertEnrollUserInCourse(enrolled);
-                            Toast.makeText(CourseDetailsActivity.this, "Enrolled Course", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String textMassage="Are you sure you want to remove this Course?";
-                            String key="course";
-                            AlertDialog.Builder builder = getBuilder(viewModel, userId, courseId,textMassage,key);
-                            AlertDialog dialog = builder.create();
-                            dialog.setCancelable(true);
-                            dialog.show();
+                if (! joined) {
+                    UserCourseEnrolled enrolled = new UserCourseEnrolled(userId, courseId, 0);
+                    viewModel.insertEnrollUserInCourse(enrolled);
+                    Toast.makeText(CourseDetailsActivity.this, "Enrolled Course", Toast.LENGTH_SHORT).show();
+                } else {
+                    String textMassage="Are you sure you want to remove this Course?";
+                    String key="course";
+                    AlertDialog.Builder builder = getBuilder(viewModel, userId, courseId,textMassage,key);
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(true);
+                    dialog.show();
 
-                        }
+                }
             }
         });
 
@@ -161,18 +162,12 @@ public class CourseDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(key.equals("course")) {
-                    viewModel.getUserEnrolledInCourse(userId, courseId).observe(CourseDetailsActivity.this, userCourseEnrolled -> {
-                        if(userCourseEnrolled != null) {
-                            viewModel.deleteEnrollUserInCourse(userCourseEnrolled);
-                            Toast.makeText(getApplicationContext(), "Delete Course", Toast.LENGTH_SHORT).show();
-                        } });
+                    viewModel.deleteUserFromCourse(userId,courseId);
+                    Toast.makeText(getApplicationContext(), "Delete Course", Toast.LENGTH_SHORT).show();
                 }else if(key.equals("bookmark")){
-                    viewModel.getBookmarkByUserIdAndCourse(userId, courseId).observe(CourseDetailsActivity.this, bookmark -> {
-                        if(bookmark != null) {
-                            viewModel.deleteBookmark(bookmark);
-                            Toast.makeText(getApplicationContext(), "Bookmark deleted", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    viewModel.deleteBookmarkByUserAndCourse(userId,courseId);
+                    Toast.makeText(getApplicationContext(), "Bookmark deleted", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

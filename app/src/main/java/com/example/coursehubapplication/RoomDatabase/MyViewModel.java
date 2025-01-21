@@ -259,6 +259,10 @@ public  void insertLessonUser(LessonUser lessonUser){
             repository.deleteLessonUser(enrolledCourseId,lessonId);
 
     }
+
+    public LiveData<Lesson> getLatestLesson(int courseId){
+        return repository.getLatestLesson(courseId);
+    }
 }
 
 

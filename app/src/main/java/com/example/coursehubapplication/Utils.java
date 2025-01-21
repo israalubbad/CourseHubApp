@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModel;
 
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
@@ -20,6 +21,8 @@ import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
+
+import java.util.List;
 
 public class Utils {
     public static boolean showPassword(boolean isPasswordViseble, EditText et){
@@ -38,10 +41,10 @@ public class Utils {
 
     public static void inertUser(MyViewModel viewModel, Resources resources){
         Bitmap userPhoto= BitmapFactory.decodeResource(resources, R.drawable.photo);
-        viewModel.userInsert(new User("Admin", "admin@email.com", "admin123", userPhoto, true));
-        viewModel.userInsert(new User("Ahmad ALi","ahmad@email.com","123456" ,userPhoto,false ));
-        viewModel.userInsert(new User("Israa Lubbad","israa@email.com","123456" ,userPhoto,false ));
-        viewModel.userInsert(new User("Sarah Lubbad","sarah@email.com","123456" ,userPhoto,false ));
+        viewModel.userInsert(new User("Admin", "admin@gmail.com", "admin123", userPhoto, true));
+        viewModel.userInsert(new User("Ahmad ALi","ahmad@gmail.com","123456" ,userPhoto,false ));
+        viewModel.userInsert(new User("Israa Lubbad","israa@gmail.com","123456" ,userPhoto,false ));
+        viewModel.userInsert(new User("Sarah Lubbad","sarah@gmail.com","123456" ,userPhoto,false ));
 
     }
 
@@ -64,9 +67,9 @@ public class Utils {
 
     }
     public static void inertLesson(MyViewModel viewModel){
-        viewModel.insertLesson(new Lesson("HTML Basics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1));
-        viewModel.insertLesson(new Lesson("CSS Styling", "Learn how to apply styles to HTML elements using CSS.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", "https://stackoverflow.com/questions/63990692/add-to-favorite-using-room-database", 1));
-        viewModel.insertLesson(new Lesson("JavaScript Fundamentals", "Understand basic JavaScript concepts.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1));
+        viewModel.insertLesson(new Lesson("HTML Basics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1,false));
+        viewModel.insertLesson(new Lesson("CSS Styling", "Learn how to apply styles to HTML elements using CSS.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", "https://stackoverflow.com/questions/63990692/add-to-favorite-using-room-database", 2,true));
+        viewModel.insertLesson(new Lesson("JavaScript Fundamentals", "Understand basic JavaScript concepts.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 3,true));
 
     }
 
@@ -82,10 +85,25 @@ public class Utils {
 
     public static void inertEnrollUserInCourse(MyViewModel viewModel){
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,1,0));
-        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,2,100));
+        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,2,0));
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,3,0));
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,2,0));
         viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(4,1,0));
+
+    }
+
+
+    public static void updateCourseProgress( MyViewModel viewModel, int userId, UserCourseEnrolled courseEnrolled, int courseId , LifecycleOwner LifecycleOwner,String key) {
+        viewModel.getLessonsByCourseId(courseId).observe(LifecycleOwner, lessonList -> {
+        int totalLessons = lessonList.size();
+        viewModel.getCompletedLesson(courseEnrolled.getEnrolledCourseId()).observe(LifecycleOwner, completed -> {
+            if (totalLessons > 0) {
+                int  progress = (int) ((completed.size() / (float) totalLessons) * 100);
+                courseEnrolled.setProgressIndicator(progress);
+            }
+
+        });
+        });
 
     }
 

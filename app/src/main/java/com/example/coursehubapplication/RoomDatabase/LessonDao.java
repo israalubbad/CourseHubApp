@@ -29,4 +29,7 @@ public interface LessonDao {
     @Query("SELECT * FROM lesson WHERE courseId = :courseId")
     LiveData<List<Lesson>>getLessonByCourseId(int courseId);
 
+    @Query("SELECT * FROM Lesson WHERE courseId = :courseId ORDER BY lessonId DESC LIMIT 1")
+    LiveData<Lesson> getLatestLesson(int courseId);
+
 }

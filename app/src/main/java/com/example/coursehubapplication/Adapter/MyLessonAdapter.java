@@ -91,11 +91,11 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 Toast.makeText(context, "unChecked lesson", Toast.LENGTH_SHORT).show();
                                 viewHolder.binding.checkBox.setChecked(false);
                             }
-
                             viewModel.getCompletedLesson(enrolledId).observe((LifecycleOwner) context, completed -> {
                                 if (totalLessons > 0) {
                                     int progress = (int) ((completed.size() / (float) totalLessons) * 100);
-                                    viewModel.updateCourseProgress(userId, courseId, progress);
+                               viewModel.updateEnrollUserInCourse(new UserCourseEnrolled(enrolledId,userId, courseId, progress));
+
                                 }
 
                             });

@@ -323,4 +323,8 @@ public class MyRepository {
         });
     }
 
+
+    LiveData<Lesson> getLatestLesson(int courseId){
+        return lessonDao.getLatestLesson(courseId);
+    }
 }

@@ -73,16 +73,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(List<Bookmark> bookmarks) {
                 ArrayList<Course> courses = new ArrayList<>();
-                 i = 0;
                 for (Bookmark bookmark : bookmarks) {
                     viewModel.getCourseById(bookmark.getCourseId()).observe(getViewLifecycleOwner(), new Observer<Course>() {
                         @Override
                         public void onChanged(Course course) {
                             if (course != null) {
                                 courses.add(course);
-                                i++;
                             }
-                            if (i== bookmarks.size()) {
+                            if (courses.size()== bookmarks.size()) {
                                 binding.savedCoursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                 HomeCourseAdapter adapter = new HomeCourseAdapter(courses, getContext(), null, userId);
                                 binding.savedCoursesRecyclerView.setAdapter(adapter);
@@ -106,6 +104,10 @@ public class ProfileFragment extends Fragment {
         binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("course", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("userId");
+                editor.apply();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }

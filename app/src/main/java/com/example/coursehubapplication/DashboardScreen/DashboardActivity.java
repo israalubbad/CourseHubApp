@@ -1,6 +1,10 @@
 package com.example.coursehubapplication.DashboardScreen;
 
+import static java.security.AccessController.getContext;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursehubapplication.Adapter.CategoriesAdapter;
+import com.example.coursehubapplication.LoginScreen.LoginActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
@@ -67,6 +72,17 @@ public class DashboardActivity extends AppCompatActivity implements CategoriesAd
             }
         });
 
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences =getSharedPreferences("course", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("userId");
+                editor.apply();
+                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

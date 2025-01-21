@@ -46,9 +46,9 @@
             android:textColor="@color/primaryColor"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintBottom_toTopOf="@id/courseHoursTv"
+            app:layout_constraintEnd_toStartOf="@+id/deleteCourseTV"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/coursePhotoTV"
             app:layout_constraintTop_toTopOf="parent" />
 

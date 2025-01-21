@@ -2,6 +2,7 @@ package com.example.coursehubapplication.RoomDatabase;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = {
@@ -25,6 +26,13 @@ public class UserCourseEnrolled {
         this.courseId = courseId;
         this.progressIndicator = progressIndicator;
 
+    }
+    @Ignore
+    public UserCourseEnrolled(int enrolledCourseId, int userId, int courseId, int progressIndicator) {
+        this.enrolledCourseId = enrolledCourseId;
+        this.userId = userId;
+        this.courseId = courseId;
+        this.progressIndicator = progressIndicator;
     }
 
     public int getEnrolledCourseId() {

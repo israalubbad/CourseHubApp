@@ -57,7 +57,7 @@ public class AddLessonActivity extends AppCompatActivity {
                 if (lessonVideo.isEmpty()) {
                     binding.lessonVideoEt.setError("Please enter Course Video");
                 } else {
-                    Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId);
+                    Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, true);
                     if (!viewModel.insertLesson(lesson)) {
                         Toast.makeText(AddLessonActivity.this, "Successfully Add", Toast.LENGTH_SHORT).show();
                         binding.lessonTitleET.setText("");

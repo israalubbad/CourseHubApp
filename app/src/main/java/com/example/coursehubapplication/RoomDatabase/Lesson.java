@@ -1,6 +1,7 @@
 package com.example.coursehubapplication.RoomDatabase;
 
 import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -22,6 +23,18 @@ public class Lesson {
 
     private int courseId;
 
+    @ColumnInfo(name = "isAdminAdded")
+    private boolean isAdminAdded;
+
+    @Ignore
+    public Lesson( String lessonTitle, String lessonDescription, String lessonVideo, @Nullable String articleLink, int courseId, boolean isAdminAdded) {
+        this.lessonTitle = lessonTitle;
+        this.lessonDescription = lessonDescription;
+        this.lessonVideo = lessonVideo;
+        this.articleLink = articleLink;
+        this.courseId = courseId;
+        this.isAdminAdded = isAdminAdded;
+    }
 
     public Lesson(String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
         this.lessonTitle = lessonTitle;
@@ -92,5 +105,11 @@ public class Lesson {
         this.courseId = courseId;
     }
 
+    public boolean isAdminAdded() {
+        return isAdminAdded;
+    }
 
+    public void setAdminAdded(boolean adminAdded) {
+        isAdminAdded = adminAdded;
+    }
 }

@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,7 @@ import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.MyCoursesItemBinding;
 
 import java.util.List;
@@ -26,14 +29,14 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     List<UserCourseEnrolled> userCourseEnrolled;
     Context context;
     MyCoursesItemBinding binding;
-
+    int totalLessons;
     int userId;
     Course course;
     Bookmark bookmark;
-    HomeCourseAdapter.ClickListener clickListener;
+
     boolean isBookMark = false;
 
-    public MyCoursesAdapter(List<UserCourseEnrolled> userCourseEnrolled, Context context, CourseAdapter.ClickListener clickListener, int userId) {
+    public MyCoursesAdapter(List<UserCourseEnrolled> userCourseEnrolled, Context context, int userId) {
         this.userCourseEnrolled = userCourseEnrolled;
         this.context = context;
         this.userId = userId;
@@ -53,13 +56,11 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         UserCourseEnrolled courseEnrolled = userCourseEnrolled.get(position);
         int courseId = courseEnrolled.getCourseId();
         viewModel.getCourseById(courseId).observe((HomeActivity) context,listCourse -> {
-
             viewHolder.binding.courseTitle.setText(listCourse.getCourseTitle());
             viewHolder.binding.courseHoursTv.setText(listCourse.getCourseHours()+"");
             viewHolder.binding.coursePhotoTV.setImageBitmap(listCourse.getCourseImage());
             viewHolder.binding.progressBar.setProgress(courseEnrolled.getProgressIndicator());
-            viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator()+ " % " );
-
+            viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator()+" % ");
             viewHolder.binding.deleteCourseTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -67,11 +68,12 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
 
+
             viewHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, MyLessonActivity.class);
-                    intent.putExtra("courseId", courseId);
+                     Intent intent = new Intent(context, MyLessonActivity.class);
+                    intent.putExtra("courseId", courseEnrolled.getCourseId());
                     context.startActivity(intent);
 
                 }
@@ -95,13 +97,6 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         return userCourseEnrolled.size();
-    }
-
-    public interface ClickListener {
-        void courseClick(Course course);
-
-        void onClick(int courseId);
-
     }
 
 
