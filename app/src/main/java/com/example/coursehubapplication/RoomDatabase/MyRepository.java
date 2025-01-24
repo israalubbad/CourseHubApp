@@ -258,8 +258,8 @@ public class MyRepository {
         return bookmarkDao.getBookmarkByCourseId(bookmarkId);
     }
 
-    public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int courseId, int userId) {
-     return bookmarkDao.getBookmarkByUserIdAndCourse(courseId, userId);
+    public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId, int courseId) {
+     return bookmarkDao.getBookmarkByUserIdAndCourse(userId, courseId);
     }
 
     public LiveData<Boolean> getIsBookmark(int courseId, int userId) {

@@ -210,8 +210,8 @@ public class MyViewModel extends AndroidViewModel {
         return repository.getBookmarkId(bookmarkId);
     }
 
-    public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int courseId, int userId) {
-        return repository.getBookmarkByUserIdAndCourse(courseId, userId);
+    public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId, int courseId) {
+        return repository.getBookmarkByUserIdAndCourse(userId, courseId);
     }
     public LiveData<Boolean> getIsBookmark(int courseId, int userId) {
         return repository.getIsBookmark(courseId, userId);

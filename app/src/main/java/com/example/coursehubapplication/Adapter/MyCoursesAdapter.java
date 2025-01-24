@@ -60,11 +60,14 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewHolder.binding.courseHoursTv.setText(listCourse.getCourseHours()+"");
             viewHolder.binding.coursePhotoTV.setImageBitmap(listCourse.getCourseImage());
             viewHolder.binding.progressBar.setProgress(courseEnrolled.getProgressIndicator());
-            viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator()+" % ");
+            viewModel.getLessonsByCourseId(courseId).observe((HomeActivity) context, lessonList -> {
+                        totalLessons = lessonList.size();
+                        viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator() + " / " + totalLessons);
+                    });
             viewHolder.binding.deleteCourseTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    viewModel.deleteEnrollUserInCourse(courseEnrolled);
+                    viewModel.deleteEnrollUserInCourse(userCourseEnrolled.get(position));
                 }
             });
 

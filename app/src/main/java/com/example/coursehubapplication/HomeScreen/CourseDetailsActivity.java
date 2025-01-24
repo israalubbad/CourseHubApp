@@ -3,6 +3,7 @@ package com.example.coursehubapplication.HomeScreen;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,8 +36,8 @@ public class CourseDetailsActivity extends AppCompatActivity {
     int categoryId;
     int id;
     boolean joined = false;
-    int enrolledId=-1;
-    int bookmarkId;
+    Bookmark bookmarks;
+    UserCourseEnrolled userCourseEnrolled1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,12 +111,16 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 }
             });
         });
-
+        viewModel.getUserEnrolledInCourse(userId, courseId).observe(CourseDetailsActivity.this, userCourseEnrolled -> {
+            if(userCourseEnrolled != null) {
+                userCourseEnrolled1 = userCourseEnrolled;
+            } });
         viewModel.isAlreadyEnrolled(userId, courseId).observe(CourseDetailsActivity.this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isEnrolled) {
                 int enrolledColor = ContextCompat.getColor(CourseDetailsActivity.this, R.color.yourThumbColor);
                 int dropColor = ContextCompat.getColor(CourseDetailsActivity.this, R.color.primaryColor);
+
                 if (isEnrolled != null && isEnrolled) {
                     binding.enrollCourseBT.setBackgroundColor(enrolledColor);
                     binding.enrollCourseBT.setText("Drop out Course");
@@ -125,18 +130,16 @@ public class CourseDetailsActivity extends AppCompatActivity {
                     binding.enrollCourseBT.setBackgroundColor(dropColor);
                     joined =false;
                 }
-            }
-        });
 
-
-        binding.enrollCourseBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (! joined) {
-                    UserCourseEnrolled enrolled = new UserCourseEnrolled(userId, courseId, 0);
-                    viewModel.insertEnrollUserInCourse(enrolled);
-                    Toast.makeText(CourseDetailsActivity.this, "Enrolled Course", Toast.LENGTH_SHORT).show();
-                } else {
+                binding.enrollCourseBT.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (! isEnrolled) {
+                            UserCourseEnrolled enrolled = new UserCourseEnrolled(userId, courseId, 0);
+                            viewModel.insertEnrollUserInCourse(enrolled);
+                            Toast.makeText(CourseDetailsActivity.this, "Enrolled Course", Toast.LENGTH_SHORT).show();
+                            joined =true;
+                        } else if (isEnrolled){
                     String textMassage="Are you sure you want to remove this Course?";
                     String key="course";
                     AlertDialog.Builder builder = getBuilder(viewModel, userId, courseId,textMassage,key);
@@ -144,14 +147,24 @@ public class CourseDetailsActivity extends AppCompatActivity {
                     dialog.setCancelable(true);
                     dialog.show();
 
-                }
+                            }
+                    }
+                });
+
             }
         });
+
+
 
         binding.backIV.setOnClickListener(view ->{
             finish();
         } );
+        viewModel.getBookmarkByUserIdAndCourse(userId,courseId).observe(CourseDetailsActivity.this,bookmark -> {
+            if(bookmark != null){
+            bookmarks=bookmark;}
+        });
     }
+
 
 
     private AlertDialog.Builder getBuilder(MyViewModel viewModel, int userId, int courseId,String textMassage,String key) {
@@ -162,10 +175,10 @@ public class CourseDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(key.equals("course")) {
-                    viewModel.deleteUserFromCourse(userId,courseId);
+                    viewModel.deleteEnrollUserInCourse(userCourseEnrolled1);
                     Toast.makeText(getApplicationContext(), "Delete Course", Toast.LENGTH_SHORT).show();
                 }else if(key.equals("bookmark")){
-                    viewModel.deleteBookmarkByUserAndCourse(userId,courseId);
+                    viewModel.deleteBookmark(bookmarks);
                     Toast.makeText(getApplicationContext(), "Bookmark deleted", Toast.LENGTH_SHORT).show();
 
                 }
