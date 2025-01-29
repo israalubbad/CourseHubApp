@@ -317,11 +317,7 @@ public class MyRepository {
         return lessonUserDao.getCompletedLesson(enrolledCourseId);
     }
 
-    void deleteLessonUser(int enrolledCourseId, int lessonId){
-        CourseDatabase.databaseWriteExecutor.execute(() -> {
-            lessonUserDao.deleteLessonUser(enrolledCourseId,lessonId);
-        });
-    }
+
 
 
     LiveData<Lesson> getLatestLesson(int courseId){

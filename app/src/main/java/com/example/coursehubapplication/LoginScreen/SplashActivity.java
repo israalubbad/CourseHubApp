@@ -41,11 +41,12 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         SharedPreferences sharedPreferences = getSharedPreferences("Onboarding", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedPreferences.edit();;
         boolean isFirst = sharedPreferences.getBoolean("isFirst", true);
         SharedPreferences sharedPreferences2 = getSharedPreferences("course", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences2.edit();;
         boolean isFirstData = sharedPreferences2.getBoolean("isFirstData", true);
-        editor.putInt("userId", 4).apply();
+       // editor.putInt("userId", 4).apply();
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
         if (isFirstData) {
@@ -54,19 +55,18 @@ public class SplashActivity extends AppCompatActivity {
             editor.apply();
         }
 
+        if (isFirst) {
+            startActivity(new Intent(this, OnboardingActivity.class));
+            editor1.putBoolean("isFirst", false);
+            editor1.apply();
+            finish();
+        } else {
+            setContentView(R.layout.activity_login);
+        }
 
-
-//        if (isFirst) {
-//            startActivity(new Intent(this, OnboardingActivity.class));
-//            finish();
-//        } else {
-//
-//            setContentView(R.layout.activity_main);
-//        }
-
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
-        new Handler(Looper.getMainLooper()).postDelayed(this::finish, 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(this::finish, 4000);
     }
 
     public static void insertDatabase(MyViewModel viewModel, Resources resources) {

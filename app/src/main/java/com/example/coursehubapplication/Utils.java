@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,17 +16,26 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModel;
 
+import com.example.coursehubapplication.Adapter.MyLessonAdapter;
+import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
+import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
+import com.example.coursehubapplication.DashboardScreen.ViewLessonActivity;
+import com.example.coursehubapplication.HomeScreen.MyLessonActivity;
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
+import com.example.coursehubapplication.RoomDatabase.LessonUser;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
+import com.example.coursehubapplication.databinding.DialogBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
+    public static int USERID = -1;
     public static boolean showPassword(boolean isPasswordViseble, EditText et){
         if(isPasswordViseble) {
 
@@ -106,6 +117,108 @@ public class Utils {
         });
 
     }
+
+    public static AlertDialog.Builder getBuilder(MyViewModel viewModel, Object data, String textMassage, String key, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirmation");
+        builder.setMessage(textMassage);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(key.equals("joinCourse")) {
+                    viewModel.deleteEnrollUserInCourse((UserCourseEnrolled) data);
+                    Toast.makeText(context, "Delete Course", Toast.LENGTH_SHORT).show();
+                }else if(key.equals("bookmark")){
+                    viewModel.deleteBookmark((Bookmark) data);
+                    Toast.makeText(context, "Bookmark deleted", Toast.LENGTH_SHORT).show();
+
+                }else if(key.equals("lesson")){
+                    Toast.makeText((ViewLessonActivity) context, "category deleted", Toast.LENGTH_SHORT).show();
+                    viewModel.deleteLesson((Lesson) data);
+                }else if(key.equals("course")){
+                    Toast.makeText((ViewCoursesActivity) context, "course deleted", Toast.LENGTH_SHORT).show();
+                    viewModel.deleteCourse((Course) data );
+                }else if(key.equals("category")){
+                    viewModel.deleteCategory((Category) data);
+                    Toast.makeText((DashboardActivity) context, "Category deleted", Toast.LENGTH_SHORT).show();
+                }
+                else if(key.equals("userLesson")){
+                    viewModel.deleteLessonUser((LessonUser) data);
+                    Toast.makeText(context, "unChecked lesson", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return builder;
+    }
+
+
+    // customary dialog
+    public static AlertDialog getAlertDialog(MyViewModel viewModel, int position, Context context, List<Category> categoryList) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        DialogBinding binding = DialogBinding.inflate(LayoutInflater.from(context), null, false);
+        builder.setView(binding.getRoot());
+        binding.titeleTV.setText("Confirmation");
+        binding.teMassage.setText("Are you sure you want to delete this category?");
+        binding.selectCategory.setText("Please select category to assign courses:");
+        binding.actionBt.setText("OK");
+        // اعمل ليست للسبينر
+        List<String> categoryNames = new ArrayList<>();
+        Category category = categoryList.get(position);
+        for (Category categorys : categoryList) {
+            // علشان ما يضيف على اليستا الكتوجري يلي بدي احذفه
+            if (!categorys.getCategoryName().equals(category.getCategoryName())) {
+                categoryNames.add(categorys.getCategoryName());
+            }
+        }
+
+        AlertDialog dialog = builder.create();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categoryNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.categorySpenner.setAdapter(adapter);
+
+        binding.actionBt.setOnClickListener(view -> {
+            // اجيب يلي اختاره مستخدم
+            String selected = binding.categorySpenner.getSelectedItem().toString();
+            // اجبره انو يختار من السبينر
+            if (selected.isEmpty()) {
+                Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
+            } else {
+                int selectedCategoryId = -1;
+                for (Category categorys : categoryList) {
+                    // اجيب id  للتصنيف
+                    if (categorys.getCategoryName().equals(selected)) {
+                        selectedCategoryId = categorys.getCategoryId();
+                        break;
+                    }
+                }
+
+                if (selectedCategoryId != -1) {
+                    // علشان اعدل الكورسات من الكتوجري القديم ل كتوجري جديد اختاره الادمن
+                    viewModel.updateCoursesFromCategory(category.getCategoryId(), selectedCategoryId);
+                    viewModel.deleteCategory(category);
+                    Toast.makeText(context, "Category Deleted", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+        });
+
+
+        binding.imImageIcon.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+
+        dialog.setCancelable(true);
+        return dialog;
+    }
+
 
 
 

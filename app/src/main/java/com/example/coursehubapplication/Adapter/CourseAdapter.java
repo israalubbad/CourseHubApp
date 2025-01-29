@@ -18,10 +18,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursehubapplication.DashboardScreen.AddCourseActivity;
+import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
 import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.CourseItemBinding;
 
 import java.util.List;
@@ -70,7 +72,9 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         }
                         if (itemId == R.id.deleteItem) {
                             MyViewModel viewModel = new ViewModelProvider((ViewCoursesActivity) context).get(MyViewModel.class);
-                            AlertDialog.Builder builder = getAlertDialog(viewModel, position);
+                            String textMessage = "Are you sure you want to delete this course?";
+                            String key = "course";
+                            AlertDialog.Builder builder = Utils.getBuilder(viewModel, courseList.get(position), textMessage, key, (DashboardActivity) context);
                             AlertDialog dialog = builder.create();
                             dialog.setCancelable(true);
                             dialog.show();
@@ -90,27 +94,6 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 clickListener.onClick(courseList.get(position).getCourseId());
             }
         });
-    }
-
-    private AlertDialog.Builder getAlertDialog(MyViewModel viewModel, int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Confirmation");
-        builder.setMessage("Are you sure you want to delete this Course?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText((ViewCoursesActivity) context, "course deleted", Toast.LENGTH_SHORT).show();
-                viewModel.deleteCourse(courseList.get(position));
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText((ViewCoursesActivity) context, "canceled", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        return builder;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

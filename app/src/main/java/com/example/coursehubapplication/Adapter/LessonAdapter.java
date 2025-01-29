@@ -23,6 +23,7 @@ import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.DashboardScreen.ViewLessonActivity;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.LessonItemBinding;
 
 import java.util.List;
@@ -48,6 +49,7 @@ public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         LessonAdapter.ViewHolder viewHolder = (LessonAdapter.ViewHolder) holder;
+        MyViewModel viewModel = new ViewModelProvider((ViewLessonActivity) context).get(MyViewModel.class);
         viewHolder.binding.lessonTitle.setText(lessonList.get(position).getLessonTitle());
         viewHolder.binding.lessonDescription.setText(lessonList.get(position).getLessonDescription());
         viewHolder.binding.moreIcon.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +69,9 @@ public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             context.startActivity(intent);
                         }
                         if (itemId == R.id.deleteItem) {
-                            AlertDialog.Builder builder = getBuilder(position);
+                            String textMassage="Are you sure you want to remove this lesson ?";
+                            String key="lesson";
+                            AlertDialog.Builder builder = Utils.getBuilder(viewModel,lessonList.get(position),textMassage,key,(ViewLessonActivity)context);
                             AlertDialog dialog = builder.create();
                             dialog.setCancelable(true);
                             dialog.show();
@@ -80,27 +84,6 @@ public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
 
-    }
-
-    private AlertDialog.Builder getBuilder(int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder((ViewLessonActivity) context);
-        builder.setTitle("Confirmation");
-        builder.setMessage("Are you sure you want to delete this category?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                MyViewModel viewModel = new ViewModelProvider((ViewLessonActivity) context).get(MyViewModel.class);
-                Toast.makeText((ViewLessonActivity) context, "category deleted", Toast.LENGTH_SHORT).show();
-                viewModel.deleteLesson(lessonList.get(position));
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText((ViewLessonActivity) context, "canceled", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return builder;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

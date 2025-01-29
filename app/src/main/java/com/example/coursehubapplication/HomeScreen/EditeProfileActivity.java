@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityEditeProfileBinding;
 
 import org.jetbrains.annotations.Nullable;
@@ -60,9 +61,7 @@ Bitmap bitmap;
             return insets;
         });
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
-        SharedPreferences preferences = getSharedPreferences("course", Context.MODE_PRIVATE);
-        int userId = preferences.getInt("userId", -1);
-        viewModel.getUserId(userId).observe(this, new Observer<User>() {
+        viewModel.getUserId(Utils.USERID).observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 Glide.with(getBaseContext())
@@ -98,7 +97,7 @@ Bitmap bitmap;
                         }if(binding ==null){
                             Toast.makeText(EditeProfileActivity.this, "please enter photo", Toast.LENGTH_SHORT).show();
                         }else{
-                            viewModel.userUpdate(new User(userId,fullName,email,Password,bitmap,false));
+                            viewModel.userUpdate(new User(Utils.USERID,fullName,email,Password,bitmap,false));
                         }
 
 //                        String newPassword=binding.newPasswordEt.getText().toString();

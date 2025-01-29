@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.coursehubapplication.HomeScreen.CourseDetailsActivity;
 import com.example.coursehubapplication.HomeScreen.HomeActivity;
 import com.example.coursehubapplication.HomeScreen.MyLessonActivity;
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
@@ -30,18 +32,15 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     Context context;
     MyCoursesItemBinding binding;
     int totalLessons;
-    int userId;
-    Course course;
-    Bookmark bookmark;
 
-    boolean isBookMark = false;
 
-    public MyCoursesAdapter(List<UserCourseEnrolled> userCourseEnrolled, Context context, int userId) {
+
+    public MyCoursesAdapter(List<UserCourseEnrolled> userCourseEnrolled, Context context) {
         this.userCourseEnrolled = userCourseEnrolled;
         this.context = context;
-        this.userId = userId;
     }
-    int completedLessons = 0;
+
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,19 +54,28 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         MyCoursesAdapter.ViewHolder viewHolder = (MyCoursesAdapter.ViewHolder) holder;
         UserCourseEnrolled courseEnrolled = userCourseEnrolled.get(position);
         int courseId = courseEnrolled.getCourseId();
-        viewModel.getCourseById(courseId).observe((HomeActivity) context,listCourse -> {
+        viewModel.getCourseById(courseId).observe((HomeActivity) context, listCourse -> {
             viewHolder.binding.courseTitle.setText(listCourse.getCourseTitle());
-            viewHolder.binding.courseHoursTv.setText(listCourse.getCourseHours()+"");
+            viewHolder.binding.courseHoursTv.setText(listCourse.getCourseHours() + " Hours");
             viewHolder.binding.coursePhotoTV.setImageBitmap(listCourse.getCourseImage());
-            viewHolder.binding.progressBar.setProgress(courseEnrolled.getProgressIndicator());
+
             viewModel.getLessonsByCourseId(courseId).observe((HomeActivity) context, lessonList -> {
-                        totalLessons = lessonList.size();
-                        viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator() + " / " + totalLessons);
-                    });
+                totalLessons = lessonList.size();
+
+                viewHolder.binding.progressBar.setProgress((int) ((float) courseEnrolled.getProgressIndicator() / totalLessons * 100));
+                viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator() + " / " + totalLessons);
+            });
+
             viewHolder.binding.deleteCourseTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    viewModel.deleteEnrollUserInCourse(userCourseEnrolled.get(position));
+                    String textMassage="Are you sure you want to remove this Course?";
+                    String key="joinCourse";
+                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled.get(position),textMassage,key, context);
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(true);
+                    dialog.show();
+
                 }
             });
 
@@ -75,7 +83,7 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                     Intent intent = new Intent(context, MyLessonActivity.class);
+                    Intent intent = new Intent(context, MyLessonActivity.class);
                     intent.putExtra("courseId", courseEnrolled.getCourseId());
                     context.startActivity(intent);
 

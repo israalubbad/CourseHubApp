@@ -105,8 +105,6 @@
         app:layout_constraintStart_toStartOf="@id/passwordInputLayout"
         android:layout_marginTop="8dp"
         android:checked="false"
-        app:thumbTint="@color/yourThumbColor"
-        app:trackTint="@color/yourTrackColor"
         />
     <TextView
         android:id="@+id/rememberTv"

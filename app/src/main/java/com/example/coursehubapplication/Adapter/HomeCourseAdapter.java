@@ -24,6 +24,7 @@ import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.CourseviewItemBinding;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     CourseviewItemBinding binding;
     Course course;
     int userId;
-    Bookmark bookmark;
+    Bookmark bookmarks;
     HomeCourseAdapter.ClickListener clickListener;
     boolean isBookMark = false;
 
@@ -60,7 +61,11 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         viewHolder.binding.courseDescription.setText(courseList.get(position).getCourseDescription());
         viewHolder.binding.instructorName.setText(courseList.get(position).getCourseInstructorName());
         viewHolder.binding.coursePhotoTV.setImageBitmap(courseList.get(position).getCourseImage());
-
+        viewModel.getBookmarkByUserIdAndCourse(Utils.USERID,course.getCourseId()).observe((LifecycleOwner) context, Bookmark-> {
+           if(Bookmark !=null) {
+               bookmarks = Bookmark;
+           }
+        });
 
         viewModel.getIsBookmark(course.getCourseId(), userId).observe((LifecycleOwner) context, isBookmarked -> {
             if (isBookmarked != null) {
@@ -76,10 +81,13 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         viewModel.insertBookmark(bookmark);
                         Toast.makeText(context, "Bookmark added", Toast.LENGTH_SHORT).show();
                     } else {
-                        AlertDialog.Builder builder = getBuilder(viewModel, course);
+                        String textMassage="Are you sure you want to remove this bookmark?";
+                        String key="bookmark";
+                        AlertDialog.Builder builder = Utils.getBuilder(viewModel,bookmarks,textMassage,key,context);
                         AlertDialog dialog = builder.create();
                         dialog.setCancelable(true);
                         dialog.show();
+                        return;
                     }
                 });
             }

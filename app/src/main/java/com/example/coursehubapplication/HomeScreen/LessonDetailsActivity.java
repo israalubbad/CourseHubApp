@@ -36,14 +36,12 @@ ActivityLessonDetailsBinding binding;
         viewModel.getLessonById(lessonId).observe(this,lesson -> {
             binding.lessonTitleTv.setText(lesson.getLessonTitle());
             binding.descriptionLessonTV.setText(lesson.getLessonDescription());
-//            binding.youtubeLink.setText(lesson.getLessonVideo());
-//            if(lesson.getArticleLink() != null){
-//                binding.articelLink.setVisibility(View.VISIBLE);
-//                binding.articelLink.setText(lesson.getArticleLink());
-//
-//            }else {
-//                binding.articelLink.setVisibility(View.GONE);
-//            }
+
+            if(lesson.getArticleLink() != null){
+                binding.articelLink.setVisibility(View.VISIBLE);
+            }else {
+                binding.articelLink.setVisibility(View.GONE);
+            }
 
             binding.youtubeLink.setOnClickListener(new View.OnClickListener() {
                 @Override

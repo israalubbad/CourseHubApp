@@ -24,6 +24,7 @@ import com.example.coursehubapplication.MainActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityMyLessonBinding;
 import com.example.coursehubapplication.databinding.FragmentRecyclerViewBinding;
 
@@ -38,8 +39,6 @@ public class MyLessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMyLessonBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        SharedPreferences preferences = getSharedPreferences("course", Context.MODE_PRIVATE);
-        int userId = preferences.getInt("userId", -1);
         courseId = getIntent().getIntExtra("courseId", -1);
 
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
@@ -49,7 +48,7 @@ public class MyLessonActivity extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         viewModel.getLessonsByCourseId(courseId).observe(this, lessonList -> {
-            MyLessonAdapter adapter = new MyLessonAdapter(lessonList, this,  userId);
+            MyLessonAdapter adapter = new MyLessonAdapter(lessonList, this);
             binding.recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 

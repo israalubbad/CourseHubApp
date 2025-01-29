@@ -33,7 +33,5 @@ public interface  LessonUserDao {
     @Query("SELECT * FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId")
     public LiveData<List<LessonUser>> getCompletedLesson(int enrolledCourseId);
 
-    @Query("DELETE FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId AND lessonId = :lessonId")
-    void deleteLessonUser(int enrolledCourseId, int lessonId);
 
 }

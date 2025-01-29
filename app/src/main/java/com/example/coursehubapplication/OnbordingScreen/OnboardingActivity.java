@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.coursehubapplication.LoginScreen.LoginActivity;
 import com.example.coursehubapplication.MainActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.databinding.ActivityOnboardingBinding;
@@ -62,8 +63,8 @@ int i;
                 if (getItem(0) < 2)
                     binding.viewPager.setCurrentItem(getItem(1), true);
                 else {
-                    Intent i = new Intent(getBaseContext(), Onboarding3Fragment.class);
-                    startActivity(i);
+                    Intent intent = new Intent(getBaseContext(), Onboarding3Fragment.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -74,8 +75,8 @@ int i;
         binding.skipBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

@@ -20,6 +20,7 @@ import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.FragmentProfileragmentBinding;
 
 import java.util.ArrayList;
@@ -58,9 +59,8 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentProfileragmentBinding binding = FragmentProfileragmentBinding.inflate(getLayoutInflater());
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
-        SharedPreferences preferences = requireContext().getSharedPreferences("course", Context.MODE_PRIVATE);
-        int userId = preferences.getInt("userId", -1);
-        viewModel.getUserId(userId).observe(getViewLifecycleOwner(), new Observer<User>() {
+
+        viewModel.getUserId(Utils.USERID).observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 binding.userNameTV.setText(user.getUserName());
@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        viewModel.getBookmarkByUserId(userId).observe(getViewLifecycleOwner(), new Observer<List<Bookmark>>() {
+        viewModel.getBookmarkByUserId(Utils.USERID).observe(getViewLifecycleOwner(), new Observer<List<Bookmark>>() {
             @Override
             public void onChanged(List<Bookmark> bookmarks) {
                 ArrayList<Course> courses = new ArrayList<>();
@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment {
                             }
                             if (courses.size()== bookmarks.size()) {
                                 binding.savedCoursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                HomeCourseAdapter adapter = new HomeCourseAdapter(courses, getContext(), null, userId);
+                                HomeCourseAdapter adapter = new HomeCourseAdapter(courses, getContext(), null, Utils.USERID);
                                 binding.savedCoursesRecyclerView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                             }

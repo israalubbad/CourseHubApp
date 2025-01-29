@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.coursehubapplication.Adapter.CourseAdapter;
@@ -31,6 +32,7 @@ import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 
 import com.example.coursehubapplication.RoomDatabase.User;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.FragmentHomeBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -80,10 +82,10 @@ public class HomeFragment extends Fragment implements HomeCourseAdapter.ClickLis
         FragmentHomeBinding binding = FragmentHomeBinding.inflate(inflater, container, false);
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
-        SharedPreferences preferences = requireContext().getSharedPreferences("course", Context.MODE_PRIVATE);
-        int userId = preferences.getInt("userId", -1);
-        viewModel.getUserId(userId).observe(getViewLifecycleOwner(), user -> {
-            binding.userNameTV.setText(user.getUserName());
+
+        viewModel.getUserId(Utils.USERID).observe(getViewLifecycleOwner(), user -> {
+            binding.userNameTV.setText(user.getUserName()+"");
+            Toast.makeText(getContext(), "dd"+Utils.USERID, Toast.LENGTH_SHORT).show();
 
         });
 

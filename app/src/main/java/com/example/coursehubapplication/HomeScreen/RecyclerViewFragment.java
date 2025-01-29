@@ -1,6 +1,7 @@
 package com.example.coursehubapplication.HomeScreen;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.content.Context.USER_SERVICE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.coursehubapplication.Adapter.HomeCourseAdapter;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.FragmentRecyclerViewBinding;
 
 
@@ -61,8 +63,6 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        SharedPreferences preferences = requireContext().getSharedPreferences("course", Context.MODE_PRIVATE);
-        int userId = preferences.getInt("userId", -1);
 
         FragmentRecyclerViewBinding binding = FragmentRecyclerViewBinding.inflate(inflater, container, false);
 
@@ -72,7 +72,7 @@ public class RecyclerViewFragment extends Fragment {
                 @Override
                 public void onChanged(List<Course> courseList) {
                     if (categoryId == 0) {
-                        adapter = new HomeCourseAdapter(courseList, requireContext(), null,userId);
+                        adapter = new HomeCourseAdapter(courseList, requireContext(), null, Utils.USERID);
                         binding.recyclerViewCourseRv.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
@@ -82,7 +82,7 @@ public class RecyclerViewFragment extends Fragment {
             viewModel.getCoursesByCategoryId(categoryId).observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
                 @Override
                 public void onChanged(List<Course> courseList) {
-                    adapter = new HomeCourseAdapter(courseList, requireContext(), null,userId);
+                    adapter = new HomeCourseAdapter(courseList, requireContext(), null,Utils.USERID);
                     binding.recyclerViewCourseRv.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 

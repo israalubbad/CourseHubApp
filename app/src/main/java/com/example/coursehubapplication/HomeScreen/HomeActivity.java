@@ -36,6 +36,7 @@ import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -56,9 +57,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         sharedPreferences = getSharedPreferences("course", MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("userId", -1);
+       Utils.USERID = sharedPreferences.getInt("userId", -1);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
-                HomeFragment.newInstance(userId)).commit();
+                HomeFragment.newInstance(Utils.USERID)).commit();
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
 
@@ -82,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        viewModel.getCoursesByUserIdList(userId).observe(HomeActivity.this, userCourseEnrolled -> {
+        viewModel.getCoursesByUserIdList(Utils.USERID).observe(HomeActivity.this, userCourseEnrolled -> {
             List<Integer> courseIds = new ArrayList<>();
             for (UserCourseEnrolled course : userCourseEnrolled) {
                 courseIds.add(course.getCourseId());
@@ -93,12 +94,12 @@ public class HomeActivity extends AppCompatActivity {
                 for (int courseId : courseIds) {
                     viewModel.getLessonsByCourseId(courseId).observe(HomeActivity.this, lessons -> {
                         for (Lesson lesson : lessons) {
-                            if (lesson.isAdminAdded() && !isNotificationShown(userId,lesson.getLessonId())) {
+                            if (lesson.isAdminAdded() && !isNotificationShown( Utils.USERID,lesson.getLessonId())) {
                                 viewModel.getCourseById(courseId).observe(HomeActivity.this, courses -> {
                                     String courseTitle = courses.getCourseTitle();
                                     showNotification(lesson.getLessonTitle(), courseTitle, courseId,lesson.getLessonId());
                                     courseIdSave=courseId;
-                                    saveNotificationShown(userId,lesson.getLessonId());
+                                    saveNotificationShown( Utils.USERID,lesson.getLessonId());
                                 });
                             }
                         }
@@ -123,11 +124,7 @@ public class HomeActivity extends AppCompatActivity {
         // علشان اعلق الانتنت عند ما يضغط على الاشعار يروح على شاشة
         Intent intent = new Intent(getBaseContext(), MyLessonActivity.class);
         intent.putExtra("courseId", courseId);
-
-        Toast.makeText(this, courseId +" ff", Toast.LENGTH_SHORT).show();
-        Log.d("MyLessonActivity", "Received course" + courseId);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pi = PendingIntent.getActivity(HomeActivity.this,courseId, intent, PendingIntent.FLAG_IMMUTABLE);
+         PendingIntent pi = PendingIntent.getActivity(HomeActivity.this,courseId, intent, PendingIntent.FLAG_IMMUTABLE);
 
         // هو يلي بنشا يبني الاشعار
         NotificationCompat.Builder builder = new NotificationCompat.Builder(HomeActivity.this, CHANNEL_ID);

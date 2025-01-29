@@ -5,8 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -229,6 +227,7 @@ public  void insertLessonUser(LessonUser lessonUser){
     public void deleteLessonUser(LessonUser lessonUser){
             repository.deleteLessonUser(lessonUser);
 
+
     }
 
     public void updateLessonUser(LessonUser lessonUser){
@@ -254,11 +253,6 @@ public  void insertLessonUser(LessonUser lessonUser){
         return repository.getCompletedLesson(enrolledCourseId);
     }
 
-    public void deleteLessonUser(int enrolledCourseId, int lessonId){
-
-            repository.deleteLessonUser(enrolledCourseId,lessonId);
-
-    }
 
     public LiveData<Lesson> getLatestLesson(int courseId){
         return repository.getLatestLesson(courseId);
