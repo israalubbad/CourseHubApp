@@ -12,18 +12,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.coursehubapplication.MainActivity;
+import com.example.coursehubapplication.LoginScreen.LoginActivity;
+
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.databinding.ActivityOnboardingBinding;
 
 import java.util.ArrayList;
 
-public class OnboardingActivity extends AppCompatActivity {
-ActivityOnboardingBinding binding;
-int i;
+    public class OnboardingActivity extends AppCompatActivity {
+        ActivityOnboardingBinding binding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding=ActivityOnboardingBinding.inflate(getLayoutInflater());
@@ -46,7 +46,7 @@ int i;
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                i=position;
+
                 if (position == 2) {
                     binding.nextBT.setVisibility(View.GONE);
                     binding.skipBT.setVisibility(View.GONE);
@@ -59,11 +59,12 @@ int i;
         binding.nextBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // اذا المستخدم مش في اخر شاشه
                 if (getItem(0) < 2)
                     binding.viewPager.setCurrentItem(getItem(1), true);
                 else {
-                    Intent i = new Intent(getBaseContext(), Onboarding3Fragment.class);
-                    startActivity(i);
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -74,14 +75,15 @@ int i;
         binding.skipBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
 
         }
     private int getItem(int i) {
+            // بحسب رقم الصفحه يلي جايه لما يضغط نيكست
         return binding.viewPager.getCurrentItem() + i;
     }
 }

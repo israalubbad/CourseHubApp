@@ -21,9 +21,6 @@ public interface  LessonUserDao {
     @Delete
    public void deleteLessonUser(LessonUser lessonUser);
 
-    @Query("SELECT COUNT(*) FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId AND isCompleted = 1")
-    LiveData<Integer> getCompletedLessons(int enrolledCourseId);
-
     @Query("SELECT * FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId AND lessonId = :lessonId ")
     LiveData<LessonUser> getLessonUser(int enrolledCourseId, int lessonId);
 
@@ -33,7 +30,5 @@ public interface  LessonUserDao {
     @Query("SELECT * FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId")
     public LiveData<List<LessonUser>> getCompletedLesson(int enrolledCourseId);
 
-    @Query("DELETE FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId AND lessonId = :lessonId")
-    void deleteLessonUser(int enrolledCourseId, int lessonId);
 
 }

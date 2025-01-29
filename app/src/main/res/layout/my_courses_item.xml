@@ -70,6 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="8dp"
             android:progress="0"
+             android:max="100"
              android:layout_marginStart="8dp"
             android:progressTint="@color/primaryColor"
             android:progressBackgroundTint="@color/yourTrackColor"

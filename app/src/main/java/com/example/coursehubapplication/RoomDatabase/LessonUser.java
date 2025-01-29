@@ -16,19 +16,18 @@ public class LessonUser {
 
     private int enrolledCourseId;
     private int lessonId;
-    private boolean isCompleted;
+
 
     public LessonUser( int enrolledCourseId, int lessonId) {
         this.enrolledCourseId = enrolledCourseId;
         this.lessonId = lessonId;
-        this.isCompleted = isCompleted;
+
     }
     @Ignore
     public LessonUser(int lessonUserId,int enrolledCourseId, int lessonId) {
         this.lessonUserId=lessonUserId;
         this.enrolledCourseId = enrolledCourseId;
         this.lessonId = lessonId;
-        this.isCompleted = isCompleted;
     }
 
     public int getLessonUserId() {
@@ -55,11 +54,4 @@ public class LessonUser {
         this.lessonId = lessonId;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
 }

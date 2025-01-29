@@ -76,7 +76,7 @@ public class AddCourseActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.addCategorySp.setAdapter(adapter);
-
+// احط التصنيفات بالسبينر
         viewModel.getAllCategories().observe(this, categories -> {
             categoryList = categories;
             categoryNames = new ArrayList<>();
@@ -104,6 +104,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
 
             }
+            // علشان يختاره يلي انا دخلت عليه
             if (categoryId != -1) {
                 for (int i = 0; i < categories.size(); i++) {
                     if (categories.get(i).getCategoryId() == categoryId) {
@@ -120,6 +121,7 @@ public class AddCourseActivity extends AppCompatActivity {
                     String selectedCategoryName = parent.getItemAtPosition(position).toString();
                     for (Category category : categories) {
                         if (category.getCategoryName().equals(selectedCategoryName)) {
+                          // بجيب يلي اختاره المستخدم
                             categoryId = category.getCategoryId();
                             break;
                         }

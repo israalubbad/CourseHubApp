@@ -24,14 +24,8 @@ public interface BookmarkDao {
     @Query("SELECT * FROM Bookmark WHERE userId = :userId")
     LiveData<List<Bookmark>> getBookmarkByUserId(int userId);
 
-    @Query("SELECT * FROM Bookmark WHERE courseId = :courseId")
-    LiveData<Bookmark> getBookmarkByCourseId(int courseId);
-
     @Query("SELECT * FROM Bookmark WHERE userId = :userId AND courseId = :courseId ")
     LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId,int courseId);
-
-    @Query("SELECT * FROM Bookmark WHERE bookmarkId = :bookmarkId")
-    LiveData<Bookmark> getBookmarkId(int bookmarkId);
 
     @Query("SELECT * FROM Bookmark")
     LiveData<List<Bookmark>> getAllBookmark();

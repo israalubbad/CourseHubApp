@@ -29,11 +29,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursehubapplication.DashboardScreen.AddLessonActivity;
+import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
+import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
 import com.example.coursehubapplication.DashboardScreen.ViewLessonActivity;
 import com.example.coursehubapplication.HomeScreen.HomeActivity;
 import com.example.coursehubapplication.HomeScreen.LessonDetailsActivity;
 import com.example.coursehubapplication.HomeScreen.MyLessonActivity;
 import com.example.coursehubapplication.R;
+import com.example.coursehubapplication.RoomDatabase.Bookmark;
+import com.example.coursehubapplication.RoomDatabase.Category;
+import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.LessonUser;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
@@ -48,14 +53,15 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     List<Lesson> lessonList;
     Context context;
     MyLessonItemBinding binding;
-    int userId;
-    int lessonUserId;
-
-    public MyLessonAdapter(List<Lesson> lessonList, Context context, int userId) {
+    public static LessonUser lessonUsers;
+    int enrolledId;
+    int lessonId;
+    public MyLessonAdapter(List<Lesson> lessonList, Context context) {
         this.lessonList = lessonList;
         this.context = context;
-        this.userId = userId;
+
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,41 +75,57 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyViewModel viewModel = new ViewModelProvider((MyLessonActivity) context).get(MyViewModel.class);
         viewHolder.binding.lessonTitle.setText(lessonList.get(position).getLessonTitle());
         int courseId = lessonList.get(position).getCourseId();
-        int lessonId = lessonList.get(position).getLessonId();
+         lessonId = lessonList.get(position).getLessonId();
         int totalLessons = lessonList.size();
 
-
-
-        viewModel.getUserEnrolledInCourse(userId, courseId).observe((LifecycleOwner) context, userCourseEnrolled -> {
+        viewModel.getUserEnrolledInCourse(Utils.USERID, courseId).observe((LifecycleOwner) context, userCourseEnrolled -> {
             if (userCourseEnrolled != null) {
-                int enrolledId = userCourseEnrolled.getEnrolledCourseId();
+                 enrolledId = userCourseEnrolled.getEnrolledCourseId();
+                viewModel.getLessonUser(enrolledId, lessonId).observe((MyLessonActivity) context, lessonUser -> {
+                    if (lessonUser != null) {
+                        lessonUsers = lessonUser;
+                    }
+                });
+
                 viewModel.getIsCompleted(enrolledId, lessonId).observe((LifecycleOwner) context, isCompleted -> {
                     if (isCompleted != null) {
                         if (isCompleted) {
-                            viewHolder.binding.checkBox.setChecked(isCompleted);
-                        }
-
-                        viewHolder.binding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                            if (! isCompleted && isChecked) {
-                                viewModel.insertLessonUser(new LessonUser(enrolledId, lessonId));
-                                Toast.makeText(context, "Checked lesson", Toast.LENGTH_SHORT).show();
-                            } else {
-                                viewModel.deleteLessonUser(enrolledId, lessonId);
-                                Toast.makeText(context, "unChecked lesson", Toast.LENGTH_SHORT).show();
-                                viewHolder.binding.checkBox.setChecked(false);
+                            viewHolder.binding.checkBox.setImageResource(R.drawable.check);
+                        } else {
+                                viewHolder.binding.checkBox.setImageResource(R.drawable.check_mark);
                             }
 
+
+                        viewHolder.binding.checkBox.setOnClickListener(view ->{
+                            if (! isCompleted ) {
+                                viewModel.insertLessonUser(new LessonUser(enrolledId, lessonId));
+                                Toast.makeText(context, "Checked lesson", Toast.LENGTH_SHORT).show();
+                            } else{
+                                String textMassage = "Are you sure you want to unChecked lesson ?";
+                                String key = "userLesson";
+                                AlertDialog.Builder builder = Utils.getBuilder(viewModel, lessonUsers, textMassage, key, context);
+                                AlertDialog dialog = builder.create();
+                                dialog.setCancelable(true);
+                                dialog.show();
+                                return;
+
+                            }
                             viewModel.getCompletedLesson(enrolledId).observe((LifecycleOwner) context, completed -> {
                                 if (completed != null) {
-                                    viewModel.updateEnrollUserInCourse(new UserCourseEnrolled(enrolledId,userId, courseId, completed.size()));
+                                    Toast.makeText(context, "dd"+completed.size(), Toast.LENGTH_SHORT).show();
+                                    viewModel.updateEnrollUserInCourse(new UserCourseEnrolled(enrolledId, Utils.USERID, courseId, completed.size()));
 
                                 }
 
                             });
+
                         });
-                    } });
+                    }
+                });
             }
         });
+
+
 
 
         viewHolder.binding.getRoot().setOnClickListener(view -> {
@@ -126,31 +148,11 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+
     @Override
     public int getItemCount() {
         return lessonList.size();
     }
-//
-//    AlertDialog.Builder builder = new AlertDialog.Builder((MyLessonActivity) context);
-//                                builder.setTitle("Confirmation");
-//                                builder.setMessage("Are you sure you want to unChecked lesson?");
-//                                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//        @Override
-//        public void onClick(DialogInterface dialogInterface, int i) {
-//            viewModel.deleteLessonUser(enrolledId, lessonId);
-//            Toast.makeText(context, "unChecked lesson", Toast.LENGTH_SHORT).show();
-//            viewHolder.binding.checkBox.setChecked(false);
-//        }
-//    });
-//                                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//        @Override
-//        public void onClick(DialogInterface dialogInterface, int i) {
-//            Toast.makeText((ViewLessonActivity) context, "canceled", Toast.LENGTH_SHORT).show();
-//        }
-//    });
-//    AlertDialog dialog = builder.create();
-//                                dialog.setCancelable(true);
-//                                dialog.show();
 
 }
 

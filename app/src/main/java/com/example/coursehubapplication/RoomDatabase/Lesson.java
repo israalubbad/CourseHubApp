@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 @Entity(foreignKeys = {
         @ForeignKey(entity = Course.class,parentColumns = "courseId",childColumns = "courseId",onDelete = ForeignKey.CASCADE) })
 public class Lesson {
+
     @PrimaryKey(autoGenerate = true)
     private int lessonId;
 

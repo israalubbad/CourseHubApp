@@ -5,8 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -39,9 +37,6 @@ public class MyViewModel extends AndroidViewModel {
         return repository.getUserByEmailAndPassword(email, password);
     }
 
-    public LiveData<User> getUserByPassword(String password) {
-        return repository.getUserByPassword(password);
-    }
 
     public LiveData<User> getUserId(int userId) {
         return repository.getUserId(userId);
@@ -155,34 +150,21 @@ public class MyViewModel extends AndroidViewModel {
         repository.deleteUserFromCourse(userId, courseId);
     }
 
-    public LiveData<List<UserCourseEnrolled>> getAllEnrollments() {
-        return repository.getAllEnrollments();
-    }
-
-    public LiveData<UserCourseEnrolled> getCoursesByUserId(int userId) {
-        return repository.getCoursesByUserId(userId);
-    }
-
-    public LiveData<UserCourseEnrolled> getEnrolledId(int enrolledCourseId) {
-        return repository.getEnrolledId(enrolledCourseId);
-    }
-
     public   LiveData<List<UserCourseEnrolled>> getUsersByCourseId(int courseId) {
         return repository.getUsersByCourseId(courseId);
     }
     public LiveData<Boolean> isAlreadyEnrolled(int userId, int courseId) {
         return repository.isUserEnrolledInCourse(userId, courseId);
     }
+
     public LiveData<List<UserCourseEnrolled>> getCoursesByUserIdList(int userId) {
         return repository.getCoursesByUserIdList(userId);
     }
-    public LiveData<UserCourseEnrolled> getUserEnrolledInCourse(int userId, int courseId){
-        return repository.getUserEnrolledInCourse(userId,courseId);
+
+    public LiveData<UserCourseEnrolled> getUserEnrolledInCourse(int userId, int courseId) {
+        return repository.getUserEnrolledInCourse(userId, courseId);
     }
 
-    public void updateCourseProgress(int userId, int courseId, int progress){
-        repository.updateCourseProgress(userId,courseId,progress);
-    }
 
     // Bookmark
     public void insertBookmark(Bookmark bookmark) {
@@ -194,59 +176,51 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Bookmark>> getAllBookmarks() {
-        return  repository.getAllBookmarks();
+        return repository.getAllBookmarks();
     }
 
     public LiveData<List<Bookmark>> getBookmarkByUserId(int userId) {
         return repository.getBookmarkByUserId(userId);
     }
 
-    public LiveData<Bookmark> getBookmarkByCourseId(int courseId) {
-        return repository.getBookmarkByCourseId(courseId);
-    }
-
-
-    public LiveData<Bookmark> getBookmarkId(int bookmarkId) {
-        return repository.getBookmarkId(bookmarkId);
-    }
 
     public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId, int courseId) {
         return repository.getBookmarkByUserIdAndCourse(userId, courseId);
     }
+
     public LiveData<Boolean> getIsBookmark(int courseId, int userId) {
         return repository.getIsBookmark(courseId, userId);
     }
+
     public void deleteBookmarkByUserAndCourse(int userId, int courseId) {
 
-            repository.deleteBookmarkByUserAndCourse(userId, courseId);
+        repository.deleteBookmarkByUserAndCourse(userId, courseId);
 
     }
-////////////////////
-public  void insertLessonUser(LessonUser lessonUser){
+
+    ////////////////////
+    public void insertLessonUser(LessonUser lessonUser) {
         repository.insertLessonUser(lessonUser);
 
-}
-    public void deleteLessonUser(LessonUser lessonUser){
-            repository.deleteLessonUser(lessonUser);
+    }
+
+    public void deleteLessonUser(LessonUser lessonUser) {
+        repository.deleteLessonUser(lessonUser);
+
 
     }
 
-    public void updateLessonUser(LessonUser lessonUser){
+    public void updateLessonUser(LessonUser lessonUser) {
         repository.updateLessonUser(lessonUser);
 
     }
 
-    public LiveData<Integer> getCompletedLessons(int enrolledCourseId){
-        return repository.getCompletedLessons(enrolledCourseId);
-
+    public LiveData<LessonUser> getLessonUser(int enrolledCourseId, int lessonId) {
+        return repository.getLessonUser(enrolledCourseId, lessonId);
     }
 
-    public LiveData<LessonUser> getLessonUser(int enrolledCourseId, int lessonId){
-        return repository.getLessonUser(enrolledCourseId,lessonId);
-    }
-
-    public LiveData<Boolean> getIsCompleted(int enrolledCourseId, int lessonId){
-        return repository.getIsCompleted(enrolledCourseId,lessonId);
+    public LiveData<Boolean> getIsCompleted(int enrolledCourseId, int lessonId) {
+        return repository.getIsCompleted(enrolledCourseId, lessonId);
     }
 
 
@@ -254,15 +228,7 @@ public  void insertLessonUser(LessonUser lessonUser){
         return repository.getCompletedLesson(enrolledCourseId);
     }
 
-    public void deleteLessonUser(int enrolledCourseId, int lessonId){
 
-            repository.deleteLessonUser(enrolledCourseId,lessonId);
-
-    }
-
-    public LiveData<Lesson> getLatestLesson(int courseId){
-        return repository.getLatestLesson(courseId);
-    }
 }
 
 

@@ -129,10 +129,10 @@ public class ProgressCourseFragment extends Fragment {
 
                         if (ongoingCourse.size() + completedCourse.size() == enrolledCourses.size()) {
                             if (key == 0) {
-                                    MyCoursesAdapter newAdapter = new MyCoursesAdapter(ongoingCourse, getContext(), userId);
+                                    MyCoursesAdapter newAdapter = new MyCoursesAdapter(ongoingCourse, getContext());
                                     binding.recyclerView.setAdapter(newAdapter);
                                 } else if (key == 1) {
-                                    MyCoursesAdapter newAdapter = new MyCoursesAdapter(completedCourse, getContext(), userId);
+                                    MyCoursesAdapter newAdapter = new MyCoursesAdapter(completedCourse, getContext());
                                     binding.recyclerView.setAdapter(newAdapter);
                                 }
                         }
@@ -145,3 +145,41 @@ public class ProgressCourseFragment extends Fragment {
 
 
 }
+
+// علشان يحسب التقدم من 100%
+//    private void progressCourse() {
+//        viewModel.getCoursesByUserIdList(Utils.USERID).observe(getViewLifecycleOwner(), enrolledCourses -> {
+//            List<UserCourseEnrolled> ongoingCourse = new ArrayList<>();
+//            List<UserCourseEnrolled> completedCourse = new ArrayList<>();
+//
+//            for (UserCourseEnrolled courseEnrolled : enrolledCourses) {
+//                int courseId = courseEnrolled.getCourseId();
+//                viewModel.getLessonsByCourseId(courseId).observe(getViewLifecycleOwner(), lessonList -> {
+//                    int totalLesson =lessonList.size();
+//
+//                    viewModel.getCompletedLesson(courseEnrolled.getEnrolledCourseId()).observe(getViewLifecycleOwner(), completedLessons -> {
+//                        int completed = completedLessons.size();
+//
+//                        int progress = (int) ((completed / (float) totalLesson) * 100);
+//                        courseEnrolled.setProgressIndicator(progress);
+//
+//                        if (progress == 100) {
+//                            completedCourse.add(courseEnrolled);
+//                        } else {
+//                            ongoingCourse.add(courseEnrolled);
+//                        }
+//
+//                        if (ongoingCourse.size() + completedCourse.size() == enrolledCourses.size()) {
+//                            if (key == 0) {
+//                                MyCoursesAdapter newAdapter = new MyCoursesAdapter(ongoingCourse, getContext());
+//                                binding.recyclerView.setAdapter(newAdapter);
+//                            } else if (key == 1) {
+//                                MyCoursesAdapter newAdapter = new MyCoursesAdapter(completedCourse, getContext());
+//                                binding.recyclerView.setAdapter(newAdapter);
+//                            }
+//                        }
+//                    });
+//                });
+//            }
+//        });
+//    }

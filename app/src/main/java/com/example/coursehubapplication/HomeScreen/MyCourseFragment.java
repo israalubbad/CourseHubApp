@@ -22,17 +22,14 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyCourseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class MyCourseFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ArrayList<String> tabs;
+    ArrayList<Fragment> fragments;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -55,14 +52,15 @@ public class MyCourseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+         tabs = new ArrayList<>();
+        fragments=new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        FragmentMyCourseBinding binding = FragmentMyCourseBinding.inflate(inflater, container, false);
-        ArrayList<String> tabs = new ArrayList<>();
-        ArrayList<Fragment> fragments=new ArrayList<>();
+
         tabs.add("Ongoing");
         fragments.add(ProgressCourseFragment.newInstance(0));
         tabs.add("Completed");

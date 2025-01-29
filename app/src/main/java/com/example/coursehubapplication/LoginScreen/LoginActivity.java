@@ -2,8 +2,6 @@ package com.example.coursehubapplication.LoginScreen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -18,11 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
 import com.example.coursehubapplication.HomeScreen.HomeActivity;
-import com.example.coursehubapplication.MainActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
-import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {

@@ -18,10 +18,11 @@ public class User {
     private String userPassword;
 
     private Bitmap userPhoto;
+
     private boolean isAdmin;
 
 
-    public User( String userName, String userEmail, String userPassword, Bitmap userPhoto, boolean isAdmin) {
+    public User(String userName, String userEmail, String userPassword, Bitmap userPhoto, boolean isAdmin) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;

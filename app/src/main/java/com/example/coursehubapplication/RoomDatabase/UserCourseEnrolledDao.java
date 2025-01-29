@@ -26,9 +26,6 @@ public interface UserCourseEnrolledDao {
     @Query("SELECT * FROM UserCourseEnrolled")
     LiveData<List<UserCourseEnrolled>> getAllEnrollments();
 
-    @Query("SELECT * FROM UserCourseEnrolled WHERE enrolledCourseId = :enrolledCourseId")
-    LiveData<UserCourseEnrolled> getEnrolledId(int enrolledCourseId);
-
     @Query("SELECT * FROM UserCourseEnrolled WHERE userId = :userId")
     LiveData<UserCourseEnrolled> getCoursesByUserId(int userId);
 
@@ -45,6 +42,6 @@ public interface UserCourseEnrolledDao {
     LiveData<UserCourseEnrolled> getUserEnrolledInCourse(int userId, int courseId);
 
 
-    @Query("UPDATE UserCourseEnrolled SET progressIndicator = :progress WHERE userId = :userId AND courseId = :courseId")
-    void updateCourseProgress(int userId, int courseId, int progress);
+
+
 }

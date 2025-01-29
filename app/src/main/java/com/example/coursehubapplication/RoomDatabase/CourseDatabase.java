@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {User.class, Category.class, Course.class, UserCourseEnrolled.class, Bookmark.class, Lesson.class,LessonUser.class}, version = 2, exportSchema = false)
+@Database(entities = {User.class, Category.class, Course.class, UserCourseEnrolled.class, Bookmark.class, Lesson.class,LessonUser.class}, version = 3, exportSchema = false)
 @TypeConverters({Converters.class})
  public abstract class CourseDatabase extends RoomDatabase {
 

@@ -5,21 +5,17 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = {
-        @ForeignKey(entity = User.class,parentColumns = "userId",childColumns = "userId",onDelete = ForeignKey.CASCADE),
-        @ForeignKey(entity = Course.class,parentColumns = "courseId",childColumns = "courseId",onDelete = ForeignKey.CASCADE)
-                      })
+@Entity(foreignKeys = {@ForeignKey(entity = User.class, parentColumns = "userId", childColumns = "userId", onDelete = ForeignKey.CASCADE), @ForeignKey(entity = Course.class, parentColumns = "courseId", childColumns = "courseId", onDelete = ForeignKey.CASCADE)})
 
 
 public class UserCourseEnrolled {
     @PrimaryKey(autoGenerate = true)
-    private  int  enrolledCourseId;
+    private int enrolledCourseId;
     private int userId;
 
     private int courseId;
 
     private int progressIndicator;
-
 
     public UserCourseEnrolled(int userId, int courseId, int progressIndicator) {
         this.userId = userId;
@@ -27,6 +23,7 @@ public class UserCourseEnrolled {
         this.progressIndicator = progressIndicator;
 
     }
+
     @Ignore
     public UserCourseEnrolled(int enrolledCourseId, int userId, int courseId, int progressIndicator) {
         this.enrolledCourseId = enrolledCourseId;
