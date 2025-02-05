@@ -91,7 +91,6 @@ int userLessonId;
                                     int progress = (int) ((completed.size() / (float) total) * 100);
                                     UserCourseEnrolled updatedEnrollment = new UserCourseEnrolled(enrolledId, Utils.USERID, courseId, progress);
                                     viewModel.updateEnrollUserInCourse(updatedEnrollment);
-                                    notifyDataSetChanged();
                                 }
 
                             });
