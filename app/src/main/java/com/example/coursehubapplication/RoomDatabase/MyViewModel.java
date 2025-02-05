@@ -21,8 +21,9 @@ public class MyViewModel extends AndroidViewModel {
         repository.userInsert(user);
     }
 
-    public void userUpdate(User user) {
+    public boolean userUpdate(User user) {
         repository.userUpdate(user);
+        return false;
     }
 
     public void userDelete(User user) {

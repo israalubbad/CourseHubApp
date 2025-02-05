@@ -148,95 +148,123 @@ public class AddCourseActivity extends AppCompatActivity {
         binding.addCourseBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String courseTitle = binding.nameCourseET.getText().toString();
-                String courseDescription = binding.courseDescriptionET.getText().toString();
-                String instructorName = binding.instructorNameEt.getText().toString();
-                String hours = binding.courseHoursET.getText().toString();
-                String prise = binding.coursePriseET.getText().toString();
-                try {
-                    courseHours = Integer.parseInt(hours);
-                    coursePrise = Double.parseDouble(prise);
-                } catch (NumberFormatException e) {
-                    System.out.println("Failed to parse the number: " + e.getMessage());
-                    e.printStackTrace();
-                }
+                String courseTitle = binding.nameCourseET.getText().toString().trim();
+                String courseDescription = binding.courseDescriptionET.getText().toString().trim();
+                String instructorName = binding.instructorNameEt.getText().toString().trim();
+                String hours = binding.courseHoursET.getText().toString().trim();
+                String price = binding.coursePriseET.getText().toString().trim();
 
                 if (courseTitle.isEmpty()) {
                     binding.nameCourseET.setError("Please enter Course Title");
+                    return;
                 }
                 if (courseDescription.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course Description");
+                    binding.courseDescriptionET.setError("Please enter Course Description");
+                    return;
                 }
                 if (instructorName.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course instructor Name");
+                    binding.instructorNameEt.setError("Please enter Instructor Name");
+                    return;
                 }
                 if (hours.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course Hours");
+                    binding.courseHoursET.setError("Please enter Course Hours");
+                    return;
                 }
-                if (prise.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course Prise");
+                if (price.isEmpty()) {
+                    binding.coursePriseET.setError("Please enter Course Price");
+                    return;
                 }
                 if (bitmap == null) {
                     Toast.makeText(AddCourseActivity.this, "Please select a Course Photo", Toast.LENGTH_SHORT).show();
-                } else {
-                    Course course = new Course(courseTitle, courseDescription, instructorName, bitmap, coursePrise, courseHours, categoryId);
-                    if (!viewModel.insertCourse(course)) {
-                        Toast.makeText(AddCourseActivity.this, "Successfully Add", Toast.LENGTH_SHORT).show();
-                        binding.nameCourseET.setText("");
-                        binding.instructorNameEt.setText("");
-                        binding.courseDescriptionET.setText("");
-                        binding.courseHoursET.setText("");
-                        binding.coursePriseET.setText("");
-                        binding.imageCourseIV.setImageResource(R.drawable.baseline_camera_alt_24);
-                    } else {
-                        Toast.makeText(AddCourseActivity.this, "Failed Add", Toast.LENGTH_SHORT).show();
-                    }
+                    return;
                 }
-            }
-        });
 
-        binding.editCourseBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String courseTitle = binding.nameCourseET.getText().toString();
-                String courseDescription = binding.courseDescriptionET.getText().toString();
-                String instructorName = binding.instructorNameEt.getText().toString();
-                String hours = binding.courseHoursET.getText().toString();
-                String prise = binding.coursePriseET.getText().toString();
                 try {
                     courseHours = Integer.parseInt(hours);
-                    coursePrise = Double.parseDouble(prise);
                 } catch (NumberFormatException e) {
-                    System.out.println("Failed to parse the number: " + e.getMessage());
-                    e.printStackTrace();
+                    binding.courseHoursET.setError("Invalid number format for Course Hours");
+                    return;
                 }
+
+                try {
+                    coursePrise = Double.parseDouble(price);
+                } catch (NumberFormatException e) {
+                    binding.coursePriseET.setError("Invalid number format for Course Price");
+                    return;
+                }
+
+                Course course = new Course(courseTitle, courseDescription, instructorName, bitmap, coursePrise, courseHours, categoryId);
+
+                if (viewModel.insertCourse(course)) {
+                    Toast.makeText(AddCourseActivity.this, "Successfully Added", Toast.LENGTH_SHORT).show();
+                    binding.nameCourseET.setText("");
+                    binding.courseDescriptionET.setText("");
+                    binding.instructorNameEt.setText("");
+                    binding.courseHoursET.setText("");
+                    binding.coursePriseET.setText("");
+                    binding.imageCourseIV.setImageResource(R.drawable.baseline_camera_alt_24);
+                } else {
+                    Toast.makeText(AddCourseActivity.this, "Failed to Add", Toast.LENGTH_SHORT).show();
+                }
+
+            }});
+                binding.editCourseBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String courseTitle = binding.nameCourseET.getText().toString().trim();
+                String courseDescription = binding.courseDescriptionET.getText().toString().trim();
+                String instructorName = binding.instructorNameEt.getText().toString().trim();
+                String hours = binding.courseHoursET.getText().toString().trim();
+                String price = binding.coursePriseET.getText().toString().trim();
 
                 if (courseTitle.isEmpty()) {
                     binding.nameCourseET.setError("Please enter Course Title");
+                    return;
                 }
                 if (courseDescription.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course Description");
+                    binding.courseDescriptionET.setError("Please enter Course Description");
+                    return;
                 }
                 if (instructorName.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course instructor Name");
+                    binding.instructorNameEt.setError("Please enter Instructor Name");
+                    return;
                 }
                 if (hours.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course Hours");
+                    binding.courseHoursET.setError("Please enter Course Hours");
+                    return;
                 }
-                if (prise.isEmpty()) {
-                    binding.nameCourseET.setError("Please enter Course Prise");
+                if (price.isEmpty()) {
+                    binding.coursePriseET.setError("Please enter Course Price");
+                    return;
                 }
                 if (bitmap == null) {
                     Toast.makeText(AddCourseActivity.this, "Please enter Course Photo", Toast.LENGTH_SHORT).show();
-                } else {
-                    Course course = new Course(courseId, courseTitle, courseDescription, instructorName, bitmap, coursePrise, courseHours, categoryId);
-                    if (!viewModel.updateCourse(course)) {
-                        Toast.makeText(AddCourseActivity.this, "Successfully Edite", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(AddCourseActivity.this, "Failed Edite", Toast.LENGTH_SHORT).show();
-                    }
+                    return;
                 }
-            }
+                int courseHours;
+                double coursePrise;
+
+                try {
+                    courseHours = Integer.parseInt(hours);
+                } catch (NumberFormatException e) {
+                    binding.courseHoursET.setError("Invalid format for Course Hours");
+                    return;
+                }
+
+                try {
+                    coursePrise = Double.parseDouble(price);
+                } catch (NumberFormatException e) {
+                    binding.coursePriseET.setError("Invalid format for Course Price");
+                    return;
+                }
+
+                Course course = new Course(courseId, courseTitle, courseDescription, instructorName, bitmap, coursePrise, courseHours, categoryId);
+
+                if (viewModel.updateCourse(course)) {
+                    Toast.makeText(AddCourseActivity.this, "Successfully Edited", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddCourseActivity.this, "Failed to Edit", Toast.LENGTH_SHORT).show();
+                }}
         });
 
         binding.back.setOnClickListener(view -> {

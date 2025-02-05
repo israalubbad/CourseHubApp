@@ -46,8 +46,10 @@ ActivitySignUpBinding binding;
                 binding.emailEt.setError("Please enter Full Name");
             }else if(password.isEmpty()){
                 binding.passwordEt.setError("Please enter Password");
+                Toast.makeText(this, "Please enter Password", Toast.LENGTH_SHORT).show();
             }else if(confirtPassword.isEmpty()){
                 binding.passwordEt.setError("Please enter Comfort Password");
+                Toast.makeText(this, "Please enter Comfort Password", Toast.LENGTH_SHORT).show();
             }else if(password.isEmpty()){
                 binding.emailIL.setError("Please enter Email");
             }else{

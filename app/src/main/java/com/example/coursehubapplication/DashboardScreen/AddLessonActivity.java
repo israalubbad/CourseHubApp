@@ -42,31 +42,32 @@ public class AddLessonActivity extends AppCompatActivity {
         binding.addLessonBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String lessonTitle = binding.lessonTitleET.getText().toString();
-                String lessonDescription = binding.lessonDescriptionET.getText().toString();
-                String articleLink = binding.articleLinkET.getText().toString();
-                String lessonVideo = binding.lessonVideoEt.getText().toString();
-
+                String lessonTitle = binding.lessonTitleET.getText().toString().trim();
+                String lessonDescription = binding.lessonDescriptionET.getText().toString().trim();
+                String articleLink = binding.articleLinkET.getText().toString().trim();
+                String lessonVideo = binding.lessonVideoEt.getText().toString().trim();
                 if (lessonTitle.isEmpty()) {
-                    binding.lessonTitleET.setError("Please enter Course Title");
+                    binding.lessonTitleET.setError("Please enter Lesson Title");
+                    return;
                 }
                 if (lessonDescription.isEmpty()) {
-                    binding.lessonDescriptionET.setError("Please enter Course Description");
+                    binding.lessonDescriptionET.setError("Please enter Lesson Description");
+                    return;
                 }
                 if (lessonVideo.isEmpty()) {
-                    binding.lessonVideoEt.setError("Please enter Course Video");
+                    binding.lessonVideoEt.setError("Please enter Lesson Video");
+                    return;
+                }
+
+                Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, System.currentTimeMillis(), true);
+                if (viewModel.insertLesson(lesson)) {
+                    Toast.makeText(AddLessonActivity.this, "Successfully Added", Toast.LENGTH_SHORT).show();
+                    binding.lessonTitleET.setText("");
+                    binding.lessonDescriptionET.setText("");
+                    binding.lessonVideoEt.setText("");
+                    binding.articleLinkET.setText("");
                 } else {
-                    Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, System.currentTimeMillis(),true);
-                    if (!viewModel.insertLesson(lesson)) {
-                        Toast.makeText(AddLessonActivity.this, "Successfully Add", Toast.LENGTH_SHORT).show();
-                        binding.lessonTitleET.setText("");
-                        binding.lessonDescriptionET.setText("");
-                        binding.lessonVideoEt.setText("");
-                        binding.articleLinkET.setText("");
-                    } else {
-                        Toast.makeText(AddLessonActivity.this, "Failed Add", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(AddLessonActivity.this, "Failed to Add", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -88,26 +89,32 @@ public class AddLessonActivity extends AppCompatActivity {
         binding.editLessonBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String lessonTitle = binding.lessonTitleET.getText().toString();
-                String lessonDescription = binding.lessonDescriptionET.getText().toString();
-                String articleLink = binding.articleLinkET.getText().toString();
-                String lessonVideo = binding.lessonVideoEt.getText().toString();
-
+                String lessonTitle = binding.lessonTitleET.getText().toString().trim();
+                String lessonDescription = binding.lessonDescriptionET.getText().toString().trim();
+                String articleLink = binding.articleLinkET.getText().toString().trim();
+                String lessonVideo = binding.lessonVideoEt.getText().toString().trim();
                 if (lessonTitle.isEmpty()) {
-                    binding.lessonTitleET.setError("Please enter Course Title");
+                    binding.lessonTitleET.setError("Please enter Lesson Title");
+                    return;
                 }
                 if (lessonDescription.isEmpty()) {
-                    binding.lessonDescriptionET.setError("Please enter Course Description");
+                    binding.lessonDescriptionET.setError("Please enter Lesson Description");
+                    return;
                 }
                 if (lessonVideo.isEmpty()) {
-                    binding.lessonVideoEt.setError("Please enter Course Video");
+                    binding.lessonVideoEt.setError("Please enter Lesson Video");
+                    return;
+                }
+
+                Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, System.currentTimeMillis(), true);
+                if (viewModel.updateLesson(lesson)) {
+                    Toast.makeText(AddLessonActivity.this, "Successfully Edite", Toast.LENGTH_SHORT).show();
+                    binding.lessonTitleET.setText("");
+                    binding.lessonDescriptionET.setText("");
+                    binding.lessonVideoEt.setText("");
+                    binding.articleLinkET.setText("");
                 } else {
-                    Lesson lesson = new Lesson(lessonId, lessonTitle, lessonDescription, lessonVideo, articleLink, courseId,System.currentTimeMillis(),true);
-                    if (!viewModel.updateLesson(lesson)) {
-                        Toast.makeText(AddLessonActivity.this, "Successfully edit", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(AddLessonActivity.this, "Failed edit", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(AddLessonActivity.this, "Failed to Edite", Toast.LENGTH_SHORT).show();
                 }
             }
         });

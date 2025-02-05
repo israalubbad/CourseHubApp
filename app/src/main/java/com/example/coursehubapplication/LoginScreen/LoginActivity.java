@@ -60,6 +60,7 @@ ActivityLoginBinding binding;
                     binding.emailEt.setError("Please enter Email");
                 }else if(password.isEmpty()){
                     binding.passwordEt.setError("Please enter Password");
+                    Toast.makeText(getBaseContext(), "Please enter Password", Toast.LENGTH_SHORT).show();
                 } else {
                     viewModel.getUserByEmailAndPassword(email,password).observe(LoginActivity.this, new Observer<User>() {
                         @Override
