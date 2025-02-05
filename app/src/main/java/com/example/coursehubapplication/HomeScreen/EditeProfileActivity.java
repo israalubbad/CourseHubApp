@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.coursehubapplication.LoginScreen.SignUpActivity;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
@@ -64,10 +65,7 @@ Bitmap bitmap;
         viewModel.getUserId(Utils.USERID).observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                Glide.with(getBaseContext())
-                        .load(user.getUserPhoto())
-                        .circleCrop()
-                        .into(binding.imageUserIV);
+                bitmap=user.getUserPhoto();
                 binding.userNameEt.setText(user.getUserName());
                 binding.emailEt.setText(user.getUserEmail());
                 binding.passwordEt.setText(user.getUserPassword());
@@ -94,22 +92,13 @@ Bitmap bitmap;
                             binding.emailEt.setError("Please enter email");
                         }  if(Password.isEmpty() ) {
                             binding.passwordEt.setError("Please enter password");
-                        }if(binding ==null){
+                        }if(bitmap ==null){
                             Toast.makeText(EditeProfileActivity.this, "please enter photo", Toast.LENGTH_SHORT).show();
                         }else{
                             viewModel.userUpdate(new User(Utils.USERID,fullName,email,Password,bitmap,false));
+                            Toast.makeText(EditeProfileActivity.this, "Edit Profile ", Toast.LENGTH_SHORT).show();
                         }
 
-//                        String newPassword=binding.newPasswordEt.getText().toString();
-//                        if(oldPassword.equals(user.getUserPassword())){
-//                            if(! newPassword.equals(oldPassword)){
-//                                viewModel.userUpdate(new User(userId,fullName,email,newPassword,bitmap,false));
-//                            }else{
-//                                Toast.makeText(EditeProfileActivity.this, "The old password same new password", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }else{
-//                            Toast.makeText(EditeProfileActivity.this, "The Password don't correct", Toast.LENGTH_SHORT).show();
-//                        }
                     }
                 });
 

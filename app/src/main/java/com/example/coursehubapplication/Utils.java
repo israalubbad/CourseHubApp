@@ -78,9 +78,10 @@ public class Utils {
 
     }
     public static void inertLesson(MyViewModel viewModel){
-        viewModel.insertLesson(new Lesson("HTML Ba77sics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1,false));
-        viewModel.insertLesson(new Lesson("HTML Ba77sics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1,false));
-        viewModel.insertLesson(new Lesson("CSS St77yling", "Learn how to apply styles to HTML elements using CSS.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", "https://stackoverflow.com/questions/63990692/add-to-favorite-using-room-database", 2,false));
+        viewModel.insertLesson(new Lesson("HTML Ba77sics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1,System.currentTimeMillis(),false));
+        viewModel.insertLesson(new Lesson("HTML Ba77sics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1,System.currentTimeMillis(),false));
+        viewModel.insertLesson(new Lesson("HTML Ba77sics", "Learn the basics of HTML syntax and structure.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11fffffFmsCv5F", null, 3,System.currentTimeMillis(),false));
+        viewModel.insertLesson(new Lesson("CSS St77yling", "Learn how to apply styles to HTML elements using CSS.", "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", "https://stackoverflow.com/questions/63990692/add-to-favorite-using-room-database", 2,System.currentTimeMillis(),false));
 
     }
 
@@ -95,11 +96,11 @@ public class Utils {
 
 
     public static void inertEnrollUserInCourse(MyViewModel viewModel){
-        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,1,0));
-        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,2,0));
-        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,3,0));
-        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,2,0));
-        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(4,1,0));
+        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,1,0,System.currentTimeMillis()));
+        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(2,2,0,System.currentTimeMillis()));
+        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,3,0,System.currentTimeMillis()));
+        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(3,2,0,System.currentTimeMillis()));
+        viewModel.insertEnrollUserInCourse(new UserCourseEnrolled(4,1,0,System.currentTimeMillis()));
 
     }
 

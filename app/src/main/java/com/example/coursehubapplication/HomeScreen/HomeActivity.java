@@ -66,32 +66,31 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences preferences = getSharedPreferences("notifications", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
 
-        viewModel.getCoursesByUserIdList(Utils.USERID).observe(HomeActivity.this, userCourseEnrolled -> {
-            List<Integer> courseIds = new ArrayList<>();
-            for (UserCourseEnrolled course : userCourseEnrolled) {
-                courseIds.add(course.getCourseId());
-            }
+        viewModel.getCoursesByUserIdList(Utils.USERID).observe(HomeActivity.this, userCourseEnrolledList -> {
+            for (UserCourseEnrolled enrollment : userCourseEnrolledList) {
+                int courseId = enrollment.getCourseId();
+                long timeEnrolled = enrollment.getTimeEnrolled();
 
+                viewModel.getLessonsAfterEnrolled(courseId, timeEnrolled).observe(HomeActivity.this, lessons -> {
 
-            if (userCourseEnrolled.size() == courseIds.size()) {
-                for (int courseId : courseIds) {
-                    viewModel.getLessonsByCourseId(courseId).observe(HomeActivity.this, lessons -> {
-                        for (Lesson lesson : lessons) {
-                            if (lesson.isAdminAdded() && !isNotificationShown( Utils.USERID,lesson.getLessonId())) {
-                                viewModel.getCourseById(courseId).observe(HomeActivity.this, courses -> {
-                                    String courseTitle = courses.getCourseTitle();
-                                    showNotification(lesson.getLessonTitle(), courseTitle, courseId,lesson.getLessonId());
-                                    courseIdSave=courseId;
-                                    saveNotificationShown( Utils.USERID,lesson.getLessonId());
-                                });
-                            }
+                    for (Lesson lesson : lessons) {
+                        Boolean isShow= preferences.getBoolean(Utils.USERID + "_" + lesson.getLessonId(), true);
+                        if (lesson.isAdminAdded() && isShow ) {
+                            viewModel.getCourseById(courseId).observe(HomeActivity.this, course -> {
+                                String courseTitle = course.getCourseTitle();
+                                showNotification(lesson.getLessonTitle(), courseTitle, courseId, lesson.getLessonId());
+                                editor.putBoolean(Utils.USERID + "_" + lesson.getLessonId(), false).apply();
+
+                            });
                         }
-                    });
-                }
+                    }
+                });
             }
-
         });
+
     }
 
 
@@ -122,17 +121,6 @@ public class HomeActivity extends AppCompatActivity {
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(HomeActivity.this);
         managerCompat.notify(lessonId, builder.build());
 
-    }
-    private boolean isNotificationShown(int userId, int lessonId) {
-        SharedPreferences prefs = getSharedPreferences("notifications", MODE_PRIVATE);
-        return prefs.getBoolean(userId + "_" + lessonId, false);
-    }
-
-    private void saveNotificationShown(int userId, int lessonId) {
-        SharedPreferences prefs = getSharedPreferences("notifications", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(userId + "_" + lessonId, true);
-        editor.apply();
     }
 
 

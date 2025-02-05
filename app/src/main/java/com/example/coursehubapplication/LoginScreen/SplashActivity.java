@@ -39,20 +39,21 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         SharedPreferences sharedPreferences = getSharedPreferences("Onboarding", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         boolean isFirst = sharedPreferences.getBoolean("isFirst", true);
         boolean isFirstData = sharedPreferences.getBoolean("isFirstData", true);
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
         if (isFirstData) {
             insertDatabase(viewModel, getResources());
-            sharedPreferences.edit().putBoolean("isFirstData", false).apply();
+            editor.putBoolean("isFirstData", false).apply();
         }
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Intent intent;
             if (isFirst) {
                 intent = new Intent(SplashActivity.this, OnboardingActivity.class);
-                sharedPreferences.edit().putBoolean("isFirst", false).apply();
+                editor.putBoolean("isFirst", false).apply();
             } else {
                 intent = new Intent(SplashActivity.this, LoginActivity.class);
             }

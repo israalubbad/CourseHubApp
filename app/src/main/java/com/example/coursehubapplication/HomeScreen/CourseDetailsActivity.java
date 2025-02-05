@@ -142,7 +142,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (! isEnrolled) {
-                            UserCourseEnrolled enrolled = new UserCourseEnrolled(Utils.USERID, courseId, 0);
+                            UserCourseEnrolled enrolled = new UserCourseEnrolled(Utils.USERID, courseId, 0,System.currentTimeMillis());
                             viewModel.insertEnrollUserInCourse(enrolled);
                             Toast.makeText(CourseDetailsActivity.this, "Enrolled Course", Toast.LENGTH_SHORT).show();
                             joined =true;

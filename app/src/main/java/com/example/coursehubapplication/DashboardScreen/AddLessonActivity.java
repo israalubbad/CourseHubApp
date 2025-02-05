@@ -57,7 +57,7 @@ public class AddLessonActivity extends AppCompatActivity {
                 if (lessonVideo.isEmpty()) {
                     binding.lessonVideoEt.setError("Please enter Course Video");
                 } else {
-                    Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, true);
+                    Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, System.currentTimeMillis(),true);
                     if (!viewModel.insertLesson(lesson)) {
                         Toast.makeText(AddLessonActivity.this, "Successfully Add", Toast.LENGTH_SHORT).show();
                         binding.lessonTitleET.setText("");
@@ -102,7 +102,7 @@ public class AddLessonActivity extends AppCompatActivity {
                 if (lessonVideo.isEmpty()) {
                     binding.lessonVideoEt.setError("Please enter Course Video");
                 } else {
-                    Lesson lesson = new Lesson(lessonId, lessonTitle, lessonDescription, lessonVideo, articleLink, courseId);
+                    Lesson lesson = new Lesson(lessonId, lessonTitle, lessonDescription, lessonVideo, articleLink, courseId,System.currentTimeMillis(),true);
                     if (!viewModel.updateLesson(lesson)) {
                         Toast.makeText(AddLessonActivity.this, "Successfully edit", Toast.LENGTH_SHORT).show();
                     } else {

@@ -16,14 +16,14 @@ public class UserCourseEnrolled {
     private int courseId;
 
     private int progressIndicator;
+    private long timeEnrolled;
 
-    public UserCourseEnrolled(int userId, int courseId, int progressIndicator) {
+    public UserCourseEnrolled( int userId, int courseId, int progressIndicator, long timeEnrolled) {
         this.userId = userId;
         this.courseId = courseId;
         this.progressIndicator = progressIndicator;
-
+        this.timeEnrolled = timeEnrolled;
     }
-
     @Ignore
     public UserCourseEnrolled(int enrolledCourseId, int userId, int courseId, int progressIndicator) {
         this.enrolledCourseId = enrolledCourseId;
@@ -62,5 +62,13 @@ public class UserCourseEnrolled {
 
     public void setProgressIndicator(int progressIndicator) {
         this.progressIndicator = progressIndicator;
+    }
+
+    public long getTimeEnrolled() {
+        return timeEnrolled;
+    }
+
+    public void setTimeEnrolled(long timeEnrolled) {
+        this.timeEnrolled = timeEnrolled;
     }
 }

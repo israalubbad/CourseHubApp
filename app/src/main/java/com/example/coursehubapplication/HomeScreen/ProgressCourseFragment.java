@@ -21,6 +21,7 @@ import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
+import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.FragmentOngoingBinding;
 import com.example.coursehubapplication.databinding.FragmentProgressCourseBinding;
 
@@ -36,10 +37,8 @@ public class ProgressCourseFragment extends Fragment {
     int userId;
     MyViewModel viewModel;
     MyCoursesAdapter adapter;
-    int i = 0;
-    int totalLessons=0;
-    int completedLesson=0;
-
+    List<UserCourseEnrolled> ongoingCourse;
+    List<UserCourseEnrolled> completedCourse;
     public ProgressCourseFragment() {
 
     }
@@ -59,127 +58,54 @@ public class ProgressCourseFragment extends Fragment {
             key = getArguments().getInt(ARG_PARAM1);
 
         }
+       ongoingCourse = new ArrayList<>();
+         completedCourse = new ArrayList<>();
   }
 
     @Override
     public void onResume() {
         super.onResume();
-        reloadCourseProgress();
-    }
+        viewModel.getCoursesByUserIdList(Utils.USERID).observe(getViewLifecycleOwner(), enrolledCourses -> {
+            ongoingCourse.clear();
+            completedCourse.clear();
 
-    private void reloadCourseProgress() {
-//        viewModel.getCoursesByUserIdList(userId).observe(getViewLifecycleOwner(), enrolledCourses -> {
-//            List<UserCourseEnrolled> ongoingCourse = new ArrayList<>();
-////            List<UserCourseEnrolled> completedCourse = new ArrayList<>();
-//
-//            for (UserCourseEnrolled courseEnrolled : enrolledCourses) {
-//                int courseId = courseEnrolled.getCourseId();
-//                viewModel.getLessonsByCourseId(courseId).observe(getViewLifecycleOwner(), lessonList -> {
-//                    int totalLessons = (lessonList != null) ? lessonList.size() : 0;
-//
-//                    viewModel.getCompletedLesson(courseEnrolled.getEnrolledCourseId()).observe(getViewLifecycleOwner(), completedLessons -> {
-//                        int completedLesson = (completedLessons != null) ? completedLessons.size() : 0;
-//
-//                        int progress = (int) ((completedLesson / (float) totalLessons) * 100);
-//                        courseEnrolled.setProgressIndicator(progress);
-//
-//                        if (progress == 100) {
-//                            completedCourse.add(courseEnrolled);
-//                        } else {
-//                            ongoingCourse.add(courseEnrolled);
-//                        }
-//
-//                        if (ongoingCourse.size() + completedCourse.size() == enrolledCourses.size()) {
-//                            List<UserCourseEnrolled> finalData = (key == 0) ? ongoingCourse : completedCourse;
-//                            MyCoursesAdapter newAdapter = new MyCoursesAdapter(finalData, getContext(), userId);
-//                            binding.recyclerView.setAdapter(newAdapter);
-//                        }
-//                    });
-//                });
-//            }
-//        });
+            for (UserCourseEnrolled courseEnrolled : enrolledCourses) {
+                viewModel.getLessonsByCourseId(courseEnrolled.getCourseId()).observe(getViewLifecycleOwner(), lessonList -> {
+                    viewModel.getCompletedLesson(courseEnrolled.getEnrolledCourseId()).observe(getViewLifecycleOwner(), completedLessons -> {
+
+                        int progress = (int) ((completedLessons.size() / (float) lessonList.size()) * 100);
+                        courseEnrolled.setProgressIndicator(progress);
+
+                        if (progress == 100) {
+                            completedCourse.add(courseEnrolled);
+                        } else {
+                            ongoingCourse.add(courseEnrolled);
+                        }
+                        if (ongoingCourse.size() + completedCourse.size() == enrolledCourses.size()) {
+                            if (key == 0) {
+                                MyCoursesAdapter newAdapter = new MyCoursesAdapter(ongoingCourse, getContext());
+                                binding.recyclerView.setAdapter(newAdapter);
+                            } else if (key == 1) {
+                                MyCoursesAdapter newAdapter = new MyCoursesAdapter(completedCourse, getContext());
+                                binding.recyclerView.setAdapter(newAdapter);
+                            }
+                        }
+
+                    });
+                });
+            }
+        });
+
     }
 
 
     @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProgressCourseBinding.inflate(inflater, container, false);
-
-            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("course", MODE_PRIVATE);
-            userId = sharedPreferences.getInt("userId", -1);
             viewModel = new ViewModelProvider(this).get(MyViewModel.class);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        viewModel.getCoursesByUserIdList(userId).observe(getViewLifecycleOwner(), enrolledCourses -> {
-            List<UserCourseEnrolled> ongoingCourse = new ArrayList<>();
-            List<UserCourseEnrolled> completedCourse = new ArrayList<>();
-
-            for (UserCourseEnrolled courseEnrolled : enrolledCourses) {
-                int courseId = courseEnrolled.getCourseId();
-                viewModel.getLessonsByCourseId(courseId).observe(getViewLifecycleOwner(), lessonList -> {
-                    totalLessons = lessonList.size();
-
-                    viewModel.getCompletedLesson(courseEnrolled.getEnrolledCourseId()).observe(getViewLifecycleOwner(), completedLessons -> {
-                        completedLesson =completedLessons.size() ;
-
-                        if (completedLesson == totalLessons && totalLessons !=0) {
-                            completedCourse.add(courseEnrolled);
-                        } else {
-                            ongoingCourse.add(courseEnrolled);
-                        }
-
-                        if (ongoingCourse.size() + completedCourse.size() == enrolledCourses.size()) {
-                            if (key == 0) {
-                                    MyCoursesAdapter newAdapter = new MyCoursesAdapter(ongoingCourse, getContext());
-                                    binding.recyclerView.setAdapter(newAdapter);
-                                } else if (key == 1) {
-                                    MyCoursesAdapter newAdapter = new MyCoursesAdapter(completedCourse, getContext());
-                                    binding.recyclerView.setAdapter(newAdapter);
-                                }
-                        }
-                    });
-                });
-            }
-        });
             return binding.getRoot();
         }
 
 
 }
-
-// علشان يحسب التقدم من 100%
-//    private void progressCourse() {
-//        viewModel.getCoursesByUserIdList(Utils.USERID).observe(getViewLifecycleOwner(), enrolledCourses -> {
-//            List<UserCourseEnrolled> ongoingCourse = new ArrayList<>();
-//            List<UserCourseEnrolled> completedCourse = new ArrayList<>();
-//
-//            for (UserCourseEnrolled courseEnrolled : enrolledCourses) {
-//                int courseId = courseEnrolled.getCourseId();
-//                viewModel.getLessonsByCourseId(courseId).observe(getViewLifecycleOwner(), lessonList -> {
-//                    int totalLesson =lessonList.size();
-//
-//                    viewModel.getCompletedLesson(courseEnrolled.getEnrolledCourseId()).observe(getViewLifecycleOwner(), completedLessons -> {
-//                        int completed = completedLessons.size();
-//
-//                        int progress = (int) ((completed / (float) totalLesson) * 100);
-//                        courseEnrolled.setProgressIndicator(progress);
-//
-//                        if (progress == 100) {
-//                            completedCourse.add(courseEnrolled);
-//                        } else {
-//                            ongoingCourse.add(courseEnrolled);
-//                        }
-//
-//                        if (ongoingCourse.size() + completedCourse.size() == enrolledCourses.size()) {
-//                            if (key == 0) {
-//                                MyCoursesAdapter newAdapter = new MyCoursesAdapter(ongoingCourse, getContext());
-//                                binding.recyclerView.setAdapter(newAdapter);
-//                            } else if (key == 1) {
-//                                MyCoursesAdapter newAdapter = new MyCoursesAdapter(completedCourse, getContext());
-//                                binding.recyclerView.setAdapter(newAdapter);
-//                            }
-//                        }
-//                    });
-//                });
-//            }
-//        });
-//    }

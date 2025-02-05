@@ -77,7 +77,7 @@ public class DashboardActivity extends AppCompatActivity implements CategoriesAd
             public void onClick(View view) {
                 SharedPreferences sharedPreferences =getSharedPreferences("course", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("userId");
+                editor.clear();
                 editor.apply();
                 Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
                 startActivity(intent);

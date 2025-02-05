@@ -1,5 +1,6 @@
 package com.example.coursehubapplication.HomeScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -40,7 +41,7 @@ public class MyLessonActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            finish();
+                finish();
 
             }
         });

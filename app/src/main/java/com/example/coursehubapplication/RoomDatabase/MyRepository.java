@@ -166,6 +166,11 @@ public class MyRepository {
     public LiveData<List<Lesson>> getLessonsByCourseId(int courseId) {
         return lessonDao.getLessonByCourseId(courseId);
     }
+    LiveData<List<Lesson>> getLessonsAfterEnrolled(int courseId, long timeEnrolled){
+        return lessonDao.getLessonsAfterEnrolled(courseId,timeEnrolled);
+    }
+
+
 
 
     // Enrollment

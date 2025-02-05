@@ -24,36 +24,30 @@ public class Lesson {
 
     private int courseId;
 
-    @ColumnInfo(name = "isAdminAdded")
+    private long timeCreated;
+
     private boolean isAdminAdded;
 
-    @Ignore
-    public Lesson( String lessonTitle, String lessonDescription, String lessonVideo, @Nullable String articleLink, int courseId, boolean isAdminAdded) {
+    public Lesson(String lessonTitle, String lessonDescription, String lessonVideo, @Nullable String articleLink, int courseId, long timeCreated, boolean isAdminAdded) {
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
         this.lessonVideo = lessonVideo;
         this.articleLink = articleLink;
         this.courseId = courseId;
+        this.timeCreated = timeCreated;
         this.isAdminAdded = isAdminAdded;
     }
 
-    public Lesson(String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
-        this.lessonTitle = lessonTitle;
-        this.lessonDescription = lessonDescription;
-        this.lessonVideo = lessonVideo;
-        this.articleLink = articleLink;
-        this.courseId = courseId;
-
-    }
     @Ignore
-    public Lesson(int lessonId,String lessonTitle, String lessonDescription, String lessonVideo, String articleLink, int courseId) {
-        this.lessonId=lessonId;
+    public Lesson(int lessonId, String lessonTitle, String lessonDescription, String lessonVideo, @Nullable String articleLink, int courseId, long timeCreated, boolean isAdminAdded) {
+        this.lessonId = lessonId;
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
         this.lessonVideo = lessonVideo;
         this.articleLink = articleLink;
         this.courseId = courseId;
-
+        this.timeCreated = timeCreated;
+        this.isAdminAdded = isAdminAdded;
     }
 
 
@@ -112,5 +106,13 @@ public class Lesson {
 
     public void setAdminAdded(boolean adminAdded) {
         isAdminAdded = adminAdded;
+    }
+
+    public long getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(long timeCreated) {
+        this.timeCreated = timeCreated;
     }
 }

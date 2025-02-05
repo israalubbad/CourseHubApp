@@ -61,9 +61,9 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             viewModel.getLessonsByCourseId(courseId).observe((HomeActivity) context, lessonList -> {
                 totalLessons = lessonList.size();
-                viewHolder.binding.progressBar.setMax(totalLessons);
-                viewHolder.binding.progressBar.setProgress(courseEnrolled.getProgressIndicator());
-                viewHolder.binding.progressNumber.setText(courseEnrolled.getProgressIndicator() + " / " + totalLessons);
+              //  viewHolder.binding.progressBar.setMax(lessonList.size());
+                viewHolder.binding.progressBar.setProgress(userCourseEnrolled.get(position).getProgressIndicator());
+                viewHolder.binding.progressNumber.setText(userCourseEnrolled.get(position).getProgressIndicator() + " % ");
             });
 
             viewHolder.binding.deleteCourseTV.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,7 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.show();
-                    return;
+
 
                 }
             });

@@ -75,19 +75,16 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyViewModel viewModel = new ViewModelProvider((MyLessonActivity) context).get(MyViewModel.class);
         viewHolder.binding.lessonTitle.setText(lessonList.get(position).getLessonTitle());
         int courseId = lessonList.get(position).getCourseId();
-         lessonId = lessonList.get(position).getLessonId();
-        int totalLessons = lessonList.size();
 
         viewModel.getUserEnrolledInCourse(Utils.USERID, courseId).observe((LifecycleOwner) context, userCourseEnrolled -> {
             if (userCourseEnrolled != null) {
-                 enrolledId = userCourseEnrolled.getEnrolledCourseId();
-                viewModel.getLessonUser(enrolledId, lessonId).observe((MyLessonActivity) context, lessonUser -> {
+                viewModel.getLessonUser(userCourseEnrolled.getEnrolledCourseId(), lessonList.get(position).getLessonId()).observe((MyLessonActivity) context, lessonUser -> {
                     if (lessonUser != null) {
                         lessonUsers = lessonUser;
                     }
                 });
 
-                viewModel.getIsCompleted(enrolledId, lessonId).observe((LifecycleOwner) context, isCompleted -> {
+                viewModel.getIsCompleted(userCourseEnrolled.getEnrolledCourseId(), lessonList.get(position).getLessonId()).observe((LifecycleOwner) context, isCompleted -> {
                     if (isCompleted != null) {
                         if (isCompleted) {
                             viewHolder.binding.checkBox.setImageResource(R.drawable.check);
@@ -98,7 +95,7 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                         viewHolder.binding.checkBox.setOnClickListener(view ->{
                             if (! isCompleted ) {
-                                viewModel.insertLessonUser(new LessonUser(enrolledId, lessonId));
+                                viewModel.insertLessonUser(new LessonUser(userCourseEnrolled.getEnrolledCourseId(), lessonList.get(position).getLessonId()));
                                 Toast.makeText(context, "Checked lesson", Toast.LENGTH_SHORT).show();
                             } else{
                                 String textMassage = "Are you sure you want to unChecked lesson ?";
@@ -112,9 +109,11 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             }
                             viewModel.getCompletedLesson(enrolledId).observe((LifecycleOwner) context, completed -> {
                                 if (completed != null) {
-                                    Toast.makeText(context, "dd"+completed.size(), Toast.LENGTH_SHORT).show();
-                                    viewModel.updateEnrollUserInCourse(new UserCourseEnrolled(enrolledId, Utils.USERID, courseId, completed.size()));
-
+                                    int total=lessonList.size();
+                                    int progress = (int) ((completed.size() / (float) total) * 100);
+                                    UserCourseEnrolled updatedEnrollment = new UserCourseEnrolled(enrolledId, Utils.USERID, courseId, progress);
+                                    viewModel.updateEnrollUserInCourse(updatedEnrollment);
+                                    notifyDataSetChanged();
                                 }
 
                             });

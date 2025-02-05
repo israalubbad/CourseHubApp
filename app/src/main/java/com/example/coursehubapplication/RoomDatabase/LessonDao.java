@@ -29,6 +29,8 @@ public interface LessonDao {
     @Query("SELECT * FROM lesson WHERE courseId = :courseId")
     LiveData<List<Lesson>>getLessonByCourseId(int courseId);
 
+    @Query("SELECT * FROM Lesson WHERE courseId = :courseId AND timeCreated > :timeEnrolled")
+    LiveData<List<Lesson>> getLessonsAfterEnrolled(int courseId, long timeEnrolled);
 
 
 }

@@ -130,6 +130,9 @@ public class MyViewModel extends AndroidViewModel {
     public LiveData<List<Lesson>> getLessonsByCourseId(int courseId) {
         return repository.getLessonsByCourseId(courseId);
     }
+    public LiveData<List<Lesson>> getLessonsAfterEnrolled(int courseId, long timeEnrolled){
+        return repository.getLessonsAfterEnrolled(courseId,timeEnrolled);
+    }
 
 
 
