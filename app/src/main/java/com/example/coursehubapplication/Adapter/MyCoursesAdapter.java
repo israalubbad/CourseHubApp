@@ -58,20 +58,16 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewHolder.binding.courseTitle.setText(listCourse.getCourseTitle());
             viewHolder.binding.courseHoursTv.setText(listCourse.getCourseHours() + " Hours");
             viewHolder.binding.coursePhotoTV.setImageBitmap(listCourse.getCourseImage());
+            viewHolder.binding.progressBar.setProgress(userCourseEnrolled.get(position).getProgressIndicator());
+            viewHolder.binding.progressNumber.setText(userCourseEnrolled.get(position).getProgressIndicator() + " % ");
 
-            viewModel.getLessonsByCourseId(courseId).observe((HomeActivity) context, lessonList -> {
-                totalLessons = lessonList.size();
-              //  viewHolder.binding.progressBar.setMax(lessonList.size());
-                viewHolder.binding.progressBar.setProgress(userCourseEnrolled.get(position).getProgressIndicator());
-                viewHolder.binding.progressNumber.setText(userCourseEnrolled.get(position).getProgressIndicator() + " % ");
-            });
 
             viewHolder.binding.deleteCourseTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String textMassage="Are you sure you want to remove this Course?";
                     String key="joinCourse";
-                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled.get(position),textMassage,key, context);
+                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled.get(position),courseId,textMassage,key, context,-1,-1);
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.show();

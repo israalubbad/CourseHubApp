@@ -2,7 +2,6 @@ package com.example.coursehubapplication.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -33,7 +31,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Context context;
     CourseAdapter.ClickListener clickListener;
     CourseItemBinding binding;
-    Course course;
+
 
     public CourseAdapter(List<Course> courseList, Context context, CourseAdapter.ClickListener clickListener) {
         this.courseList = courseList;
@@ -74,7 +72,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             MyViewModel viewModel = new ViewModelProvider((ViewCoursesActivity) context).get(MyViewModel.class);
                             String textMessage = "Are you sure you want to delete this course?";
                             String key = "course";
-                            AlertDialog.Builder builder = Utils.getBuilder(viewModel, courseList.get(position), textMessage, key, (DashboardActivity) context);
+                            AlertDialog.Builder builder = Utils.getBuilder(viewModel, courseList.get(position),-1, textMessage, key, (DashboardActivity) context,-1,-1);
                             AlertDialog dialog = builder.create();
                             dialog.setCancelable(true);
                             dialog.show();

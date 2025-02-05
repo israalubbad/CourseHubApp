@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment {
                             }
                             if (courses.size()== bookmarks.size()) {
                                 binding.savedCoursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                HomeCourseAdapter adapter = new HomeCourseAdapter(courses, getContext(), null, Utils.USERID);
+                                HomeCourseAdapter adapter = new HomeCourseAdapter(courses, getContext());
                                 binding.savedCoursesRecyclerView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                             }

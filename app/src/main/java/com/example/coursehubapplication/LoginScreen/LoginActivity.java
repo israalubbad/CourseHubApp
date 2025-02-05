@@ -23,7 +23,6 @@ import com.example.coursehubapplication.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 ActivityLoginBinding binding;
-    boolean isPasswordViseble=false;
     MyViewModel viewModel;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;

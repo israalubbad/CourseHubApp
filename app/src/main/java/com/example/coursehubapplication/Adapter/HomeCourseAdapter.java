@@ -34,15 +34,11 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     Context context;
     CourseviewItemBinding binding;
     Course course;
-    int userId;
     Bookmark bookmarks;
-    HomeCourseAdapter.ClickListener clickListener;
-    boolean isBookMark = false;
 
-    public HomeCourseAdapter(List<Course> courseList, Context context, CourseAdapter.ClickListener clickListener, int userId) {
+    public HomeCourseAdapter(List<Course> courseList, Context context) {
         this.courseList = courseList;
         this.context = context;
-        this.userId = userId;
     }
 
     @NonNull
@@ -67,7 +63,7 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
            }
         });
 
-        viewModel.getIsBookmark(course.getCourseId(), userId).observe((LifecycleOwner) context, isBookmarked -> {
+        viewModel.getIsBookmark(course.getCourseId(), Utils.USERID).observe((LifecycleOwner) context, isBookmarked -> {
             if (isBookmarked != null) {
                 if (isBookmarked) {
                     viewHolder.binding.bookMarkIv.setImageResource(R.drawable.bookmark);
@@ -77,17 +73,16 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 viewHolder.binding.bookMarkIv.setOnClickListener(view -> {
                     if (!isBookmarked) {
-                        Bookmark bookmark = new Bookmark(userId, course.getCourseId());
+                        Bookmark bookmark = new Bookmark(Utils.USERID, course.getCourseId());
                         viewModel.insertBookmark(bookmark);
                         Toast.makeText(context, "Bookmark added", Toast.LENGTH_SHORT).show();
                     } else {
                         String textMassage="Are you sure you want to remove this bookmark?";
-                        String key="bookmark";
-                        AlertDialog.Builder builder = Utils.getBuilder(viewModel,bookmarks,textMassage,key,context);
+                        String key="bookmarks";
+                        AlertDialog.Builder builder = Utils.getBuilder(viewModel,null,courseList.get(position).getCourseId(),textMassage,key,context,-1,-1);
                         AlertDialog dialog = builder.create();
                         dialog.setCancelable(true);
                         dialog.show();
-                        return;
                     }
                 });
             }
@@ -98,7 +93,6 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public void onClick(View view) {
                 Intent intent = new Intent(context, CourseDetailsActivity.class);
                 intent.putExtra("courseId", courseList.get(position).getCourseId());
-                intent.putExtra("userId", userId);
                 context.startActivity(intent);
 
             }
@@ -122,31 +116,5 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return courseList.size();
     }
 
-    public interface ClickListener {
-        void courseClick(Course course);
 
-        void onClick(int courseId);
-
-    }
-
-
-    public  AlertDialog.Builder getBuilder(MyViewModel viewModel, Course course ) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Confirmation");
-        builder.setMessage("Are you sure you want to remove this bookmark?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                viewModel.deleteBookmarkByUserAndCourse(userId, course.getCourseId());
-                Toast.makeText(context, "Bookmark deleted", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return builder;
-    }
 }

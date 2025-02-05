@@ -13,8 +13,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.coursehubapplication.Adapter.CategoriesAdapter;
-import com.example.coursehubapplication.HomeScreen.HomeFragment;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
@@ -23,7 +21,7 @@ import com.example.coursehubapplication.databinding.ActivityAddCategeryBinding;
 public class AddCategeryActivity extends AppCompatActivity {
     ActivityAddCategeryBinding binding;
     int categoryId;
-    int getCategoryId;
+
 
 
     @Override

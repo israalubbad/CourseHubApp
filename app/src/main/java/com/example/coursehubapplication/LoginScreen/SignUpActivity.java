@@ -17,13 +17,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
-import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivitySignUpBinding;
 
 public class SignUpActivity extends AppCompatActivity {
 ActivitySignUpBinding binding;
-    boolean isPasswordViseble=false;
-    boolean isComfortPasswordViseble=false;
+
     MyViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

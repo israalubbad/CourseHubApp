@@ -24,15 +24,12 @@ import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
     SharedPreferences sharedPreferences;
     public static final String CHANNEL_ID="Navigation";
-    public static int courseIdSave;
-    int coursesId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // هو يلي بنشا يبني الاشعار
         NotificationCompat.Builder builder = new NotificationCompat.Builder(HomeActivity.this, CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.baseline_camera_alt_24);
+        builder.setSmallIcon(R.drawable.course);
         builder.setContentTitle("New Lesson");
         builder.setContentText("Add lesson " + lessonTitle + " at the " + courseTitle);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);

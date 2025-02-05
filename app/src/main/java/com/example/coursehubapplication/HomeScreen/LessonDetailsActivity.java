@@ -1,11 +1,8 @@
 package com.example.coursehubapplication.HomeScreen;
-
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +28,7 @@ ActivityLessonDetailsBinding binding;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         int lessonId = getIntent().getIntExtra("lessonId",-1);
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
         viewModel.getLessonById(lessonId).observe(this,lesson -> {

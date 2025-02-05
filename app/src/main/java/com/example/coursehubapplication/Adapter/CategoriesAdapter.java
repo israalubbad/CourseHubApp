@@ -1,20 +1,18 @@
 package com.example.coursehubapplication.Adapter;
 
-import static android.app.ProgressDialog.show;
+
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.os.Bundle;
+;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,17 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coursehubapplication.DashboardScreen.AddCategeryActivity;
 import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
-import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
-import com.example.coursehubapplication.HomeScreen.CourseDetailsActivity;
+
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.CategoryItemBinding;
-import com.example.coursehubapplication.databinding.DialogBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

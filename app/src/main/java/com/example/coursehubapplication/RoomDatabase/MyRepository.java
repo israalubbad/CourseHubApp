@@ -245,6 +245,10 @@ public class MyRepository {
         return bookmarkDao.getBookmarkByUserId(userId);
     }
 
+    LiveData<List<Bookmark>> getBookmarkByCourseId(int courseId){
+        return bookmarkDao.getBookmarkByCourseId(courseId);
+    }
+
     public LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId, int courseId) {
         return bookmarkDao.getBookmarkByUserIdAndCourse(userId, courseId);
     }
@@ -293,6 +297,12 @@ public class MyRepository {
 
     public LiveData<List<LessonUser>> getCompletedLesson(int enrolledCourseId) {
         return lessonUserDao.getCompletedLesson(enrolledCourseId);
+    }
+
+    void deleteUserLessonByLesson(int enrolledCourseId, int lessonId){
+        CourseDatabase.databaseWriteExecutor.execute(() -> {
+        lessonUserDao.deleteUserLessonByLesson(enrolledCourseId, lessonId);
+        });
     }
 
 

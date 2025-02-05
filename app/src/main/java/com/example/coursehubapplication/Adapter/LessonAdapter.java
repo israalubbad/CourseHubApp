@@ -71,7 +71,7 @@ public class LessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         if (itemId == R.id.deleteItem) {
                             String textMassage="Are you sure you want to remove this lesson ?";
                             String key="lesson";
-                            AlertDialog.Builder builder = Utils.getBuilder(viewModel,lessonList.get(position),textMassage,key,(ViewLessonActivity)context);
+                            AlertDialog.Builder builder = Utils.getBuilder(viewModel,lessonList.get(position),-1,textMassage,key,(ViewLessonActivity)context,-1,-1);
                             AlertDialog dialog = builder.create();
                             dialog.setCancelable(true);
                             dialog.show();

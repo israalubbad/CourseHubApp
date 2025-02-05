@@ -72,7 +72,7 @@ public class RecyclerViewFragment extends Fragment {
                 @Override
                 public void onChanged(List<Course> courseList) {
                     if (categoryId == 0) {
-                        adapter = new HomeCourseAdapter(courseList, requireContext(), null, Utils.USERID);
+                        adapter = new HomeCourseAdapter(courseList, requireContext());
                         binding.recyclerViewCourseRv.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
@@ -82,7 +82,7 @@ public class RecyclerViewFragment extends Fragment {
             viewModel.getCoursesByCategoryId(categoryId).observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
                 @Override
                 public void onChanged(List<Course> courseList) {
-                    adapter = new HomeCourseAdapter(courseList, requireContext(), null,Utils.USERID);
+                    adapter = new HomeCourseAdapter(courseList, requireContext());
                     binding.recyclerViewCourseRv.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 

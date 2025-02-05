@@ -21,8 +21,12 @@ public interface BookmarkDao {
     @Query("DELETE FROM Bookmark WHERE userId = :userId AND courseId = :courseId")
     void deleteBookmarkByUserAndCourse(int userId, int courseId);
 
+
     @Query("SELECT * FROM Bookmark WHERE userId = :userId")
     LiveData<List<Bookmark>> getBookmarkByUserId(int userId);
+
+    @Query("SELECT * FROM Bookmark WHERE courseId = :courseId")
+    LiveData<List<Bookmark>> getBookmarkByCourseId(int courseId);
 
     @Query("SELECT * FROM Bookmark WHERE userId = :userId AND courseId = :courseId ")
     LiveData<Bookmark> getBookmarkByUserIdAndCourse(int userId,int courseId);

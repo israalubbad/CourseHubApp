@@ -15,42 +15,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.example.coursehubapplication.Adapter.CourseAdapter;
 import com.example.coursehubapplication.Adapter.HomeCourseAdapter;
 import com.example.coursehubapplication.Adapter.ViewPagerAdapter;
-import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
-import com.example.coursehubapplication.DashboardScreen.ViewLessonActivity;
-import com.example.coursehubapplication.R;
+
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
-
-import com.example.coursehubapplication.RoomDatabase.User;
 import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.FragmentHomeBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 
-public class HomeFragment extends Fragment implements HomeCourseAdapter.ClickListener {
+
+public class HomeFragment extends Fragment  {
     int pos;
     private static final String ARG_PARAM1 = "userId";
-    private static final String ARG_PARAM2 = "param2";
     ArrayList<Integer> categoryId;
     ArrayList<Fragment> fragments;
     ArrayList<String> tabs;
-    private int userId;
-    private String mParam2;
+
 
     public HomeFragment() {
     }
@@ -67,7 +53,7 @@ public class HomeFragment extends Fragment implements HomeCourseAdapter.ClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            userId = getArguments().getInt(ARG_PARAM1);
+
         }
         tabs = new ArrayList<>();
         fragments = new ArrayList<>();
@@ -118,13 +104,4 @@ public class HomeFragment extends Fragment implements HomeCourseAdapter.ClickLis
         return binding.getRoot();
     }
 
-    @Override
-    public void courseClick(Course course) {
-
-    }
-
-    @Override
-    public void onClick(int categoryId) {
-
-    }
 }

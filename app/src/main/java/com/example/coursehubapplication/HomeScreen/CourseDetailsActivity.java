@@ -1,27 +1,20 @@
 package com.example.coursehubapplication.HomeScreen;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.coursehubapplication.Adapter.HomeCourseAdapter;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.Category;
@@ -30,7 +23,6 @@ import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
 import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityCourseDetailsBinding;
-
 import java.util.List;
 
 public class CourseDetailsActivity extends AppCompatActivity {
@@ -110,7 +102,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 } else {
                     String textMassage="Are you sure you want to remove this bookmark?";
                     String key="bookmark";
-                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,bookmarks,textMassage,key,CourseDetailsActivity.this);
+                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,bookmarks,courseId,textMassage,key,CourseDetailsActivity.this,-1,-1);
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.show();
@@ -149,7 +141,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                         } else if (isEnrolled){
                     String textMassage="Are you sure you want to remove this Course?";
                     String key="joinCourse";
-                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled1, textMassage,key,CourseDetailsActivity.this);
+                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled1,courseId, textMassage,key,CourseDetailsActivity.this,-1,-1);
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.show();

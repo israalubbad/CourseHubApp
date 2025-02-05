@@ -1,6 +1,5 @@
 package com.example.coursehubapplication.HomeScreen;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.coursehubapplication.Adapter.MyLessonAdapter;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
-import com.example.coursehubapplication.Utils;
 import com.example.coursehubapplication.databinding.ActivityMyLessonBinding;
 
 public class MyLessonActivity extends AppCompatActivity {

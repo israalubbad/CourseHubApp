@@ -1,6 +1,5 @@
 package com.example.coursehubapplication.DashboardScreen;
 
-import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.content.Intent;

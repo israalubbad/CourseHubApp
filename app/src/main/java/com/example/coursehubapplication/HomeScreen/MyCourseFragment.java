@@ -4,23 +4,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.coursehubapplication.Adapter.ViewPagerAdapter;
-import com.example.coursehubapplication.R;
-import com.example.coursehubapplication.RoomDatabase.Category;
-import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.databinding.FragmentMyCourseBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class MyCourseFragment extends Fragment {
