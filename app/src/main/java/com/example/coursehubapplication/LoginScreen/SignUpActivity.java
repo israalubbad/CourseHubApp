@@ -42,8 +42,14 @@ ActivitySignUpBinding binding;
             String email=binding.emailEt.getText().toString();
             String password=binding.passwordEt.getText().toString();
             String confirtPassword=binding.comfortPasswordEt.getText().toString();
-            if(fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirtPassword.isEmpty()) {
-                Toast.makeText(this, "fill all fields", Toast.LENGTH_SHORT).show();
+            if(fullName.isEmpty()){
+                binding.emailEt.setError("Please enter Full Name");
+            }else if(password.isEmpty()){
+                binding.passwordEt.setError("Please enter Password");
+            }else if(confirtPassword.isEmpty()){
+                binding.passwordEt.setError("Please enter Comfort Password");
+            }else if(password.isEmpty()){
+                binding.emailIL.setError("Please enter Email");
             }else{
                 if(password.equals(confirtPassword)){
                     viewModel.getUserByEmail(email).observe(SignUpActivity.this, new Observer<User>() {

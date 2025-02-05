@@ -56,9 +56,11 @@ ActivityLoginBinding binding;
             public void onClick(View view) {
                 String email=binding.emailEt.getText().toString();
                 String password=binding.passwordEt.getText().toString();
-                if(email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "fill all fields", Toast.LENGTH_SHORT).show();
-                }else {
+                if(email.isEmpty()){
+                    binding.emailEt.setError("Please enter Email");
+                }else if(password.isEmpty()){
+                    binding.passwordEt.setError("Please enter Password");
+                } else {
                     viewModel.getUserByEmailAndPassword(email,password).observe(LoginActivity.this, new Observer<User>() {
                         @Override
                         public void onChanged(User user) {
