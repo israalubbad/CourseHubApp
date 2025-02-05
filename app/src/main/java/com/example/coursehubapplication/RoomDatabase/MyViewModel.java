@@ -23,7 +23,7 @@ public class MyViewModel extends AndroidViewModel {
 
     public boolean userUpdate(User user) {
         repository.userUpdate(user);
-        return false;
+        return true;
     }
 
     public void userDelete(User user) {
@@ -50,7 +50,7 @@ public class MyViewModel extends AndroidViewModel {
     // Category
     public boolean categoryInsert(Category category) {
         repository.categoryInsert(category);
-        return false;
+        return true;
     }
 
     public boolean categoryUpdate(Category category) {
@@ -74,12 +74,12 @@ public class MyViewModel extends AndroidViewModel {
     // Course
     public boolean insertCourse(Course course) {
         repository.insertCourse(course);
-        return false;
+        return true;
     }
 
     public boolean updateCourse(Course course) {
         repository.updateCourse(course);
-        return false;
+        return true;
     }
 
     public void deleteCourse(Course course) {
@@ -108,12 +108,12 @@ public class MyViewModel extends AndroidViewModel {
     // Lesson
     public boolean insertLesson(Lesson lesson) {
         repository.insertLesson(lesson);
-        return false;
+        return true;
     }
 
     public boolean updateLesson(Lesson lesson) {
         repository.updateLesson(lesson);
-        return false;
+        return true;
     }
 
     public void deleteLesson(Lesson lesson) {

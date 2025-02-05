@@ -72,7 +72,7 @@ public class EditeProfileActivity extends AppCompatActivity {
             String email = binding.emailEt.getText().toString().trim();
             String password = binding.passwordEt.getText().toString().trim();
 
-            if (fullName.isEmpty()) {
+            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 binding.userNameEt.setError("Please enter user name");
                 return;
             }
@@ -89,11 +89,9 @@ public class EditeProfileActivity extends AppCompatActivity {
                 return;
             }
 
-            if ( viewModel.userUpdate(new User(Utils.USERID, fullName, email, password, bitmap, false))) {
+            if (viewModel.userUpdate(new User(Utils.USERID, fullName, email, password, bitmap, false))) {
                 Toast.makeText(EditeProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
                 finish();
-            } else {
-                Toast.makeText(EditeProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
             }
         });
 

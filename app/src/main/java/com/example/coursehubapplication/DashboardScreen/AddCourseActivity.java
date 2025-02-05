@@ -194,8 +194,7 @@ public class AddCourseActivity extends AppCompatActivity {
                 }
 
                 Course course = new Course(courseTitle, courseDescription, instructorName, bitmap, coursePrise, courseHours, categoryId);
-
-                if (viewModel.insertCourse(course)) {
+                if ( viewModel.insertCourse(course)) {
                     Toast.makeText(AddCourseActivity.this, "Successfully Added", Toast.LENGTH_SHORT).show();
                     binding.nameCourseET.setText("");
                     binding.courseDescriptionET.setText("");
@@ -203,8 +202,6 @@ public class AddCourseActivity extends AppCompatActivity {
                     binding.courseHoursET.setText("");
                     binding.coursePriseET.setText("");
                     binding.imageCourseIV.setImageResource(R.drawable.baseline_camera_alt_24);
-                } else {
-                    Toast.makeText(AddCourseActivity.this, "Failed to Add", Toast.LENGTH_SHORT).show();
                 }
 
             }});

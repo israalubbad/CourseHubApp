@@ -106,13 +106,9 @@ public class AddLessonActivity extends AppCompatActivity {
                     return;
                 }
 
-                Lesson lesson = new Lesson(lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, System.currentTimeMillis(), true);
+                Lesson lesson = new Lesson(lessonId,lessonTitle, lessonDescription, lessonVideo, articleLink, courseId, System.currentTimeMillis(), true);
                 if (viewModel.updateLesson(lesson)) {
                     Toast.makeText(AddLessonActivity.this, "Successfully Edite", Toast.LENGTH_SHORT).show();
-                    binding.lessonTitleET.setText("");
-                    binding.lessonDescriptionET.setText("");
-                    binding.lessonVideoEt.setText("");
-                    binding.articleLinkET.setText("");
                 } else {
                     Toast.makeText(AddLessonActivity.this, "Failed to Edite", Toast.LENGTH_SHORT).show();
                 }

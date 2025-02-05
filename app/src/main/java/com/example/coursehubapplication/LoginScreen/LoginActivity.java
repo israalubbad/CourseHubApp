@@ -48,6 +48,7 @@ ActivityLoginBinding binding;
             Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
             intent.putExtra("userId",sharedPreferences.getInt("userId",-1));
             startActivity(intent);
+            finish();
 
         }
 
@@ -69,8 +70,7 @@ ActivityLoginBinding binding;
 
                                 if(binding.rememberSwitch.isChecked()){
                                   editor.putBoolean("remembered",true).apply();
-                                 editor.putInt("userId", user.getUserId()).apply();
-                                 editor.putInt("userId", user.getUserId()).apply();
+                                   editor.putInt("userId", user.getUserId()).apply();;
 
                                 }
 

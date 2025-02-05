@@ -48,12 +48,10 @@ public class AddCategeryActivity extends AppCompatActivity {
                 } else {
 
                     Category category = new Category(nameCategory);
-                    if (!viewModel.categoryInsert(category)) {
+                    if (viewModel.categoryInsert(category)) {
                         Toast.makeText(AddCategeryActivity.this, "Successfully Add", Toast.LENGTH_SHORT).show();
                         binding.nameCategoryET.setText("");
 
-                    } else {
-                        Toast.makeText(AddCategeryActivity.this, "Failed Add", Toast.LENGTH_SHORT).show();
                     }
 
                 }
