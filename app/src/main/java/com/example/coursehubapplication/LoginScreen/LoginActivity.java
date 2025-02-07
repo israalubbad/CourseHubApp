@@ -51,6 +51,19 @@ ActivityLoginBinding binding;
             finish();
 
         }
+        if (sharedPreferences.getBoolean("remembered", false)) {
+            int userId = sharedPreferences.getInt("userId", -1);
+            boolean isAdmin = sharedPreferences.getBoolean("isAdmin", false); // استرجاع حالة الأدمن
+
+            Intent intent;
+            if (isAdmin) {
+                intent = new Intent(LoginActivity.this, DashboardActivity.class);
+            } else {
+                intent = new Intent(LoginActivity.this, HomeActivity.class);
+            }
+            startActivity(intent);
+            finish();
+        }
 
         binding.loginBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +83,8 @@ ActivityLoginBinding binding;
 
                                 if(binding.rememberSwitch.isChecked()){
                                   editor.putBoolean("remembered",true).apply();
-                                   editor.putInt("userId", user.getUserId()).apply();;
-
+                                  editor.putInt("userId", user.getUserId()).apply();;
+                                  editor.putBoolean("isAdmin", user.isAdmin());
                                 }
 
                                 if (user.isAdmin()) {
@@ -108,8 +121,6 @@ ActivityLoginBinding binding;
 
     }
 
-    public interface UserLessener {
-        void onClick(int userId);
-    }
+
 
 }

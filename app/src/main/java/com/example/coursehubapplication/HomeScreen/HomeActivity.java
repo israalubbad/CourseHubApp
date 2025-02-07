@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("course", MODE_PRIVATE);
        Utils.USERID = sharedPreferences.getInt("userId", -1);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,
                 HomeFragment.newInstance(Utils.USERID)).commit();
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
