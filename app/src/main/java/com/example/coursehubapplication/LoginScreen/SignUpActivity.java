@@ -43,16 +43,22 @@ ActivitySignUpBinding binding;
             String password=binding.passwordEt.getText().toString();
             String confirtPassword=binding.comfortPasswordEt.getText().toString();
             if(fullName.isEmpty()){
-                binding.emailEt.setError("Please enter Full Name");
-            }else if(password.isEmpty()){
-                binding.passwordEt.setError("Please enter Password");
-                Toast.makeText(this, "Please enter Password", Toast.LENGTH_SHORT).show();
-            }else if(confirtPassword.isEmpty()){
-                binding.passwordEt.setError("Please enter Comfort Password");
-                Toast.makeText(this, "Please enter Comfort Password", Toast.LENGTH_SHORT).show();
-            }else if(password.isEmpty()){
+                binding.userNameEt.setError("Please enter Full Name");
+                return;
+            }
+            if(email.isEmpty()){
                 binding.emailIL.setError("Please enter Email");
-            }else{
+                return;
+            }
+            if(password.isEmpty()){
+                Toast.makeText(this, "Please enter Password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(confirtPassword.isEmpty()){
+                Toast.makeText(this, "Please enter Comfort Password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
                 if(password.equals(confirtPassword)){
                     viewModel.getUserByEmail(email).observe(SignUpActivity.this, new Observer<User>() {
                         @Override
@@ -70,7 +76,6 @@ ActivitySignUpBinding binding;
                 }else{
                     Toast.makeText(SignUpActivity.this, "password and comfort password don't match ", Toast.LENGTH_SHORT).show();
                 }
-            }
         });
 
 

@@ -65,18 +65,22 @@ public class ProgressCourseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+
+    }
+
+
+    @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentProgressCourseBinding.inflate(inflater, container, false);
+            viewModel = new ViewModelProvider(this).get(MyViewModel.class);
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         viewModel.getCoursesByUserIdList(Utils.USERID).observe(getViewLifecycleOwner(), enrolledCourses -> {
             ongoingCourse.clear();
             completedCourse.clear();
-
             for (UserCourseEnrolled courseEnrolled : enrolledCourses) {
-                viewModel.getLessonsByCourseId(courseEnrolled.getCourseId()).observe(getViewLifecycleOwner(), lessonList -> {
-                    viewModel.getCompletedLesson(courseEnrolled.getEnrolledCourseId()).observe(getViewLifecycleOwner(), completedLessons -> {
 
-                        int progress = (int) ((completedLessons.size() / (float) lessonList.size()) * 100);
-                        courseEnrolled.setProgressIndicator(progress);
-
-                        if (progress == 100) {
+                        if (courseEnrolled.getProgressIndicator() == 100) {
                             completedCourse.add(courseEnrolled);
                         } else {
                             ongoingCourse.add(courseEnrolled);
@@ -91,19 +95,9 @@ public class ProgressCourseFragment extends Fragment {
                             }
                         }
 
-                    });
-                });
+
             }
         });
-
-    }
-
-
-    @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentProgressCourseBinding.inflate(inflater, container, false);
-            viewModel = new ViewModelProvider(this).get(MyViewModel.class);
-            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             return binding.getRoot();
         }
 

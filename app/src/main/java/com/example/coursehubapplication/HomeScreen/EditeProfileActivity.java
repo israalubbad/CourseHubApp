@@ -72,8 +72,8 @@ public class EditeProfileActivity extends AppCompatActivity {
             String email = binding.emailEt.getText().toString().trim();
             String password = binding.passwordEt.getText().toString().trim();
 
-            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                binding.userNameEt.setError("Please enter user name");
+            if (fullName.isEmpty()) {
+                binding.userNameEt.setError("Please enter email");
                 return;
             }
             if (email.isEmpty()) {
@@ -85,7 +85,7 @@ public class EditeProfileActivity extends AppCompatActivity {
                 return;
             }
             if (bitmap == null) {
-                Toast.makeText(EditeProfileActivity.this, "Please select a photo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditeProfileActivity.this, "Please select photo", Toast.LENGTH_SHORT).show();
                 return;
             }
 

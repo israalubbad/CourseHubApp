@@ -44,6 +44,7 @@ ActivityLoginBinding binding;
 
         sharedPreferences=getSharedPreferences("course",MODE_PRIVATE);
         editor=sharedPreferences.edit();
+
         if(sharedPreferences.getBoolean("remembered",false)){
             Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
             intent.putExtra("userId",sharedPreferences.getInt("userId",-1));
@@ -53,7 +54,7 @@ ActivityLoginBinding binding;
         }
         if (sharedPreferences.getBoolean("remembered", false)) {
             int userId = sharedPreferences.getInt("userId", -1);
-            boolean isAdmin = sharedPreferences.getBoolean("isAdmin", false); // استرجاع حالة الأدمن
+            boolean isAdmin = sharedPreferences.getBoolean("isAdmin", true);
 
             Intent intent;
             if (isAdmin) {
@@ -70,11 +71,8 @@ ActivityLoginBinding binding;
             public void onClick(View view) {
                 String email=binding.emailEt.getText().toString();
                 String password=binding.passwordEt.getText().toString();
-                if(email.isEmpty()){
-                    binding.emailEt.setError("Please enter Email");
-                }else if(password.isEmpty()){
-                    binding.passwordEt.setError("Please enter Password");
-                    Toast.makeText(getBaseContext(), "Please enter Password", Toast.LENGTH_SHORT).show();
+                if(email.isEmpty() || password.isEmpty()){
+                    binding.emailEt.setError("Please enter data");
                 } else {
                     viewModel.getUserByEmailAndPassword(email,password).observe(LoginActivity.this, new Observer<User>() {
                         @Override

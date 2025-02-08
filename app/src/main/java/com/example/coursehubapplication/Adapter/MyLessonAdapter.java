@@ -60,7 +60,7 @@ int userLessonId;
         viewHolder.binding.lessonTitle.setText(lessonList.get(position).getLessonTitle());
         int courseId = lessonList.get(position).getCourseId();
 
-        viewModel.getUserEnrolledInCourse(Utils.USERID, courseId).observe((LifecycleOwner) context, userCourseEnrolled -> {
+        viewModel.getUserEnrolledInCourse(Utils.USERID, lessonList.get(position).getCourseId()).observe((LifecycleOwner) context, userCourseEnrolled -> {
             if (userCourseEnrolled != null) {
 
                 viewModel.getIsCompleted(userCourseEnrolled.getEnrolledCourseId(), lessonList.get(position).getLessonId()).observe((LifecycleOwner) context, isCompleted -> {
@@ -71,35 +71,39 @@ int userLessonId;
                                 viewHolder.binding.checkBox.setImageResource(R.drawable.check_mark);
                             }
 
-
-                        viewHolder.binding.checkBox.setOnClickListener(view ->{
-                            if (! isCompleted ) {
-                                viewModel.insertLessonUser(new LessonUser(userCourseEnrolled.getEnrolledCourseId(), lessonList.get(position).getLessonId()));
-                                Toast.makeText(context, "Checked lesson", Toast.LENGTH_SHORT).show();
-                            } else{
-                                String textMassage = "Are you sure you want to unChecked lesson ?";
-                                String key = "userLesson";
-                                 AlertDialog.Builder builder = Utils.getBuilder(viewModel, null,-1, textMassage, key, context,lessonList.get(position).getLessonId(),userCourseEnrolled.getEnrolledCourseId());
-                                 AlertDialog dialog = builder.create();
-                                 dialog.setCancelable(true);
-                                 dialog.show();
-                                 return;
-                            }
-                            viewModel.getCompletedLesson(enrolledId).observe((LifecycleOwner) context, completed -> {
-                                if (completed != null) {
-                                    int total=lessonList.size();
-                                    int progress = (int) ((completed.size() / (float) total) * 100);
-                                    UserCourseEnrolled updatedEnrollment = new UserCourseEnrolled(enrolledId, Utils.USERID, courseId, progress);
-                                    viewModel.updateEnrollUserInCourse(updatedEnrollment);
-                                }
-
-                            });
-
-                        });
                     }
                 });
+
+                viewModel.getLessonUser(userCourseEnrolled.getEnrolledCourseId(), lessonList.get(position).getLessonId()).observe((LifecycleOwner) context,lessonUser -> {
+                    viewHolder.binding.checkBox.setOnClickListener(view ->{
+                        if (lessonUser == null) {
+                            viewModel.insertLessonUser(new LessonUser(userCourseEnrolled.getEnrolledCourseId(), lessonList.get(position).getLessonId()));
+                            Toast.makeText(context, "Checked lesson", Toast.LENGTH_SHORT).show();
+                        } else{
+                            String textMassage = "Are you sure you want to unChecked lesson ?";
+                            String key = "userLesson";
+                            AlertDialog.Builder builder = Utils.getBuilder(viewModel, lessonUser, textMassage, key, context);
+                            AlertDialog dialog = builder.create();
+                            dialog.setCancelable(true);
+                            dialog.show();
+                            return;
+                        }
+                        viewModel.getCompletedLesson(userCourseEnrolled.getEnrolledCourseId()).observe((LifecycleOwner) context, completed -> {
+                            if (completed != null) {
+                                int total=lessonList.size();
+                                int progress = (int) ((completed.size() / (float) total) * 100);
+                                UserCourseEnrolled updatedEnrollment = new UserCourseEnrolled(userCourseEnrolled.getEnrolledCourseId(), Utils.USERID, lessonList.get(position).getCourseId(), progress);
+                                viewModel.updateEnrollUserInCourse(updatedEnrollment);
+                            }
+
+                        });
+
+                    });
+                });
+
             }
         });
+
 
 
 

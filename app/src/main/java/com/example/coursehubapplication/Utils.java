@@ -20,6 +20,7 @@ import com.example.coursehubapplication.RoomDatabase.Bookmark;
 import com.example.coursehubapplication.RoomDatabase.Category;
 import com.example.coursehubapplication.RoomDatabase.Course;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
+import com.example.coursehubapplication.RoomDatabase.LessonUser;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
 import com.example.coursehubapplication.RoomDatabase.User;
 import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
@@ -240,7 +241,7 @@ public class Utils {
     }
 
 
-    public static AlertDialog.Builder getBuilder(MyViewModel viewModel, Object data, int CourseId, String textMassage, String key, Context context, int lessonId,int enrrolled) {
+    public static AlertDialog.Builder getBuilder(MyViewModel viewModel, Object data, String textMassage, String key, Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirmation");
         builder.setMessage(textMassage);
@@ -253,9 +254,6 @@ public class Utils {
                 }else if(key.equals("bookmark")){
                     viewModel.deleteBookmark((Bookmark) data);
                     Toast.makeText(context, "Bookmark deleted", Toast.LENGTH_SHORT).show();
-                } else if(key.equals("bookmarks")){
-                    viewModel.deleteBookmarkByUserAndCourse(USERID,CourseId);
-                    Toast.makeText(context, "Bookmark deleted", Toast.LENGTH_SHORT).show();
                 }else if(key.equals("lesson")){
                     Toast.makeText((ViewLessonActivity) context, "category deleted", Toast.LENGTH_SHORT).show();
                     viewModel.deleteLesson((Lesson) data);
@@ -267,7 +265,7 @@ public class Utils {
                     Toast.makeText((DashboardActivity) context, "Category deleted", Toast.LENGTH_SHORT).show();
                 }
                 else if(key.equals("userLesson")){
-                    viewModel.deleteUserLessonByLesson(enrrolled,lessonId);
+                    viewModel.deleteLessonUser((LessonUser) data);
                     Toast.makeText(context, "unChecked lesson", Toast.LENGTH_SHORT).show();
 
                 }
@@ -326,10 +324,13 @@ public class Utils {
 
                 if (selectedCategoryId != -1) {
                     // علشان اعدل الكورسات من الكتوجري القديم ل كتوجري جديد اختاره الادمن
-                    viewModel.updateCoursesFromCategory(category.getCategoryId(), selectedCategoryId);
-                    viewModel.deleteCategory(category);
-                    Toast.makeText(context, "Category Deleted", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
+                    int finalSelectedCategoryId = selectedCategoryId;
+                    new Thread(()->{
+                        viewModel.updateCoursesFromCategory(category.getCategoryId(), finalSelectedCategoryId);
+                        viewModel.deleteCategory(category);
+                        dialog.dismiss();
+                    }).start();
+
                 }
             }
         });

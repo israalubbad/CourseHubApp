@@ -102,7 +102,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 } else {
                     String textMassage="Are you sure you want to remove this bookmark?";
                     String key="bookmark";
-                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,bookmarks,courseId,textMassage,key,CourseDetailsActivity.this,-1,-1);
+                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,bookmarks,textMassage,key,CourseDetailsActivity.this);
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.show();
@@ -141,7 +141,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                         } else if (isEnrolled){
                     String textMassage="Are you sure you want to remove this Course?";
                     String key="joinCourse";
-                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled1,courseId, textMassage,key,CourseDetailsActivity.this,-1,-1);
+                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled1, textMassage,key,CourseDetailsActivity.this);
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.show();

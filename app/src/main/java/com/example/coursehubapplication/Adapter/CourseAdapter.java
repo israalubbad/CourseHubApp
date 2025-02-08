@@ -72,7 +72,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             MyViewModel viewModel = new ViewModelProvider((ViewCoursesActivity) context).get(MyViewModel.class);
                             String textMessage = "Are you sure you want to delete this course?";
                             String key = "course";
-                            AlertDialog.Builder builder = Utils.getBuilder(viewModel, courseList.get(position),-1, textMessage, key, (ViewCoursesActivity) context,-1,-1);
+                            AlertDialog.Builder builder = Utils.getBuilder(viewModel, courseList.get(position), textMessage, key, (ViewCoursesActivity) context);
                             AlertDialog dialog = builder.create();
                             dialog.setCancelable(true);
                             dialog.show();

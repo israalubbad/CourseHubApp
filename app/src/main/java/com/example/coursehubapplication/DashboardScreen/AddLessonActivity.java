@@ -2,6 +2,7 @@ package com.example.coursehubapplication.DashboardScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.coursehubapplication.R;
 import com.example.coursehubapplication.RoomDatabase.Lesson;
 import com.example.coursehubapplication.RoomDatabase.MyViewModel;
+import com.example.coursehubapplication.RoomDatabase.UserCourseEnrolled;
 import com.example.coursehubapplication.databinding.ActivityAddLessonBinding;
 
 public class AddLessonActivity extends AppCompatActivity {
@@ -66,6 +68,24 @@ public class AddLessonActivity extends AppCompatActivity {
                     binding.lessonDescriptionET.setText("");
                     binding.lessonVideoEt.setText("");
                     binding.articleLinkET.setText("");
+                    viewModel.getUsersByCourseId(courseId).observe(AddLessonActivity.this, enrolledUsers -> {
+                        if (enrolledUsers != null) {
+                            for (UserCourseEnrolled enrolledUser : enrolledUsers) {
+                                viewModel.getLessonsByCourseId(courseId).observe(AddLessonActivity.this, lessonList -> {
+                                    if (lessonList != null) {
+                                        viewModel.getCompletedLesson(enrolledUser.getEnrolledCourseId()).observe(AddLessonActivity.this, completedLessons -> {
+                                            int progress = (int) ((completedLessons.size() / (float) lessonList.size()) * 100);
+                                            enrolledUser.setProgressIndicator(progress);
+                                            viewModel.updateEnrollUserInCourse(enrolledUser);
+                                        });
+                                    }
+                                });
+                            }
+                        }
+
+
+                    });
+
                 } else {
                     Toast.makeText(AddLessonActivity.this, "Failed to Add", Toast.LENGTH_SHORT).show();
                 }

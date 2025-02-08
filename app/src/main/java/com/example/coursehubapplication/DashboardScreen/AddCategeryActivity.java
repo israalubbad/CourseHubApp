@@ -46,12 +46,10 @@ public class AddCategeryActivity extends AppCompatActivity {
                 if (nameCategory.isEmpty()) {
                     binding.nameCategoryET.setError("Please enter Category Name");
                 } else {
-
                     Category category = new Category(nameCategory);
                     if (viewModel.categoryInsert(category)) {
                         Toast.makeText(AddCategeryActivity.this, "Successfully Add", Toast.LENGTH_SHORT).show();
                         binding.nameCategoryET.setText("");
-
                     }
 
                 }

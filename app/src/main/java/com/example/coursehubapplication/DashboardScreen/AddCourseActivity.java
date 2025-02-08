@@ -238,8 +238,6 @@ public class AddCourseActivity extends AppCompatActivity {
                     Toast.makeText(AddCourseActivity.this, "Please enter Course Photo", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int courseHours;
-                double coursePrise;
 
                 try {
                     courseHours = Integer.parseInt(hours);
@@ -259,9 +257,8 @@ public class AddCourseActivity extends AppCompatActivity {
 
                 if (viewModel.updateCourse(course)) {
                     Toast.makeText(AddCourseActivity.this, "Successfully Edited", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AddCourseActivity.this, "Failed to Edit", Toast.LENGTH_SHORT).show();
-                }}
+                }
+            }
         });
 
         binding.back.setOnClickListener(view -> {

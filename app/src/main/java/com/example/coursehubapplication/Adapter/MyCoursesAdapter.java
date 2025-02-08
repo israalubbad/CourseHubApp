@@ -67,7 +67,7 @@ public class MyCoursesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View view) {
                     String textMassage="Are you sure you want to remove this Course?";
                     String key="joinCourse";
-                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled.get(position),courseId,textMassage,key, context,-1,-1);
+                    AlertDialog.Builder builder = Utils.getBuilder(viewModel,userCourseEnrolled.get(position),textMassage,key, context);
                     AlertDialog dialog = builder.create();
                     dialog.setCancelable(true);
                     dialog.show();

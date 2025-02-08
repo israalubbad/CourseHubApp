@@ -35,6 +35,7 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     CourseviewItemBinding binding;
     Course course;
     Bookmark bookmarks;
+    int bookmarkedId;
 
     public HomeCourseAdapter(List<Course> courseList, Context context) {
         this.courseList = courseList;
@@ -52,16 +53,13 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyViewModel viewModel = new ViewModelProvider((HomeActivity) context).get(MyViewModel.class);
         Course course = courseList.get(position);
+
         HomeCourseAdapter.ViewHolder viewHolder = (HomeCourseAdapter.ViewHolder) holder;
         viewHolder.binding.courseTitle.setText(courseList.get(position).getCourseTitle());
         viewHolder.binding.courseDescription.setText(courseList.get(position).getCourseDescription());
         viewHolder.binding.instructorName.setText(courseList.get(position).getCourseInstructorName());
         viewHolder.binding.coursePhotoTV.setImageBitmap(courseList.get(position).getCourseImage());
-        viewModel.getBookmarkByUserIdAndCourse(Utils.USERID,course.getCourseId()).observe((LifecycleOwner) context, Bookmark-> {
-           if(Bookmark !=null) {
-               bookmarks = Bookmark;
-           }
-        });
+
 
         viewModel.getIsBookmark(course.getCourseId(), Utils.USERID).observe((LifecycleOwner) context, isBookmarked -> {
             if (isBookmarked != null) {
@@ -70,23 +68,27 @@ public class HomeCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 } else {
                     viewHolder.binding.bookMarkIv.setImageResource(R.drawable.unbookmark);
                 }
-
-                viewHolder.binding.bookMarkIv.setOnClickListener(view -> {
-                    if (!isBookmarked) {
-                        Bookmark bookmark = new Bookmark(Utils.USERID, course.getCourseId());
-                        viewModel.insertBookmark(bookmark);
-                        Toast.makeText(context, "Bookmark added", Toast.LENGTH_SHORT).show();
-                    } else {
-                        String textMassage="Are you sure you want to remove this bookmark?";
-                        String key="bookmarks";
-                        AlertDialog.Builder builder = Utils.getBuilder(viewModel,null,courseList.get(position).getCourseId(),textMassage,key,context,-1,-1);
-                        AlertDialog dialog = builder.create();
-                        dialog.setCancelable(true);
-                        dialog.show();
-                    }
-                });
             }
         });
+
+            viewModel.getBookmarkByUserIdAndCourse(Utils.USERID,course.getCourseId()).observe((LifecycleOwner) context, Bookmark-> {
+                    viewHolder.binding.bookMarkIv.setOnClickListener(view -> {
+                        if (Bookmark == null) {
+                            Bookmark bookmark = new Bookmark(Utils.USERID, course.getCourseId());
+                            viewModel.insertBookmark(bookmark);
+                            Toast.makeText(context, "Bookmark added", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String textMassage="Are you sure you want to remove this bookmark?";
+                            String key="bookmark";
+                            AlertDialog.Builder builder = Utils.getBuilder(viewModel,Bookmark,textMassage,key,context);
+                            AlertDialog dialog = builder.create();
+                            dialog.setCancelable(true);
+                            dialog.show();
+                        }
+                    });
+
+            });
+
 
         viewHolder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
