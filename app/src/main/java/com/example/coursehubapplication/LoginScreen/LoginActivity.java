@@ -72,7 +72,7 @@ ActivityLoginBinding binding;
                 String email=binding.emailEt.getText().toString();
                 String password=binding.passwordEt.getText().toString();
                 if(email.isEmpty() || password.isEmpty()){
-                    binding.emailEt.setError("Please enter data");
+                    Toast.makeText(LoginActivity.this, "pleas enter data 33", Toast.LENGTH_SHORT).show();
                 } else {
                     viewModel.getUserByEmailAndPassword(email,password).observe(LoginActivity.this, new Observer<User>() {
                         @Override

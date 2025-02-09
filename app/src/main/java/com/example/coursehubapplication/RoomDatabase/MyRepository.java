@@ -257,25 +257,12 @@ public class MyRepository {
         return bookmarkDao.getIsBookmark(courseId, userId);
     }
 
-    public void deleteBookmarkByUserAndCourse(int userId, int courseId) {
-        CourseDatabase.databaseWriteExecutor.execute(() -> {
-            bookmarkDao.deleteBookmarkByUserAndCourse(userId, courseId);
-        });
-    }
 
     ////////
 
     void insertLessonUser(LessonUser lessonUser) {
         CourseDatabase.databaseWriteExecutor.execute(() -> {
             lessonUserDao.insertLessonUser(lessonUser);
-        });
-    }
-
-
-    void updateLessonUser(LessonUser lessonUser) {
-        CourseDatabase.databaseWriteExecutor.execute(() -> {
-
-            lessonUserDao.updateLessonUser(lessonUser);
         });
     }
 
@@ -299,11 +286,7 @@ public class MyRepository {
         return lessonUserDao.getCompletedLesson(enrolledCourseId);
     }
 
-    void deleteUserLessonByLesson(int enrolledCourseId, int lessonId){
-        CourseDatabase.databaseWriteExecutor.execute(() -> {
-        lessonUserDao.deleteUserLessonByLesson(enrolledCourseId, lessonId);
-        });
-    }
+
 
 
 

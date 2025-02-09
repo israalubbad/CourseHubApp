@@ -55,7 +55,7 @@ public class MyViewModel extends AndroidViewModel {
 
     public boolean categoryUpdate(Category category) {
         repository.categoryUpdate(category);
-        return false;
+        return true;
     }
 
     public void deleteCategory(Category category) {
@@ -196,11 +196,7 @@ public class MyViewModel extends AndroidViewModel {
         return repository.getIsBookmark(courseId, userId);
     }
 
-    public void deleteBookmarkByUserAndCourse(int userId, int courseId) {
 
-        repository.deleteBookmarkByUserAndCourse(userId, courseId);
-
-    }
    public LiveData<List<Bookmark>> getBookmarkByCourseId(int courseId){
         return repository.getBookmarkByCourseId(courseId);
     }
@@ -217,11 +213,6 @@ public class MyViewModel extends AndroidViewModel {
 
     }
 
-    public void updateLessonUser(LessonUser lessonUser) {
-        repository.updateLessonUser(lessonUser);
-
-    }
-
     public LiveData<LessonUser> getLessonUser(int enrolledCourseId, int lessonId) {
         return repository.getLessonUser(enrolledCourseId, lessonId);
     }
@@ -234,11 +225,7 @@ public class MyViewModel extends AndroidViewModel {
     public LiveData<List<LessonUser>> getCompletedLesson(int enrolledCourseId){
         return repository.getCompletedLesson(enrolledCourseId);
     }
-    public void deleteUserLessonByLesson(int enrolledCourseId, int lessonId){
 
-            repository.deleteUserLessonByLesson(enrolledCourseId, lessonId);
-
-    }
 
 }
 

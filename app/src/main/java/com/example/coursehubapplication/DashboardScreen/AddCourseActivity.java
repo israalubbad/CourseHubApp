@@ -99,18 +99,19 @@ public class AddCourseActivity extends AppCompatActivity {
                     binding.imageCourseIV.setImageBitmap(course.getCourseImage());
                     bitmap=course.getCourseImage();
                     categoryId = course.getCourseCategory();
+
+                    // علشان يختاره يلي انا دخلت عليه
+                    if (course.getCourseCategory() != -1) {
+                        for (int i = 0; i < categories.size(); i++) {
+                            if (categories.get(i).getCategoryId() == categoryId) {
+                                binding.addCategorySp.setSelection(i);
+                                break;
+                            }
+                        }
+                    }
                         });
 
 
-            }
-            // علشان يختاره يلي انا دخلت عليه
-            if (categoryId != -1) {
-                for (int i = 0; i < categories.size(); i++) {
-                    if (categories.get(i).getCategoryId() == categoryId) {
-                        binding.addCategorySp.setSelection(i);
-                        break;
-                    }
-                }
             }
 
 

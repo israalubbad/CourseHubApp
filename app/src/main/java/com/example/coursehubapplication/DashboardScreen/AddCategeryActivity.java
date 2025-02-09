@@ -80,7 +80,7 @@ public class AddCategeryActivity extends AppCompatActivity {
                 } else {
 
                     Category category = new Category(categoryId, nameCategory);
-                    if (!viewModel.categoryUpdate(category)) {
+                    if (viewModel.categoryUpdate(category)) {
                         Toast.makeText(AddCategeryActivity.this, "Successfully Edite", Toast.LENGTH_SHORT).show();
 
                     } else {

@@ -15,14 +15,8 @@ public interface  LessonUserDao {
     @Insert
     void insertLessonUser(LessonUser lessonUser);
 
-    @Update
-    void updateLessonUser(LessonUser lessonUser);
-
     @Delete
    public void deleteLessonUser(LessonUser lessonUser);
-
-    @Query("DELETE FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId AND lessonId = :lessonId")
-    void deleteUserLessonByLesson(int enrolledCourseId, int lessonId);
 
     @Query("SELECT * FROM LessonUser WHERE enrolledCourseId = :enrolledCourseId AND lessonId = :lessonId ")
     LiveData<LessonUser> getLessonUser(int enrolledCourseId, int lessonId);

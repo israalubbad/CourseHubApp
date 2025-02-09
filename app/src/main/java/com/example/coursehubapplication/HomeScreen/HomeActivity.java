@@ -69,18 +69,14 @@ public class HomeActivity extends AppCompatActivity {
 
         viewModel.getCoursesByUserIdList(Utils.USERID).observe(HomeActivity.this, userCourseEnrolledList -> {
             for (UserCourseEnrolled enrollment : userCourseEnrolledList) {
-                int courseId = enrollment.getCourseId();
-                long timeEnrolled = enrollment.getTimeEnrolled();
-
-                viewModel.getLessonsAfterEnrolled(courseId, timeEnrolled).observe(HomeActivity.this, lessons -> {
-
+                viewModel.getLessonsAfterEnrolled(enrollment.getCourseId(), enrollment.getTimeEnrolled()).observe(HomeActivity.this, lessons -> {
                     for (Lesson lesson : lessons) {
                         Boolean isShow= preferences.getBoolean(Utils.USERID + "_" + lesson.getLessonId(), true);
                         if (lesson.isAdminAdded() && isShow ) {
-                            viewModel.getCourseById(courseId).observe(HomeActivity.this, course -> {
+                            editor.putBoolean(Utils.USERID + "_" + lesson.getLessonId(), false).apply();
+                            viewModel.getCourseById(enrollment.getCourseId()).observe(HomeActivity.this, course -> {
                                 String courseTitle = course.getCourseTitle();
-                                showNotification(lesson.getLessonTitle(), courseTitle, courseId, lesson.getLessonId());
-                                editor.putBoolean(Utils.USERID + "_" + lesson.getLessonId(), false).apply();
+                                showNotification(lesson.getLessonTitle(), courseTitle, enrollment.getCourseId(), lesson.getLessonId());
 
                             });
                         }

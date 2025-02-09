@@ -52,7 +52,7 @@ public class MyLessonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         binding = MyLessonItemBinding.inflate(LayoutInflater.from(context), parent, false);
         return new MyLessonAdapter.ViewHolder(binding);
     }
-int userLessonId;
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyLessonAdapter.ViewHolder viewHolder = (MyLessonAdapter.ViewHolder) holder;
@@ -92,7 +92,7 @@ int userLessonId;
                             if (completed != null) {
                                 int total=lessonList.size();
                                 int progress = (int) ((completed.size() / (float) total) * 100);
-                                UserCourseEnrolled updatedEnrollment = new UserCourseEnrolled(userCourseEnrolled.getEnrolledCourseId(), Utils.USERID, lessonList.get(position).getCourseId(), progress);
+                                UserCourseEnrolled updatedEnrollment = new UserCourseEnrolled(userCourseEnrolled.getEnrolledCourseId(), Utils.USERID, lessonList.get(position).getCourseId(), progress,System.currentTimeMillis());
                                 viewModel.updateEnrollUserInCourse(updatedEnrollment);
                             }
 

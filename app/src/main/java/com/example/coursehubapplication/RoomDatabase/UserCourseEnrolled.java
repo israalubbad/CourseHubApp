@@ -31,6 +31,14 @@ public class UserCourseEnrolled {
         this.courseId = courseId;
         this.progressIndicator = progressIndicator;
     }
+    @Ignore
+    public UserCourseEnrolled(int enrolledCourseId, int userId, int courseId, int progressIndicator, long timeEnrolled) {
+        this.enrolledCourseId = enrolledCourseId;
+        this.userId = userId;
+        this.courseId = courseId;
+        this.progressIndicator = progressIndicator;
+        this.timeEnrolled = timeEnrolled;
+    }
 
     public int getEnrolledCourseId() {
         return enrolledCourseId;
