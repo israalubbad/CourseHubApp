@@ -113,6 +113,14 @@ public class AddCourseActivity extends AppCompatActivity {
 
 
             }
+            if (categoryId != -1) {
+                for (int i = 0; i < categories.size(); i++) {
+                    if (categories.get(i).getCategoryId() == categoryId) {
+                        binding.addCategorySp.setSelection(i);
+                        break;
+                    }
+                }
+            }
 
 
             binding.addCategorySp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

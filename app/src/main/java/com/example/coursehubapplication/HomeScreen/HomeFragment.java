@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment  {
 
         viewModel.getUserId(Utils.USERID).observe(getViewLifecycleOwner(), user -> {
             binding.userNameTV.setText(user.getUserName()+"");
-
+            binding.imageUser.setImageBitmap(user.getUserPhoto());
         });
 
 

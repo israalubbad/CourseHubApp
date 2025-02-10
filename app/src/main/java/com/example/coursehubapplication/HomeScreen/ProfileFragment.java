@@ -65,6 +65,7 @@ public class ProfileFragment extends Fragment {
             public void onChanged(User user) {
                 binding.userNameTV.setText(user.getUserName());
                 binding.userEmailTV.setText(user.getUserEmail());
+                binding.profileIV.setImageBitmap(user.getUserPhoto());
 
             }
         });

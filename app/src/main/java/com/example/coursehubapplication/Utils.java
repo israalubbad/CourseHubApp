@@ -145,7 +145,6 @@ public class Utils {
                         + "Make your project live and accessible.",
                 "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 1, currentTime, false));
 
-        // 🔹 Lessons for Android Development
         viewModel.insertLesson(new Lesson("Getting Started with Android",
                 "Introduction to Android development.\n"
                         + "Understand activities and UI components.\n"
@@ -188,7 +187,7 @@ public class Utils {
                         + "Follow best practices for successful app launch.",
                 "https://youtu.be/SpqsP8yM_As?si=i5lGJFA11FmsCv5F", null, 2, currentTime, false));
 
-        // 🔹 دروس لدورة UI/UX Design Principles
+
         viewModel.insertLesson(new Lesson("Introduction to UI/UX Design",
                 "Learn the core concepts of UI and UX design.\n"
                         + "Understand the differences between UI and UX.\n"
@@ -310,9 +309,7 @@ public class Utils {
             // اجيب يلي اختاره مستخدم
             String selected = binding.categorySpenner.getSelectedItem().toString();
             // اجبره انو يختار من السبينر
-            if (selected.isEmpty()) {
-                Toast.makeText(context, "Please Select Category", Toast.LENGTH_SHORT).show();
-            } else {
+
                 int selectedCategoryId = -1;
                 for (Category categorys : categoryList) {
                     // اجيب id  للتصنيف
@@ -332,7 +329,7 @@ public class Utils {
                     }).start();
 
                 }
-            }
+
         });
 
 
