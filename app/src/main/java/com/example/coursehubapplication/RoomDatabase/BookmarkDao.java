@@ -14,7 +14,6 @@ public interface BookmarkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertBookmark(Bookmark bookmark);
 
-
     @Delete
     void deleteBookmark(Bookmark bookmark);
 

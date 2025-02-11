@@ -20,8 +20,6 @@ public interface UserCourseEnrolledDao {
     @Delete
     void deleteEnrollUserInCourse(UserCourseEnrolled enrollment);
 
-    @Query("DELETE FROM UserCourseEnrolled WHERE userId = :userId AND courseId = :courseId")
-    void deleteUserFromCourse(int userId, int courseId);
 
     @Query("SELECT * FROM UserCourseEnrolled")
     LiveData<List<UserCourseEnrolled>> getAllEnrollments();

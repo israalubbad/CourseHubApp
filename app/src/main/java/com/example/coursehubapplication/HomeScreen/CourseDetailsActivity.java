@@ -46,6 +46,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
 
         int courseId = getIntent().getIntExtra("courseId", -1);
+
         MyViewModel viewModel = new ViewModelProvider(this).get(MyViewModel.class);
         viewModel.getBookmarkByUserIdAndCourse(Utils.USERID,courseId).observe(CourseDetailsActivity.this,bookmark -> {
             if(bookmark != null){

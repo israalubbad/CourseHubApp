@@ -15,7 +15,7 @@ public class Bookmark {
     @PrimaryKey(autoGenerate = true)
     private int bookmarkId;
 
-        private int userId;
+    private int userId;
     private int courseId;
 
     public Bookmark( int userId, int courseId) {

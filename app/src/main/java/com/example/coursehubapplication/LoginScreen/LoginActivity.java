@@ -53,7 +53,6 @@ ActivityLoginBinding binding;
 
         }
         if (sharedPreferences.getBoolean("remembered", false)) {
-            int userId = sharedPreferences.getInt("userId", -1);
             boolean isAdmin = sharedPreferences.getBoolean("isAdmin", true);
 
             Intent intent;

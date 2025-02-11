@@ -24,7 +24,7 @@ public interface UserDao {
     LiveData<List<User>> getAllUser();
 
     @Query("select * from user WHERE userEmail = :email ")
-    LiveData<User>getUserByEmail(String email );
+    LiveData<User>getUserByEmail(String email);
 
     @Query("select * from user WHERE userEmail = :email AND userPassword = :password ")
     LiveData<User>getUserByEmailAndPassword(String email , String password);

@@ -13,7 +13,6 @@ public class LessonUser {
 
     @PrimaryKey(autoGenerate = true)
     private int lessonUserId;
-
     private int enrolledCourseId;
     private int lessonId;
 

@@ -192,11 +192,7 @@ public class MyRepository {
         });
     }
 
-    public void deleteUserFromCourse(int userId, int courseId) {
-        CourseDatabase.databaseWriteExecutor.execute(() -> {
-            userCourseEnrolledDao.deleteUserFromCourse(userId, courseId);
-        });
-    }
+
 
 
     public LiveData<List<UserCourseEnrolled>> getAllEnrollments() {
@@ -256,7 +252,6 @@ public class MyRepository {
     public LiveData<Boolean> getIsBookmark(int courseId, int userId) {
         return bookmarkDao.getIsBookmark(courseId, userId);
     }
-
 
     ////////
 

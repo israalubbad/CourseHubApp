@@ -11,8 +11,8 @@ import androidx.room.PrimaryKey;
 public class UserCourseEnrolled {
     @PrimaryKey(autoGenerate = true)
     private int enrolledCourseId;
-    private int userId;
 
+    private int userId;
     private int courseId;
 
     private int progressIndicator;
