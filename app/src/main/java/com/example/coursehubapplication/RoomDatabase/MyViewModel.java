@@ -150,10 +150,6 @@ public class MyViewModel extends AndroidViewModel {
         repository.deleteEnrollUserInCourse(enrollment);
     }
 
-    public void deleteUserFromCourse(int userId, int courseId) {
-        repository.deleteUserFromCourse(userId, courseId);
-    }
-
     public   LiveData<List<UserCourseEnrolled>> getUsersByCourseId(int courseId) {
         return repository.getUsersByCourseId(courseId);
     }
