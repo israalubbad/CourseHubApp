@@ -87,7 +87,6 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     public void updateCoursesFromCategory(int oldCategoryId, int newCategoryId) {
-
         repository.updateCoursesFromCategory(oldCategoryId,newCategoryId);
     }
 

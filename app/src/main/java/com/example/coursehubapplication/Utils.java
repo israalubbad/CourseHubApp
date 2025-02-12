@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
@@ -295,20 +297,41 @@ public class Utils {
         Category category = categoryList.get(position);
         for (Category categorys : categoryList) {
             // علشان ما يضيف على اليستا الكتوجري يلي بدي احذفه
-            if (!categorys.getCategoryName().equals(category.getCategoryName())) {
-                categoryNames.add(categorys.getCategoryName());
+            if (!categorys.getCategoryName().equals(category.getCategoryName()) ) {
+                if(categorys.getCategoryId()!= 1) {
+                    categoryNames.add(categorys.getCategoryName());
+                }
             }
         }
+        if (categoryNames.isEmpty()) {
+            Toast.makeText(context, "It does not contain other categories", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
 
         AlertDialog dialog = builder.create();
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categoryNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.categorySpenner.setAdapter(null);
         binding.categorySpenner.setAdapter(adapter);
 
+        // اخليه يختار اول اشي العنصر الاول
+        binding.categorySpenner.post(() -> {
+            if (binding.categorySpenner.getSelectedItemPosition() == -1) {
+                binding.categorySpenner.setSelection(0);
+            }
+        });
+        // اوقف الزر
+        binding.actionBt.setEnabled(false);
+        // علشان يحدث على الواجهة ويكون مختار اول واحد قيمه دفلت
+        binding.categorySpenner.post(() -> {
+            binding.categorySpenner.setSelection(0);
+            binding.actionBt.setEnabled(true);
+        });
         binding.actionBt.setOnClickListener(view -> {
             // اجيب يلي اختاره مستخدم
             String selected = binding.categorySpenner.getSelectedItem().toString();
-            // اجبره انو يختار من السبينر
 
                 int selectedCategoryId = -1;
                 for (Category categorys : categoryList) {
@@ -323,8 +346,9 @@ public class Utils {
                     // علشان اعدل الكورسات من الكتوجري القديم ل كتوجري جديد اختاره الادمن
                     int finalSelectedCategoryId = selectedCategoryId;
                     new Thread(()->{
-                        viewModel.updateCoursesFromCategory(category.getCategoryId(), finalSelectedCategoryId);
-                        viewModel.deleteCategory(category);
+                            viewModel.updateCoursesFromCategory(category.getCategoryId(), finalSelectedCategoryId);
+                            viewModel.deleteCategory(category);
+
                         dialog.dismiss();
                     }).start();
 
@@ -341,9 +365,6 @@ public class Utils {
         dialog.setCancelable(true);
         return dialog;
     }
-
-
-
 
 
 }

@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 
-@Entity(foreignKeys = @ForeignKey(entity = Category.class, parentColumns = {"categoryId"}, childColumns = {"courseCategory"},onDelete = ForeignKey.SET_DEFAULT)
+@Entity(foreignKeys = @ForeignKey(entity = Category.class, parentColumns = {"categoryId"}, childColumns = {"courseCategory"},onDelete = ForeignKey.SET_NULL)
 )
     @TypeConverters(Converters.class)
 public class Course {
@@ -30,8 +30,8 @@ public class Course {
 
     private int courseHours;
 
-
-    private int courseCategory;
+    @Nullable
+    private Integer courseCategory;
 
     public Course( String courseTitle, String courseDescription, String courseInstructorName, Bitmap courseImage, double coursePrice, int courseHours, int courseCategory) {
         this.courseTitle = courseTitle;
