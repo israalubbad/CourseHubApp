@@ -8,12 +8,15 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.example.coursehubapplication.DashboardScreen.DashboardActivity;
 import com.example.coursehubapplication.DashboardScreen.ViewCoursesActivity;
@@ -281,86 +284,98 @@ public class Utils {
         });
         return builder;
     }
-
-
-    // customary dialog
+// هذا الكود ضفته جديد علشان اذا الادمن حذق category الاخير يضيف category اخر افتراضي و يحول الكورسات بداخله
     public static AlertDialog getAlertDialog(MyViewModel viewModel, int position, Context context, List<Category> categoryList) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         DialogBinding binding = DialogBinding.inflate(LayoutInflater.from(context), null, false);
         builder.setView(binding.getRoot());
+
         binding.titeleTV.setText("Confirmation");
         binding.teMassage.setText("Are you sure you want to delete this category?");
-        binding.selectCategory.setText("Please select category to assign courses:");
+        binding.selectCategory.setText("Please select a category to assign courses:");
         binding.actionBt.setText("OK");
-        // اعمل ليست للسبينر
+        Category categorys = categoryList.get(position);
         List<String> categoryNames = new ArrayList<>();
-        Category category = categoryList.get(position);
-        for (Category categorys : categoryList) {
-            // علشان ما يضيف على اليستا الكتوجري يلي بدي احذفه
-            if (!categorys.getCategoryName().equals(category.getCategoryName()) ) {
-                if(categorys.getCategoryId()!= 1) {
-                    categoryNames.add(categorys.getCategoryName());
-                }
+
+        // علشان ما يضيف على اليستا الكتوجري يلي بدي احذفه
+        for (Category category : categoryList) {
+            if (!category.getCategoryName().equals(categorys.getCategoryName())) {
+                categoryNames.add(category.getCategoryName());
             }
         }
-        if (categoryNames.isEmpty()) {
-            Toast.makeText(context, "It does not contain other categories", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-
 
         AlertDialog dialog = builder.create();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categoryNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.categorySpenner.setAdapter(null);
-        binding.categorySpenner.setAdapter(adapter);
+        //اذا السبينر فاضية
+        if (categoryNames.isEmpty()) {
+            binding.teMassage.setText("Default category will be added ");
+            binding.selectCategory.setVisibility(View.GONE);  // بخفي السبينر
+        } else {
+            // علشان احدث السبينر
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categoryNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            binding.categorySpenner.setAdapter(adapter);
+            binding.categorySpenner.setSelection(0);  // احدد اول تصنيف
+            binding.actionBt.setEnabled(true);  // افعل  الزر
+        }
 
-        // اخليه يختار اول اشي العنصر الاول
-        binding.categorySpenner.post(() -> {
-            if (binding.categorySpenner.getSelectedItemPosition() == -1) {
-                binding.categorySpenner.setSelection(0);
-            }
-        });
-        // اوقف الزر
-        binding.actionBt.setEnabled(false);
-        // علشان يحدث على الواجهة ويكون مختار اول واحد قيمه دفلت
-        binding.categorySpenner.post(() -> {
-            binding.categorySpenner.setSelection(0);
-            binding.actionBt.setEnabled(true);
-        });
         binding.actionBt.setOnClickListener(view -> {
-            // اجيب يلي اختاره مستخدم
-            String selected = binding.categorySpenner.getSelectedItem().toString();
+            if (categoryNames.isEmpty()) {
+                new Thread(() -> {
+                    //اضيف تصنيف افتراضي لما يحذف اخر category
+                    Category learnCategory = new Category("Learn");
+                    viewModel.categoryInsert(learnCategory);
 
+                    new Handler(Looper.getMainLooper()).post(() -> {
+
+                        viewModel.getAllCategories().observe((LifecycleOwner) context, categories -> {
+                                // بجيب ال id
+                            int defaultCategoryId = -1;
+                            for (Category category : categories) {
+                                if (category.getCategoryName().equals("Learn")) {
+                                    defaultCategoryId = category.getCategoryId();
+                                    break;
+                                }
+                            }
+
+
+                            if (defaultCategoryId != -1) {
+                                int finalDefaultCategoryId = defaultCategoryId;
+                                new Thread(() -> {
+                                    // احول الكورسات لل learn
+                                    Log.d("TAG", "getAlertDialog: "+finalDefaultCategoryId);
+                                    viewModel.updateCoursesFromCategory(categorys.getCategoryId(), finalDefaultCategoryId);
+                                    viewModel.deleteCategory(categorys);
+                                    dialog.dismiss();
+                                }).start();
+                            }
+                        });
+                    });
+                }).start();
+            } else {
+                String selected = binding.categorySpenner.getSelectedItem().toString();
                 int selectedCategoryId = -1;
-                for (Category categorys : categoryList) {
-                    // اجيب id  للتصنيف
-                    if (categorys.getCategoryName().equals(selected)) {
-                        selectedCategoryId = categorys.getCategoryId();
+
+               // اجيب يلي اخختاره المستخدم
+                for (Category category : categoryList) {
+                    if (category.getCategoryName().equals(selected)) {
+                        selectedCategoryId = category.getCategoryId();
                         break;
                     }
                 }
 
                 if (selectedCategoryId != -1) {
-                    // علشان اعدل الكورسات من الكتوجري القديم ل كتوجري جديد اختاره الادمن
                     int finalSelectedCategoryId = selectedCategoryId;
-                    new Thread(()->{
-                            viewModel.updateCoursesFromCategory(category.getCategoryId(), finalSelectedCategoryId);
-                            viewModel.deleteCategory(category);
-
+                    new Thread(() -> {// الثريد علشان اول اشي يعدل بعدها يحذف
+                        viewModel.updateCoursesFromCategory(categorys.getCategoryId(), finalSelectedCategoryId);
+                        viewModel.deleteCategory(categorys);
                         dialog.dismiss();
                     }).start();
-
                 }
-
+            }
         });
 
-
-        binding.imImageIcon.setOnClickListener(view -> {
-            dialog.dismiss();
-        });
-
+        binding.imImageIcon.setOnClickListener(view -> dialog.dismiss());
 
         dialog.setCancelable(true);
         return dialog;
