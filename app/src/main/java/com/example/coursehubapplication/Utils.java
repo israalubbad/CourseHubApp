@@ -284,7 +284,8 @@ public class Utils {
         });
         return builder;
     }
-// هذا الكود ضفته جديد علشان اذا الادمن حذق category الاخير يضيف category اخر افتراضي و يحول الكورسات بداخله
+// هذا الكود ضفته جديد علشان اذا الادمن حذق category
+// الاخير يضيف category اخر افتراضي و يحول الكورسات بداخله
     public static AlertDialog getAlertDialog(MyViewModel viewModel, int position, Context context, List<Category> categoryList) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         DialogBinding binding = DialogBinding.inflate(LayoutInflater.from(context), null, false);

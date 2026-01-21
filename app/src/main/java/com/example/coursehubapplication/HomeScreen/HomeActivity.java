@@ -1,5 +1,7 @@
 package com.example.coursehubapplication.HomeScreen;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

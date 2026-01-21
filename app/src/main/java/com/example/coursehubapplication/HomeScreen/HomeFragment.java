@@ -83,6 +83,8 @@ public class HomeFragment extends Fragment  {
             } else {
                 binding.tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
             }
+
+
             if (categories != null) {
                 for (Category category : categories) {
                     tabs.add(category.getCategoryName());

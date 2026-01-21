@@ -42,6 +42,7 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.annotation
     implementation libs.preference
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     testImplementation libs.junit
     // Room components
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0"
