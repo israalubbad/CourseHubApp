@@ -60,10 +60,11 @@ The app supports **Admin and User functionalities**, providing a smooth learning
 
 ## Screenshots
 
+### User Screens
+![](app/src/main/res/drawable/mock_up_users.png)   
+
 ### Admin Screens
 ![](app/src/main/res/drawable/mock_up_admin.png)  
 
-### User Screens
-![](app/src/main/res/drawable/mock_up_users.png)   
 
 
